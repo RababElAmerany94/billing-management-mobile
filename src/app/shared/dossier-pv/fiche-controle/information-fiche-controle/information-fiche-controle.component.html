@@ -1,0 +1,91 @@
+<ion-content class="edit-page tabs">
+    <div class="edit-content">
+        <!-- number of Operation -->
+        <app-custom-input
+            [inputName]="'numberOperation'"
+            [label]="'LABELS.NUMBER_OPERATION' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <!-- date Controle -->
+        <app-custom-date-time
+            [formInstant]="form"
+            [inputName]="'dateControle'"
+            [label]="'LABELS.DATE_CONTROLE' | translate">
+        </app-custom-date-time>
+
+        <!-- prstation Type -->
+        <app-custom-drop-down
+            [inputName]="'prestationType'"
+            [label]="'LABELS.TYPE_DE_PRESTATION' | translate"
+            [data]="prestationType"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- photos -->
+        <app-take-pictures
+            [title]="'TITLES.PICTURES' | translate"
+            [images]="photos"
+            [readOnly]="readOnly"
+            (imagesEvent)="photosEvent($event)">
+        </app-take-pictures>
+
+        <!------------------------------------------------------------------------------->
+        <!-- rating evaluation Accompagnement -->
+        <ion-item no-padding class="custom_ion-rating " [formGroup]="form"> 
+            <ion-label position="floating">{{ 'LABELS.EVALUATION_ACCOMPAGNEMENT' | translate }} </ion-label>
+            <rating 
+                formControlName="evaluationAccompagnement"
+                size="4" >
+            </rating>
+        </ion-item>
+
+        <!-- rating evaluation Travaux Realises -->
+        <ion-item no-padding class="custom_ion-rating" [formGroup]="form"> 
+            <ion-label position="floating">{{ 'LABELS.EVALUATION_TRAVAUX_REALISES' | translate }} </ion-label>
+            <rating 
+                formControlName="evaluationTravauxRealises"
+                size="4" >
+            </rating>
+        </ion-item>
+
+        <!-- rating evaluation Proprete Chantier  -->
+        <ion-item no-padding class="custom_ion-rating" [formGroup]="form"> 
+            <ion-label position="floating">{{ 'LABELS.EVALUATION_PROPRETE_CHANTIER' | translate }} </ion-label>
+            <rating 
+                formControlName="evaluationPropreteChantier"
+                size="4" >
+            </rating>
+        </ion-item>
+
+        <!-- rating evaluation Contact Avec Techniciens Applicateurs -->
+        <ion-item no-padding class="custom_ion-rating ion-margin-bottom" [formGroup]="form"> 
+            <ion-label position="floating">{{ 'LABELS.EVALUATION_CONTACT_AVEC_TECHNICIENS_APPLICATEURS' | translate }} </ion-label>
+            <rating 
+                formControlName="evaluationContactAvecTechniciensApplicateurs"
+                size="4" >
+            </rating>
+        </ion-item>
+        <!------------------------------------------------------------------------------->
+
+        <!-- controller -->
+        <app-select-user
+            [user]="controllerUser"
+            [label]="'LABELS.CONTROLE' | translate"
+            [title]="'DATA_SELECTOR.SELECT_CONTROLEUR'"
+            [inputName]="'controllerId'"
+            [formInstant]="form">
+        </app-select-user>
+
+        <!------------------------------- #region remarques ---------------------------------->
+        <!------------------------------------------------------------------------------->
+
+        <app-custom-textarea 
+            [inputName]="'remarques'"
+            [label]="'LABELS.REMARQUE' | translate" 
+            [formInstant]="form">
+        </app-custom-textarea>
+
+        <!-----------------------------------end region---------------------------------->
+    </div>
+</ion-content>

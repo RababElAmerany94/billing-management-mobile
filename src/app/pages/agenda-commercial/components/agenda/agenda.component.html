@@ -1,0 +1,184 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ng-container *ngIf="!isNavigationRoute">
+                <ion-menu-button 
+                    autoHide="false" 
+                    (click)="this.sidebarService.toggleMenu()">
+                </ion-menu-button>
+            </ng-container>
+            <ng-container *ngIf="isNavigationRoute"> 
+            <ion-buttons slot="start">
+                <ion-button (click)="cancelEvent.emit()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            </ng-container>
+        </ion-buttons>
+        <ion-title>
+            {{ 'TITLES.AGENDA_COMMERCIAL' | translate }}
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="synchronize()">
+                <ion-icon name="sync" slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button (click)="refresh()">
+                <ion-icon name="refresh" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+    <ion-segment [(ngModel)]="calendar.mode">
+        <ion-segment-button value="month">
+            <ion-label>{{ 'LABELS.MONTH'| translate }}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="week">
+            <ion-label>{{ 'LABELS.WEEK'| translate }}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="day">
+            <ion-label>{{ 'LABELS.DAY'| translate }}</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+
+    <app-collabsible-form
+        [title]="'LABELS.FILTERS' | translate"
+        [IconClick]="'search-outline'"
+        [showCardBody]="false"
+        [showButtonEvent]="showButtonEvent"
+        [IconTitle]="'filter-outline'"
+        (BodyEvent)="showButtonEvent=$event"
+        (ClickEvent)="searchEvent()">
+
+        <app-custom-input
+            [suffixIcon]="true"
+            [label]="'LABELS.SEARCH' | translate"
+            [inputName]="'search'"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <app-select-user
+            [inputName]="'responsableId'"
+            [label]="'LABELS.RESPONSABLE' | translate"
+            [formInstant]="form">
+        </app-select-user>
+
+        <ng-container *ngIf="!clientId">
+            <app-select-client
+                [inputName]="'clientId'"
+                [label]="'LABELS.CLIENT' | translate"
+                [formInstant]="form">
+            </app-select-client>
+        </ng-container>
+
+        <app-agenda-evenement-dropdown
+            [types]="agendaEvenementTypes.EvenementCategorie"
+            [inputName]="'categorieId'" 
+            [label]="'LABELS.CATEGORIE' | translate"
+            [formInstant]="form">
+        </app-agenda-evenement-dropdown>
+
+    </app-collabsible-form>
+
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+            <ion-button (click)="next()">
+                <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title class="ion-text-center" >{{ viewTitle }}</ion-title>
+    </ion-toolbar>
+
+    <calendar 
+        startHour="0" 
+        endHour="24" 
+        [eventSource]="eventSource" 
+        [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate" 
+        [dateFormatter]="dateFormatter"
+        [formatHourColumn]="'HH:mm'"
+        [autoSelect]="true" 
+        [queryMode]="'remote'"
+        [monthviewEventDetailTemplate]="eventDetail"
+        [monthviewDisplayEventTemplate]="displayEvent"
+        [allDayLabel]="'LABELS.TOUT' | translate"
+        (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)" 
+        (onRangeChanged)="onRangeChanged($event)">
+    </calendar>
+
+    <ng-template #displayEvent let-view="view" let-row="row" let-col="col">
+        <div [class.with-event]="view.dates[row*7+col].events.length">
+            {{view.dates[row*7+col].label}}
+            <div class="indicator-container">
+                <div 
+                    class="event-indicator" 
+                    *ngFor="let e of view.dates[row*7+col].events">
+                </div>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template 
+        #eventDetail 
+        let-showEventDetail="showEventDetail" 
+        let-selectedDate="selectedDate"
+        let-noEventsLabel="noEventsLabel">
+
+        <h5 class="noEvents" *ngIf="selectedDate.events.length == 0">
+            {{ 'LABELS.NO_EVENTS' | translate }}
+        </h5>
+        <ng-container class="list-content">
+            <div class="list" *ngIf="selectedDate.events.length > 0">
+                <ion-list *ngFor="let event of selectedDate.events">
+                    <ion-item-sliding>
+                        <ion-item class="item-list" (click)="onEventSelected(event)">
+                            <div class="list-container">
+                                <div class="list-content">
+                                    <div class="list-content__left">
+                                        <span class="designation">
+                                            {{event?.client }} | {{event.startTime | date:'short' }} - {{event.endTime | date:'short' }}  
+                                            |  {{ 'ECHANGE_COMMERCIAL_TYPE.'+event?.type | translate}}  
+                                            |  <span class="right-text badge"
+                                            [ngClass]="{
+                                                'badge--annulee ': echangeCommercialStatus?.annulee === event?.status,
+                                                'badge--cloture': echangeCommercialStatus.cloturee === event?.status,
+                                                'badge--encours': echangeCommercialStatus.enCours === event?.status
+                                            }"> {{getStatus(event?.status) |translate}}
+                                        </span>
+                                            |  {{event.title}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </ion-item>
+                        <ion-item-options side="end">
+                            <ion-item-option color="danger" (click)="deleteClick(event)">
+                                <ion-icon name="trash" slot="start"></ion-icon>
+                                {{'LABELS.DELETE' |translate}}
+                            </ion-item-option>
+                            <ion-item-option color="success" (click)="editClick(event)">
+                                <ion-icon name="create" slot="start"></ion-icon>
+                                {{'LABELS.EDIT' |translate}}
+                            </ion-item-option>
+                            <ion-item-option color="secondary" (click)="showClick(event)">
+                                <ion-icon name="eye" slot="start"></ion-icon>
+                                {{'LABELS.SHOW' |translate}}
+                            </ion-item-option>
+                        </ion-item-options>
+                    </ion-item-sliding>
+                </ion-list>
+            </div>
+        </ng-container>
+    </ng-template>
+
+    <br><br><br>
+
+</ion-content>

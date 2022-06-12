@@ -1,0 +1,47 @@
+<!--region header-->
+<app-header 
+  [title]="title | translate " 
+  [sidebar]="false"
+  [back]="true"
+  [modalMode]="true"
+  (backClick)="modalCtrl.dismiss()"
+  [validation]="!readonly"
+  (validationClick)="save()">
+</app-header>
+<!-- end region -->
+
+<ion-content class="edit-page">
+    <div class="edit-content">
+
+      <div style="display: grid; margin: 0px 40px 20px 40px;" *ngIf="!readonly">
+        <ion-button (click)="selectImage()" color="danger">
+          {{'LABELS.TAKE_PICTURE'|translate}}
+          <ion-icon name="camera" slot="end"></ion-icon>
+        </ion-button> 
+      </div>
+
+      <form [formGroup]="form">
+
+        <app-custom-textarea 
+          [inputName]="'commentaire'"
+          [label]="'LABELS.COMMENTAIRE' | translate" 
+          [formInstant]="form">
+        </app-custom-textarea>
+
+        <div class="content_image">
+          <ng-container 
+            *ngIf="!isEmptyOrNull(pieceJoin?.file);then image_local else image_server">
+          </ng-container>
+          <ng-template #image_local>
+            <img [src]="pieceJoin?.file" >
+          </ng-template>
+          <ng-template #image_server>
+            <img [src]="pieceJoin?.name  | GetImageBase64ByName" (click)="previewImage()" >
+          </ng-template>
+        </div>
+
+      </form>
+
+  </div>
+
+</ion-content>

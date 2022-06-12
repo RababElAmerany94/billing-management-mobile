@@ -1,0 +1,53 @@
+<!--region header-->
+<!-- The header -->
+<ion-header>
+  <ion-toolbar class="ion-text-center"
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="modalController.dismiss()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{ title | translate }} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()" *ngIf="!readOnly">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<!-- end region -->
+
+<ion-content fullscreen  padding class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+
+      <div class="row">
+      
+      <!-- nom signataire -->
+      <app-custom-input 
+        [inputName]="'nameClientSignature'"                  
+        [label]="'LABELS.NAME_CLIENT_SIGNATURE' | translate"
+        [formInstant]="form">
+      </app-custom-input>
+
+      <app-signature-pad
+        [label]="'LABELS.CLIENT_SIGNATURE' | translate"
+        [id]="'client'"
+        [readonly]="readOnly"
+        [Signature]="signatureClient"
+        (signature)="signatureClient=$event"
+      ></app-signature-pad>
+
+      <app-signature-pad
+        [label]="'LABELS.TECHNICIEN_SIGNATURE' | translate"
+        [id]="'technicien'"
+        [Signature]="signatureController"
+        [readonly]="readOnly"
+        (signature)="signatureController=$event"
+      ></app-signature-pad>
+
+      </div>
+    </form>
+  </div>
+</ion-content>

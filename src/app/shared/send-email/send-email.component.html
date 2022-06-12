@@ -1,0 +1,41 @@
+<app-header [sidebar]="false"
+  [back]="true"
+  [validation]="true"
+  [title]="getTitle() | translate"
+  [modalMode]="true"
+  (validationClick)="send()"
+  (backClick)="close()">
+</app-header>
+
+<ion-content class="edit-page">
+  <div class="edit-content">
+
+    <!-- list emails-->
+    <div class="customInput">
+      <tag-input [(ngModel)]='emailsTo'
+        [placeholder]="'LABELS.A_ACCENT' | translate"
+        [secondaryPlaceholder]="'LABELS.A_ACCENT' | translate"
+        [validators]="validateEmail">
+      </tag-input>
+    </div>
+
+    <form [formGroup]="form">
+
+      <!-- objet -->
+      <app-custom-input
+        [inputName]="'subject'"
+        [label]="'LABELS.OBJET' | translate" 
+        [formInstant]="form">
+      </app-custom-input>
+
+      <!-- message-->
+      <app-custum-editor-text
+        [label]="'LABELS.MESSAGE'|translate"
+        [placeholder]="'EMAILS.MESSAGE' | translate"
+        [inputName]="'body'"
+        [formInstant]="form">
+      </app-custum-editor-text>
+
+    </form>
+  </div>
+</ion-content>

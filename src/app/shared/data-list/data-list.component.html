@@ -1,0 +1,72 @@
+<app-header 
+    [title]="title | translate " 
+    [search]="true" 
+    [searchValue]="filterOption?.SearchQuery" 
+    [sidebar]="isSideBar" 
+    [back]="isBack"
+    [add]="isAdd" 
+    [validation]="isValidation"
+    (addClick)="addClick()" 
+    (backClick)="backClick()" 
+    (validationClick)="validationClick()" 
+    (searchEvent)="searchValue($event)">
+</app-header>
+
+<ion-content class="{{classCss}}">
+
+    <!-- #region list-->
+    <ng-content select=".list-content" *ngIf="!isEmpty && !loading;else emptyResult"></ng-content>
+    <!-- #end region list-->
+
+    <!-- #region skeleton -->
+    <div *ngIf="loading && !isDataSelector" class="list">
+        <ion-list class="list-skeleton">
+            <ion-item *ngFor="let i of skeletonLength" class="item-list">
+                <ion-label>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-label>
+                <ion-label>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <div *ngIf="loading && isDataSelector" class="list">
+        <ion-list class="list-skeleton-prestation">
+            <ion-item *ngFor="let i of skeletonLength" class="item-list">
+                <ion-label>
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region scroll -->
+    <ng-container *ngIf="!finished">
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreData($event)">
+            <ion-infinite-scroll-content 
+                loadingSpinner="bubbles" 
+                loadingText="{{'LABELS.LOADING_MORE' |translate}}">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ng-container>
+    <!-- #endregion -->
+
+</ion-content>
+
+<!-- #region empty list-->
+<ng-template #emptyResult>
+    <div class="empty-data" *ngIf="isEmpty && !loading">
+        <img class="empty-data__img" src="../../../../../assets/icon/empty_list.png">
+        <span class="empty-data__text">{{ 'LABELS.EMPTY_TABLE'|translate}}</span>
+    </div>
+</ng-template>
+<!-- #endregion -->
+
+<!-- #region actions-->
+<ng-content select=".list-action">
+</ng-content>
+<!-- #endregion -->

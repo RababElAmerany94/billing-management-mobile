@@ -1,0 +1,24 @@
+<!-- ...................... select .......................-->
+<ion-content>
+    <ng-container *ngFor="let item of tabs">
+        <ng-container *ngIf="item?.selected">
+            <ng-content *ngIf="item.type == agendaCommercialListTabs.Agenda" select="[Agenda]"></ng-content>
+            <ng-content *ngIf="item.type == agendaCommercialListTabs.Tache" select="[Tache]"></ng-content>
+            <ng-content *ngIf="item.type == agendaCommercialListTabs.Rdv" select="[Rdv]"></ng-content>
+            <ng-content *ngIf="item.type == agendaCommercialListTabs.Appel" select="[Appel]"></ng-content>
+        </ng-container>
+    </ng-container>
+</ion-content>
+<!-- .................................................... -->
+
+<ion-tabs class="go-to-back"> 
+    <ion-tab-bar slot="bottom" [selectedTab]="selectedTab">
+        <ng-container *ngFor="let item of tabs">
+            <ion-tab-button [selected]="item?.selected" [ngClass]="{ 'active': item?.selected }"
+                (click)="selectEvent(item?.type)">
+                <ion-icon [name]="item?.icon"></ion-icon>
+                <ion-label>{{ item?.label | translate}}</ion-label>
+            </ion-tab-button>
+        </ng-container>
+    </ion-tab-bar>
+</ion-tabs>

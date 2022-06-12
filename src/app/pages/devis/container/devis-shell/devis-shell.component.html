@@ -1,0 +1,55 @@
+<app-list-devis
+    [style.display]="isListMode() ? 'block' : 'none'"
+    [name]="routeName.Devis"
+    [loading]="loading"
+    [data]="devisPagedResult"
+    (filters)="getDevis($event)"
+    (addEvent)="addEvent()"
+    (editEvent)="editEvent($event.id)"
+    (deleteEvent)="deleteDevis($event)"
+    (showEvent)="showEvent($event.id)">
+</app-list-devis>
+
+<ng-container *ngIf="isAddMode() || isEditMode()">
+	<app-edit-devis
+        [mode]="mode"
+        [form]="form"
+        [Devis]="devis"
+        [Type]="type"
+        [Dossier]="dossier"
+        [isNavigationRoute]="isNavigationRoute"
+        (addEvent)="addDevis($event)"
+        (editEvent)="updateDevis($event)"
+        (cancelEvent)="cancel()">
+	</app-edit-devis>
+</ng-container>
+
+<ng-container *ngIf="isShowMode()">
+	<app-shared-details>
+	
+		<app-edit-devis
+			information
+			[mode]="mode"
+			[form]="form"
+            [Devis]="devis"
+            [Type]="type"
+            [isNavigationRoute]="isNavigationRoute"
+            (printPdfEvent)="printDevis()"
+            (downloadEvent)="downloadPdfEvent()"
+            (dupliquerEvent)="dupliquer($event)"
+            (enPerduDevisEvent)="updateDevis($event)"
+            (signeDevisEvent)="updateDevis($event)"
+            (SendEmailEvent)="sendEmail($event)"
+            (signatureDevisEvent)="signDevis($event)"
+			(cancelEvent)="cancel()">
+        </app-edit-devis>
+
+        <app-historique 
+			history
+			[Historique]="devis?.historique"
+			(backClickEvent)="cancel()">
+		</app-historique>
+
+	</app-shared-details>
+</ng-container>
+<!-- #end region-->

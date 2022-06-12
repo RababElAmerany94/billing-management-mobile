@@ -1,0 +1,71 @@
+<!--region header-->
+<app-header 
+  [title]="'LABELS.ASSIGNER_DOSSIER' | translate " 
+  [sidebar]="false"
+  [back]="true"
+  [validation]="true"
+  (validationClick)="save()"
+  (backClick)="Dismiss()">
+</app-header>
+<!-- end region -->
+
+<!-- end region -->
+
+<ion-content class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+  
+      <!--the date of rdv of demande RDV-->
+      <app-custom-date-time
+        [formInstant]="form"
+        [inputName]="'dateRDV'"
+        [formaDate]="'DD/MM/YYYY HH:mm'"
+        [label]="'LABELS.DATE_RDV' | translate">
+      </app-custom-date-time>
+      
+      <ng-container *ngIf="!isValider">
+          
+        <!-- commercialId-->
+        <app-commercials-planning-dropdown
+        [inputName]="'commercialId'"
+        [label]="'LABELS.COMMERCIAL' | translate"
+        [formInstant]="form"
+        (changeEvent)="setCommercialPlanning($event)"
+        [dateRDV]="dateRDV">
+        
+        </app-commercials-planning-dropdown>
+
+          <div class="row mt-3" *ngIf="selectedCommercialPlanning">
+            <div class="col-md-12">
+                <ion-text>
+                  {{'LABELS.PLANNING' | translate: { date : dateRDV | date: 'shortDate', name:selectedCommercialPlanning.fullName } }}
+                </ion-text>
+            </div>
+            <div class="col-md-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <tr class="ion-text-center">
+                    <ng-container *ngFor="let column of columns" >
+                      <th>{{ column | translate  }}</th>
+                    </ng-container>
+                  </tr>
+                  <tr *ngFor="let item of selectedCommercialPlanning?.dossiers">
+                    <td>{{ item?.clientFirstName }} {{ item?.clientLastName }} </td>
+                    <td>{{ item?.dateRDV | date: 'HH:mm' }}</td>
+                    <td>{{ getDefaultAddress(item?.siteIntervention)?.adresse}}</td>
+                    <td>{{ getDefaultAddress(item?.siteIntervention)?.ville }}</td>
+                    <td>{{ getDefaultAddress(item?.siteIntervention)?.codePostal }}</td>
+                    <td>{{ getDefaultContact(item?.contact) }}</td>
+                  </tr>
+                  <tr *ngIf="selectedCommercialPlanning?.dossiers?.length == 0">
+                    <td colspan="5" class="ion-text-center" >{{ 'LABELS.EMPTY_TABLE' | translate }}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+      </ng-container>
+
+    </form>
+  </div>
+</ion-content>

@@ -1,0 +1,33 @@
+<!--region header-->
+<app-header 
+    [title]="'TITLES.SIGNER_DEVIS' | translate " 
+    [sidebar]="false" 
+    [back]="true" 
+    [validation]="true"
+    (validationClick)="save()" 
+    (backClick)="dismiss()">
+</app-header>
+<!-- end region -->
+
+<ion-content>
+    <div class="edit-page">
+        <div class="edit-content">
+
+            <!-- nom signature -->
+            <app-custom-input 
+                [inputName]="'nameClientSignature'" 
+                [label]="'LABELS.NAME_CLIENT_SIGNATURE' | translate"
+                [formInstant]="form">
+            </app-custom-input>
+
+            <!-- signature pad-->
+            <app-signature-pad
+                [label]="'LABELS.CLIENT_SIGNATURE' | translate"
+                [id]="'client'"
+                [readonly]="false"
+                (signature)="signatureClient=$event"
+            ></app-signature-pad>
+
+        </div>
+    </div>
+</ion-content>

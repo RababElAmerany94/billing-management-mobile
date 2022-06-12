@@ -1,0 +1,26 @@
+<h5 class="collabsible-form-design"
+  (click)="showCardBody = !showCardBody">
+  <div class="title">
+    <ion-icon name="{{IconTitle}}"></ion-icon>
+    {{ title }}
+  </div>
+
+  <div class="actions-container">
+    <ng-container *ngIf="showButtonEvent">
+      <ion-button
+        class="btn-click-custom"
+        (click)="buttonClickEvent($event, false)">
+        <ion-icon name="{{ IconClick }}"></ion-icon>
+      </ion-button>
+    </ng-container>
+  </div>
+
+  <div class="toggle-button">
+    <ion-icon  [name]="showCardBody ? 'chevron-down-outline' : 'chevron-up-outline'"></ion-icon>  
+  </div>
+
+</h5>
+
+<div class="row align-items-center" *ngIf="showCardBody">
+  <ng-content class="content" ></ng-content>
+</div>

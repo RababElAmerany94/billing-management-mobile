@@ -1,0 +1,11 @@
+{
+    "MENU": {
+        "DASHBOARD": "Tableau de bord",
+        "CLIENTS": "Clients",
+        "DOSSIERS": "Dossiers",
+        "DEVIS": "Devis",
+        "AGENDA_COMMERCIAL": "Agenda Commercial",
+        "BON_COMMANDE": "Bons de commande",
+        "LOGOUT": "Déconnecter"
+    }
+}

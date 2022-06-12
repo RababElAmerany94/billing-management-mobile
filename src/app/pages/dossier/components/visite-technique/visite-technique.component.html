@@ -1,0 +1,98 @@
+<app-header
+    [title]="'TITLES.INFO_VISITE_TECHNIQUE' | translate"
+    [sidebar]="false"
+    (backClick)="cancel()"
+    [validation]="true"
+    [add]="!isShowModeVisiteTechnique"
+    (validationClick)="save()"
+    (addClick)="addClick()"
+    [back]="true">
+</app-header>
+
+<ion-content class="edit-page">
+
+    <div class="edit-content" *ngIf="typeVisiteTechnique != null ">
+
+        <!------------------------------------------------------------------------------->
+        <app-collabsible-form 
+        [title]="'TITLES.INFO_VISITE_TECHNIQUE' | translate" 
+        [IconTitle]="'folder-outline'">
+          
+            <!-- the number of piece of visite technique -->
+            <app-custom-input
+                class="col-md-3"
+                [label]="( typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles ? 'LABELS.NOMBRE_PIECE' : 'LABELS.NOMBRE_COMBLES' ) | translate"
+                [inputName]="'nombrePiece'"
+                [readOnly]="true"
+                (addClickEvent)="addForm()"
+                [isShowAdd]="true"
+                [formInstant]="form">
+            </app-custom-input>
+
+            <!-- the surface total a isoler of visite technique -->
+            <app-custom-input
+                [label]="'LABELS.SURFACE_TOTAL_A_ISOLER' | translate"
+                [inputName]="'surfaceTotaleAIsoler'"
+                [formInstant]="form">
+            </app-custom-input>
+
+            <!-- the classement technique of visite technique -->
+            <app-custom-drop-down
+                [showAny]="false"
+                [inputName]="'classementTechnique'"
+                [data]="classementTechnique"
+                [label]="'LABELS.CLASSEMENT_TECHNIQUE' | translate"
+                [formInstant]="form">
+            </app-custom-drop-down>
+
+        </app-collabsible-form>
+        <!------------------------------------------------------------------------------->
+
+        <!------------------------------ formulaire ------------------------------------->
+        <app-collabsible-form
+            [title]="'LABELS.FORMULAIRES' | translate"
+            [IconTitle]="'code-working-outline'">
+
+            <div class="dashboard-list">
+                <ul class="ion-no-padding container-scrollable">
+                    <ng-container *ngFor="let item of formulaires;let i = index;">
+                        <li class="dashboard">
+                        <span class="list-border list-border--enattente"></span>
+                        <div class="dashboard_content">
+                            <div class="dashboard_content__left">
+                                <span class="reference">
+                                    {{ 'LABELS.FORMULAIRES_N' | translate }}
+                                    {{ i+1 }}
+                                </span>
+                            </div>
+                            <div class="card-widget__action">
+                                <ion-button
+                                    size="small"  
+                                    color="success"
+                                    (click)="openForm(i)">
+                                    <ion-icon name="eye-outline"></ion-icon>
+                                </ion-button>&nbsp;
+                                <ion-button
+                                    size="small"  
+                                    color="danger"
+                                    (click)="editForm(i)">
+                                    <ion-icon name="checkmark-outline"></ion-icon>
+                                </ion-button>&nbsp;
+                                <ion-button
+                                    size="small"  
+                                    color="primary"
+                                    (click)="removeForm(i)">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </ion-button>&nbsp;
+                            </div>
+                        </div>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+              
+        </app-collabsible-form>
+        <!------------------------------------------------------------------------------->
+
+    </div>
+</ion-content>

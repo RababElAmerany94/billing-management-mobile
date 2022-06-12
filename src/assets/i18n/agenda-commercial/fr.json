@@ -1,0 +1,55 @@
+{
+    "TITLE": "Agenda Commercial",
+    "LIST": {
+        "TITLE": "Liste des agenda commercial",
+        "DELETE": {
+            "HEADER": "Supprimer une agenda commercial",
+            "MESSAGE": "Êtes-vous sûr supprimer cet agenda commercial ?"
+        }
+    },
+    "ADD": {
+        "TITLE": "Ajouter agenda commercial"
+    },
+    "EDIT": {
+        "TITLE": "Modifier agenda commercial"
+    },
+    "SHOW": {
+        "TITLE": "Details agenda commercial"
+    },
+    "LABELS": {
+        "SYNC_GOOGLE_CALENDAR": "Synchroniser avec Google Agenda"
+    },
+    "TACHE": {
+        "LIST_TITLE": "Liste des tâches",
+        "ADD_TITLE": "Ajouter une tâche",
+        "EDIT_TITLE": "Modifier une tâche",
+        "SHOW_TITLE": "Information d'une tâche",
+        "DELETE": {
+            "HEADER": "Supprimer cette tâche",
+            "MESSAGE": "Êtes-vous sûr supprimer cette tâche ?"
+        }
+    },
+    "RENDEZ-VOUS": {
+        "LIST_TITLE": "Liste des rendez-vous",
+        "ADD_TITLE": "Ajouter un rendez-vous",
+        "EDIT_TITLE": "Modifier un rendez-vous",
+        "SHOW_TITLE": "Information rendez-vous",
+        "DELETE": {
+            "HEADER": "Supprimer ce rendez-vous",
+            "MESSAGE": "Êtes-vous sûr supprimer ce rendez-vous ?"
+        }
+    },
+    "APPELS": {
+        "LIST_TITLE": "Liste des appels",
+        "ADD_TITLE": "Ajouter une appel",
+        "EDIT_TITLE": "Modifier une appel",
+        "SHOW_TITLE": "Information de l'appel",
+        "DELETE": {
+            "HEADER": "Supprimer cette appel",
+            "MESSAGE": "Êtes-vous sûr supprimer cette appel ?"
+        }
+    },
+    "CHECK_RDV_IS_EXIST": {
+        "QUESTION": "Un rendez-vous est déjà positionné  à la même heure pour un même client et responsable, souhaitez-vous valider quand même ?"
+    }
+}

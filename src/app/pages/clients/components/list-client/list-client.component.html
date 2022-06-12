@@ -1,0 +1,63 @@
+<app-data-list 
+    [title]="'TITLE'" 
+    [name]="routeName.Clients" 
+    [loading]="loading" 
+    [classCss]="'tabs'"
+    (changeEvent)="changeFiltersEvent($event)" 
+    [data]="clientAsPage">
+
+    <ng-container class="list-content">
+        <div class="list">
+            <ion-list *ngFor="let client of clients; let i = index;">
+                <ion-item-sliding>
+                    <ion-item class="item-list" (click)="showClick(client)" *ngIf="canRead()">
+                        <div class="list-container">
+                            <span class="list-border" [ngStyle]="{'background-color': client.type ? getColor(client.type) : '#d5d5d5'}">
+                            </span>
+                            <div class="list-content">
+                                <div class="list-content__left">
+                                    <span class="name">{{client.reference}}</span>
+                                    <span class="reference">{{client.fullName}}</span>
+                                </div>
+                                <div class="list-content__right">
+                                    <span class="right-text">{{ 'CLIENT_TYPE.'+client.type |translate }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-item>
+                    <ion-item-options side="end">
+                        <ion-item-option color="danger" *ngIf="canDelete()" (click)="deleteClick(i)">
+                            <ion-icon name="trash" slot="start">
+                            </ion-icon>
+                            {{'LABELS.DELETE' |translate}}
+                        </ion-item-option>
+                        <ion-item-option color="success" *ngIf="canUpdate()" (click)="editClick(client)">
+                            <ion-icon name="create" slot="start">
+                            </ion-icon>{{'LABELS.EDIT' |translate}}
+                        </ion-item-option>
+                        <ion-item-option color="secondary" *ngIf="canRead()" (click)="showClick(client)">
+                            <ion-icon name="eye" slot="start"></ion-icon>
+                            {{'LABELS.SHOW' |translate}}
+                        </ion-item-option>
+                    </ion-item-options>
+                </ion-item-sliding>
+            </ion-list>
+        </div>
+    </ng-container>
+
+    <ng-container class="list-action">
+        <div class="btn-add" *ngIf="canCreate()">
+            <ion-fab 
+                vertical="bottom" 
+                horizontal="end" 
+                slot="fixed" 
+                (click)="addClick()">
+                <ion-fab-button 
+                    [color]="'secondary'">
+                    <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+        </div>
+    </ng-container>
+
+</app-data-list>

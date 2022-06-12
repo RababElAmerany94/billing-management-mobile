@@ -1,0 +1,113 @@
+<app-collabsible-form
+    [title]="'TITLES.INFORMATIONS_SITE_INSTALLATION' | translate"
+    [IconTitle]="'document-outline'">
+
+    <!-- source du lead -->
+    <app-custom-input
+        [inputName]="'sourceLead'"
+        [label]="'LABELS.SOURCE_DU_LEAD' | translate"
+        [formInstant]="form">
+    </app-custom-input>
+
+    <!-- date of reception lead -->
+    <app-custom-date-time
+        [formInstant]="form"
+        [inputName]="'dateReceptionLead'"
+        [label]="'LABELS.DATE_DE_RECEPTION_DU_LEAD' | translate">
+    </app-custom-date-time>
+
+    <!-- the type logement of dossier  -->
+    <app-type-logement-dropdown
+        [inputName]="'logementTypeId'"
+        [label]="'LABELS.TYPE_DE_LOGEMENT' | translate"
+        [formInstant]="form">
+    </app-type-logement-dropdown>
+
+    <!-- the type Chauffage of dossier  -->
+    <app-type-chauffage-dropdown
+        [inputName]="'typeChauffageId'"
+        [label]="'LABELS.TYPE_DE_CHAUFFAGE' | translate"
+        [formInstant]="form">
+    </app-type-chauffage-dropdown>
+
+    <!-- parcelle cadastrale -->
+    <app-custom-input
+        [inputName]="'parcelleCadastrale'"
+        [label]="'LABELS.PARCELLE_CADASTRALE' | translate"
+        [formInstant]="form">
+    </app-custom-input>
+
+    <!-- Surface à traiter -->
+    <app-custom-input
+        [type]="'number'"
+        [inputName]="'surfaceTraiter'"
+        [label]="'LABELS.SURFACE_A_TRAITER' | translate"
+        [formInstant]="form">
+    </app-custom-input>
+
+    <!-- Nombre de personnes -->
+    <app-custom-input
+        [inputName]="'nombrePersonne'"
+        type="number"
+        [label]="'LABELS.NB_DE_PESRSONNES' | translate"
+        [formInstant]="form">
+    </app-custom-input>
+
+    <!-- charge précarité-->
+    <app-custom-drop-down
+        [inputName]="'precarite'"
+        [label]="'LABELS.PRECARITE' | translate"
+        [data]="precarite"
+        [formInstant]="form">
+    </app-custom-drop-down>
+
+    <!-- Revenu fiscale de référence -->
+    <app-custom-input
+        [inputName]="'revenueFiscaleReference'"
+        [label]="'LABELS.REVENU_FISCALE_DE_REFERENCE' | translate"
+        [formInstant]="form">
+    </app-custom-input>
+
+    <!-- Numéro d'HA -->
+    <app-custom-input
+        [inputName]="'numeroDHA'"
+        [label]="'LABELS.NUMERO_DHA' | translate"
+        [formInstant]="form">
+    </app-custom-input>
+    
+    <!-- charge Précarité-->
+    <app-custom-drop-down
+        [inputName]="'typeTravaux'"
+        [label]="'LABELS.TYPE_DE_TRAVAUX' | translate"
+        [data]="typeTravaux"
+        [formInstant]="form">
+    </app-custom-drop-down>
+
+    <!-- charge Prime CEE -->
+    <app-select-client
+        [client]="selectedPrimeCee"
+        [types]="[clientType.Obliges]"
+        [inputName]="'primeCEEId'"
+        [label]="'LABELS.PRIME_CEE' | translate"
+        [formInstant]="form">
+    </app-select-client>
+
+    <!-- maison de plus de 2 ans -->
+    <app-custom-checkbox
+        [label]="'LABELS.MAISON_DE_PLUS_DE_2_ANS' | translate"
+        [formInstant]="form"
+        [inputName]="'isMaisonDePlusDeDeuxAns'">
+    </app-custom-checkbox>
+
+    <ng-container *ngIf="showInformationsSupplementaire">
+        <ng-container *ngFor="let champ of champs">
+            <app-custom-input
+                [inputName]="champ"
+                [label]="champ"
+                [formInstant]="champsForm">
+            </app-custom-input>
+
+        </ng-container>
+    </ng-container>
+
+</app-collabsible-form>

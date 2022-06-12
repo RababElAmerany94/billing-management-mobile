@@ -1,0 +1,12 @@
+<ion-item no-padding class="{{customInput}}" [formGroup]="formInstant">
+  <ion-label position="floating">
+      {{label}}
+  </ion-label>
+  <ion-textarea
+    [name]="inputName" 
+    [id]="inputName"
+    [placeholder]="placeholder" 
+    [formControlName]="inputName">
+  </ion-textarea>
+</ion-item>
+<app-custom-error-display [control]="control"></app-custom-error-display>

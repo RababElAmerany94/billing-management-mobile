@@ -1,0 +1,133 @@
+<app-dossier-list-tabs
+    [style.display]="isListMode() ? 'block' : 'none'" 
+    [currentType]="selectedTabs" 
+    (changeSelected)="selectedTabs=$event">
+
+    <app-list-dossier
+        AValider
+        *ngIf="selectedTabs == dossierListTabs.AValider"
+        [tabType]="dossierListTabs.AValider"
+        [name]="routeName.Dossier"
+        [loading]="loading"
+        (filters)="getDossiers($event)"
+        (addEvent)="addEvent()"
+        (editEvent)="editEvent($event.id)"
+        (deleteEvent)="deleteDossier($event)"
+        (showEvent)="showEvent($event.id)"
+        (dossierAssignationEvent)="dossierAssignationEvent($event)"
+        (addDevisEvent)="addDevisEvent($event)"
+        [data]="dossiers">
+    </app-list-dossier>
+
+    <app-list-dossier
+        AVenir
+        *ngIf="selectedTabs == dossierListTabs.AVenir"
+        [tabType]="dossierListTabs.AVenir"
+        [name]="routeName.Dossier"
+        [loading]="loading"
+        (filters)="getDossiers($event)"
+        (addEvent)="addEvent()"
+        (editEvent)="editEvent($event.id)"
+        (deleteEvent)="deleteDossier($event)"
+        (showEvent)="showEvent($event.id)"
+        (dossierAssignationEvent)="dossierAssignationEvent($event)"
+        (addDevisEvent)="addDevisEvent($event)"
+        [data]="dossiers">
+    </app-list-dossier>
+
+    <app-list-dossier
+        AReplanifier
+        *ngIf="selectedTabs == dossierListTabs.AReplanifier"
+        [tabType]="dossierListTabs.AReplanifier"
+        [name]="routeName.Dossier"
+        [loading]="loading"
+        (filters)="getDossiers($event)"
+        (addEvent)="addEvent()"
+        (editEvent)="editEvent($event.id)"
+        (deleteEvent)="deleteDossier($event)"
+        (showEvent)="showEvent($event.id)"
+        (dossierAssignationEvent)="dossierAssignationEvent($event)"
+        (addDevisEvent)="addDevisEvent($event)"
+        [data]="dossiers">
+    </app-list-dossier>
+
+    <app-list-dossier
+        Toutes
+        *ngIf="selectedTabs == dossierListTabs.Toutes"
+        [tabType]="dossierListTabs.Toutes"
+        [name]="routeName.Dossier"
+        [loading]="loading"
+        (filters)="getDossiers($event)"
+        (addEvent)="addEvent()"
+        (editEvent)="editEvent($event.id)"
+        (deleteEvent)="deleteDossier($event)"
+        (showEvent)="showEvent($event.id)"
+        (dossierAssignationEvent)="dossierAssignationEvent($event)"
+        (addDevisEvent)="addDevisEvent($event)"
+        (syncAntsrouteEvent)="syncAntsroute($event)"
+        (markDossierAplanifierEvent)="markDossierAplanifier($event)"
+        [data]="dossiers">
+    </app-list-dossier>
+
+</app-dossier-list-tabs>
+
+<ng-container *ngIf="isAddMode() || isEditMode()">
+	<app-edit-dossier
+    [mode]="mode"
+    [form]="form"
+    [Dossier]="dossier"
+    (addEvent)="addDossier($event)"
+    (editEvent)="updateDossier($event)"
+    (generateReferenceEvent)="generateReferenceDossier($event)"
+    (cancelEvent)="cancel()">
+	</app-edit-dossier>
+</ng-container>
+
+<ng-container *ngIf="isShowMode()">
+	<app-dossier-tabs [canAddVisiteTechnique]="canAddVisiteTechnique()">
+	
+        <app-edit-dossier
+            information
+            [mode]="mode"
+            [form]="form"
+            [Dossier]="dossier"
+            [isNavigationRoute]="isNavigationRoute"
+            (refresh)="refreshCurrentElement()"
+            (cancelEvent)="cancel()">
+        </app-edit-dossier>
+
+        <app-historique 
+            history
+            [Historique]="dossier?.historique"
+            (backClickEvent)="cancel()">
+        </app-historique>
+
+        <app-memo
+            memo
+            [title]="'MEMOS_DOSSIER.TITLE'"
+            [Memos]="dossier?.memos"
+            [isDossier]="true"
+            (saveMemoEvent)="saveMemoDossierToDossier($event)"
+            (cancelEvent)="cancel()">
+        </app-memo>
+
+        <app-visite-technique
+            visiteTechnique
+            [VisiteTechnique]="dossier?.visteTechnique"
+            (addEvent)="saveVisiteTechniqueToDossier($event)"
+            (cancelEvent)="modeList()">
+        </app-visite-technique>
+
+        <app-agenda
+            agendaCommercial
+            [dossierId]="dossier?.id"
+            [isNavigationRoute]="true"
+            (editEvent)="editEventAgenda($event)"
+            (showEvent)="showEventAgenda($event)"
+            (cancelEvent)="cancel()">
+        </app-agenda>
+
+    </app-dossier-tabs>
+
+</ng-container>
+<!-- #end region-->

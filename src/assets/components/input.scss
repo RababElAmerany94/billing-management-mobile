@@ -1,0 +1,209 @@
+// style for edit pages
+.edit-page {
+  .grid {
+    padding: 0;
+    .col {
+      padding: 0;
+    }
+  }
+  .edit-content {
+    margin: 5% 5%;
+
+    .list-form {
+      padding: 0;
+      margin-bottom: 0;
+    }
+  }
+}
+.bottom-controls {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+
+  ion-button {
+    flex: 1;
+    color: white;
+  }
+  .button {
+    --width: 57px;
+    --height: 60px;
+    font-size: 10px;
+    font-size: 10px;
+    --vertical-align: middle;
+    --padding-start: 10px;
+    --padding-end: 10px;
+  }
+}
+.sm-fix {
+  margin-top: 0 !important;
+  @media only screen and (max-device-width: 480px) {
+    //margin-top: 20px;
+  }
+}
+
+.ribbon-wrapper {
+  margin-left: 3px;
+  width: 100px;
+
+  @media only screen and (max-device-width: 380px) {
+    width: 80px;
+  }
+
+  .ribbon {
+    border-radius: 2px;
+    color: white;
+    font-size: 16px;
+    padding: 18px 0;
+    text-align: center;
+    text-shadow: rgba(255, 255, 255, 0.5) 0px 1px 0px;
+
+    &.sm-fix {
+      @media only screen and (max-device-width: 480px) {
+        font-size: 12px;
+        padding: 20px 0;
+      }
+      @media only screen and (max-device-width: 850px) and (orientation: landscape) {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.ribonstatus {
+  &--encours {
+    background-color: var(--ion-color-tertiary-tint) !important;
+  }
+
+  &--brouillon {
+    background-color: var(--ion-color-medium) !important;
+  }
+
+  &--signe {
+    background-color: var(--ion-color-success) !important;
+  }
+
+  &--enattente {
+    background-color: var(--ion-color-secondary) !important;
+  }
+
+  &--enretard {
+    background-color: var(--ion-color-danger-shade) !important;
+  }
+
+  &--realisee {
+    background-color: var(--ion-color-violet) !important;
+  }
+
+  &--perdu {
+    background-color: var(--ion-color-warning-shade) !important;
+  }
+
+  &--assigne {
+    background-color: var(--ion-color-tertiary-shade) !important;
+  }
+
+  &--chiffre {
+    background-color: var(--ion-color-bleu-ciel) !important;
+  }
+
+  &--planifie {
+    background-color: var(--ion-color-tertiary-shade) !important;
+  }
+
+  &--aplanifie {
+    background-color: var(--ion-color-sync-dossier-antsroute) !important;
+  }
+
+  &--facture {
+    background-color: var(--ion-color-violet) !important;
+  }
+
+  &--annulee {
+    background-color: var(--ion-color-violet-contrast) !important;
+  }
+
+  &--cloture {
+    background-color: var(--ion-color-danger) !important;
+  }
+}
+
+.close_btn {
+  --size: 32px;
+  position: absolute;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  color: var(--ion-color-light);
+}
+.content_image {
+  margin: auto;
+  position: relative;
+  img {
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+  }
+}
+.custom_checkBox {
+  --background: var(--ion-color-light) !important;
+  border-radius: 4px;
+  margin-top: 5px;
+  @media only screen and (max-device-width: 480px) {
+    border-bottom: 1px solid gainsboro;
+    height: 40px;
+    margin-top: 5px;
+  }
+
+  ion-label {
+    color: var(--ion-color-primary-tint) !important;
+    font-size: 14px;
+
+    @media only screen and (max-device-width: 480px) {
+      margin-top: 2px;
+    }
+  }
+
+  ion-checkbox {
+    @media only screen and (max-device-width: 480px) {
+      margin-top: 8px;
+      transform: scale(0.8);
+    }
+  }
+}
+
+.dropdown_button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 54px;
+  height: 100%;
+  z-index: 3;
+  height: 48px;
+  font-size: 22px;
+  background-color: var(--ion-color-light);
+  outline: none;
+}
+
+.custom_ion-rating {
+  --background: var(--ion-color-light) !important;
+  border-radius: 4px;
+  border-bottom: 1px solid gainsboro;
+  height: 80px;
+  ion-label {
+    color: var(--ion-color-primary) !important;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  rating {
+    margin: auto;
+    ion-icon {
+      color: gray;
+
+      &.filled {
+        color: #ffb400;
+      }
+    }
+  }
+}

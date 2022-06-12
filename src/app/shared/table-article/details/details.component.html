@@ -1,0 +1,111 @@
+<!--region header-->
+<app-header 
+  [title]="'TABLE_ARTICLE.DETAIL_ARTICLE' | translate " 
+  [sidebar]="false"
+  [back]="true"
+  [validation]="true"
+  (validationClick)="save()"
+  (backClick)="dismiss()">
+</app-header>
+<!-- end region -->
+
+<!-- end region -->
+
+<ion-content class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+  
+      <app-custom-input
+          class="col-md-12"
+          [type]="'number'"
+          [label]="'LABELS.QUANTITE' | translate"
+          [inputName]="'qte'"
+          [formInstant]="form" >
+      </app-custom-input>
+
+      <div class="cust-grid">
+        <div class="cust-row split split--all">
+          <div class="cust-col cust-col--span-all">
+            <app-custom-input
+              [type]="'number'"
+              [label]="'LABELS.DISCOUNT' | translate"
+              [inputName]="'remise'"
+              [formInstant]="form" >
+            </app-custom-input>
+          </div>
+          <div class="cust-col cust-col--span-auto">
+            <app-custom-drop-down
+              [data]="remiseType"
+              [label]="'LABELS.REMISE_TYPE' | translate"
+              [formInstant]="form"
+              [inputName]="'remiseType'">
+            </app-custom-drop-down>
+          </div>
+        </div>
+      </div>
+
+
+      <app-custom-input
+          [label]="'LABELS.REFERENCE' | translate"
+          [inputName]="'reference'"
+          [formInstant]="form" >
+      </app-custom-input>
+
+      <app-custom-input
+          [label]="'LABELS.DESIGNATION' | translate"
+          [inputName]="'designation'"
+          [formInstant]="form" >
+      </app-custom-input>
+
+      <app-fournisseur-dropdown
+          [label]="'LABELS.FOURNISSEUR' | translate"
+          [inputName]="'fournisseurId'"
+          [formInstant]="form">
+      </app-fournisseur-dropdown>
+
+      <app-dropdown-unite
+          [label]="'LABELS.UNITE' | translate"
+          [inputName]="'unite'"
+          [formInstant]="form" >
+      </app-dropdown-unite>
+
+      <app-custom-input
+          [type]="'number'"
+          (changeEvent)="subscribePrixTVA()"
+          [label]="'LABELS.TVA' | translate"
+          [inputName]="'tva'"
+          [formInstant]="form" >
+      </app-custom-input>
+
+      <app-custom-input
+          [type]="'number'"
+          [label]="'LABELS.PRIX_ACHAT' | translate"
+          [inputName]="'prixAchat'"
+          [formInstant]="form" >
+      </app-custom-input>
+
+      <app-custom-input
+          (changeEvent)="subscribePrixHt()"
+          [type]="'number'"
+          [label]="'LABELS.PRIX_HT' | translate"
+          [inputName]="'prixHT'"
+          [formInstant]="form" >
+      </app-custom-input>
+
+      <app-custom-input
+          (changeEvent)="subscribePrixTTC()"
+          [type]="'number'"
+          [label]="'LABELS.PRIX_TTC' | translate"
+          [inputName]="'prixTTC'"
+          [formInstant]="form" >
+      </app-custom-input>
+
+      <app-custom-textarea
+          [label]="'LABELS.DESCRIPTION' | translate"
+          [inputName]="'description'"
+          [formInstant]="form">
+      </app-custom-textarea>
+
+    </form>
+  </div>
+</ion-content>

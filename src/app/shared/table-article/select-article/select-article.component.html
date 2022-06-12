@@ -1,0 +1,79 @@
+<!--region header-->
+<app-header 
+  [title]="'TABLE_ARTICLE.LIST_ARTICLE' | translate " 
+  [search]="true"
+  [back]="true"
+  [sidebar]="false"
+  (backClick)="Dismiss('')"
+  (validationClick)="chargeArticle()"
+  [validation]="true"
+  (searchEvent)="searchValue($event)">
+</app-header>
+<!-- end region -->
+<ion-content>
+  <div class="list" *ngIf="articles.length>0 && !loading ;else emptyResult">
+    <ion-list>
+      <ion-item-sliding>
+        <ion-item class="item-list" *ngFor="let item of articles; let i = index;">
+          <div class="app-mycart__container">
+            <div class="app-mycart__info">
+              <span class="app-mycart__title">
+                {{ item?.designation }}
+              </span>
+              <div class="app-mycart__action">
+                <span class="app-mycart__price">{{ item?.totalHT | RoundingNumber | Currency }}</span>
+                <span class="app-mycart__text">{{ 'LABELS.POUR' | translate }}</span>
+                <span class="app-mycart__quantity">
+                  <input
+                    type="number"
+                    (change)="addQuantity(i,0)"
+                    (input)="addQuantity(i,0)"
+                    [value]="item?.qte" 
+                    [(ngModel)]="item.qte"
+                    class="input-quantity"/>
+                </span>
+                <a (click)="addQuantity(i,-1)" class="btn btn-label-success btn-icon">−</a>
+                <a (click)="addQuantity(i,+1)" class="btn btn-label-success btn-icon">+</a>
+              </div>
+
+            </div>
+          </div>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+    <!-- #region scroll -->
+    <ng-container *ngIf="!finished">
+      <ion-infinite-scroll 
+        threshold="100px" 
+        (ionInfinite)="loadMoreData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="{{'LABELS.LOADING_MORE' |translate}}">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </ng-container>
+    <!-- #endregion -->
+  </div>
+  <!-- #region skeleton -->
+  <div *ngIf="loading" class="list">
+    <ion-list mode="ios"
+      class="list-skeleton-prestation">
+      <ion-item *ngFor="let i of skeletonLength" class="item-list">
+        <ion-label>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <!-- #endregion -->
+</ion-content>
+
+<!-- #region empty list-->
+<ng-template #emptyResult>
+  <div class="empty-data" *ngIf="articles.length==0 && !loading">
+    <img class="empty-data__img" src="../../../../assets/icon/empty_list.png">
+    <span class="empty-data__text">{{ 'LABELS.EMPTY_TABLE'|translate}}</span>
+  </div>
+</ng-template>
+<!-- #end region-->

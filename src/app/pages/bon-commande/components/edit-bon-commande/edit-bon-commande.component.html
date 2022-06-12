@@ -1,0 +1,162 @@
+<app-header
+    [title]="displayTitle() | translate"
+    [sidebar]="false"
+    (backClick)="cancel()"
+    [more]="isShowMode()"
+    (moreClick)="onMoreClick()"
+    (validationClick)="saveBonCommande()"
+    [validation]="!isShowMode()"
+    [back]="true">
+</app-header>
+
+<ion-content class="edit-page" [ngClass]="{'tabs': isShowMode()}">
+    <div class="edit-content">
+
+        <app-collabsible-form
+            [title]="'TITLES.INFOS_DEVIS' | translate"
+            [IconTitle]="'folder-outline'">
+
+            <form
+                [formGroup]="form"
+                class="list-form">
+
+                <div class="cust-grid">
+                    <div class="cust-row split split--all">
+                        <div class="cust-col cust-col--span-all">
+
+                            <!-- reference-->
+                            <app-custom-input
+                                [inputName]="'reference'"
+                                [label]="'LABELS.REFERENCE' | translate"
+                                [formInstant]="form">
+                            </app-custom-input>
+
+                        </div>
+                        <div class="cust-col cust-col--span-auto" *ngIf="isShowMode()">
+                            <div class="ribbon-wrapper">
+                                <div class="ribbon sm-fix"
+                                    [ngClass]="{
+                                        'ribonstatus--brouillon ': status?.Annule === currentStatus,
+                                        'ribonstatus--signe ': status?.Commande === currentStatus,
+                                        'ribonstatus--encours': status.EnCours === currentStatus
+                                    }">
+                                    {{ 'BON_COMMANDE_STATUS.'+currentStatus | translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--the client of devis -->
+                <ng-container *ngIf="dossier?.clientId == null">
+                    <app-select-client
+                        (changeEvent)="chooseClient($event)"
+                        [client]="selectedClient"
+                        [inputName]="'clientId'"
+                        [label]="'LABELS.CLIENT' | translate"
+                        [formInstant]="form">
+                    </app-select-client>
+                </ng-container>
+
+                <!-- date of devis -->
+                <app-custom-date-time
+                    [formInstant]="form"
+                    [inputName]="'dateVisit'"
+                    [label]="'LABELS.DATE_VISITE' | translate">
+                </app-custom-date-time>
+
+                <!-- select address -->
+                <ng-container *ngIf="dossier?.clientId == null">
+                    <app-address-dropdown
+                        [readOnly]="isShowMode()"
+                        [selectedAddress]="siteIntervention"
+                        [inputName]="'siteIntervention'"
+                        [formInstant]="form"
+                        [addresses]="selectedClient?.addresses"
+                        [label]="'ADDRESS.TITLE_SITE_INTERVENTION' | translate"
+                        (changeEvent)="setSiteIntervention($event)">
+                    </app-address-dropdown>
+                </ng-container>
+
+                <!-- contact company or technicien-->
+                <app-select-user
+                    [inputName]="'userId'"
+                    [user]="selectedUser"
+                    [label]="(isContactCOMPANY() ? 'LABELS.CONTACT_COMPANY' : 'LABELS.TECHNICIENS') | translate"
+                    [title]="(isContactCOMPANY() ? 'DATA_SELECTOR.SELECT_CONTACT_COMPANY' : 'DATA_SELECTOR.SELECT_TECHNICIEN') | translate"
+                    [roles]="(isContactCOMPANY() ? null : [userRole.Technicien, userRole.Commercial])"
+                    (changeEvent)="selectedUser=$event" 
+                    [formInstant]="form">
+                </app-select-user>
+
+            </form>
+        </app-collabsible-form>
+
+        <app-table-article
+            *ngIf="currentType!=null"
+            [data]="{
+                articles:articles,
+                totalReduction:bonCommande?.totalReduction,
+                mode: currentType
+            }" 
+            [remiseType]="remiseType"
+            [remise]="remise"
+            [readOnly]="isShowMode()"
+            (changeEvent)="setResultCalculation($event)">
+        </app-table-article>
+ 
+        <app-collabsible-form
+            *ngIf="bonCommande?.signe!= null && this.isShowMode()"
+            [title]="'LABELS.SIGNATURE' | translate"
+            [IconTitle]="'pulse-outline'">
+
+            <!-- date of bon de commande -->
+            <app-custom-date-time
+                [formInstant]="form"
+                [inputName]="'dateSignature'"
+                [label]="'LABELS.DATE_SIGNATURE' | translate">
+            </app-custom-date-time>
+
+            <app-signature-pad
+                [readonly]="true"
+                [label]="('LABELS.CLIENT_SIGNATURE' | translate)+' : '+bonCommande?.nameClientSignature"
+                [Signature]="bonCommande.signe">
+            </app-signature-pad>
+
+        </app-collabsible-form>
+
+        <!--------------------------- note bon commande --------------------------------->
+        <app-collabsible-form
+            [title]="'TITLES.OTHER' | translate"
+            [IconTitle]="'code-working-outline'">
+            <app-custom-textarea
+                [inputName]="'note'"
+                [label]="'LABELS.NOTE' | translate"
+                [formInstant]="form">
+            </app-custom-textarea>
+        </app-collabsible-form>
+        <!------------------------------------------------------------------------------->
+
+        <!--------------------------- raison Annuler ------------------------------------>
+        <app-collabsible-form *ngIf="status?.Annule === currentStatus && isShowMode()"
+            [title]="'LABELS.RAISON_ANNULER' | translate"
+            [IconTitle]="'close-outline'">
+
+            <app-custom-textarea
+                [inputName]="'raisonAnnulation'"
+                [label]="'LABELS.RAISON_ANNULER' | translate"
+                [formInstant]="form">
+            </app-custom-textarea>
+
+        </app-collabsible-form>
+        <!------------------------------------------------------------------------------->
+
+        <!--------------------------- related docs -------------------------------------->
+        <ng-container *ngIf="isShowMode() && relatedDocs?.length>0">
+            <app-shared-related-docs [data]="relatedDocs">
+            </app-shared-related-docs>
+        </ng-container>
+        <!------------------------------------------------------------------------------->
+
+    </div>
+</ion-content>

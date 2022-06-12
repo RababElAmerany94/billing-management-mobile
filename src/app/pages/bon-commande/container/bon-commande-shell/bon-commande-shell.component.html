@@ -1,0 +1,58 @@
+<app-list-bon-commande
+    [style.display]="isListMode() ? 'block' : 'none'"
+    [name]="routeName.BonCommande"
+    [loading]="loading"
+    [data]="bonCommandePagedResult"
+    (filters)="getBonCommande($event)"
+    (addEvent)="addEvent()"
+    (editEvent)="editEvent($event.id)"
+    (deleteEvent)="deleteBonCommande($event)"
+    (transferToDevisEvent)="transferBonCommandeToDevis($event)"
+    (markBonCommandeAnnulerEvent)="markBonCommandeAnnuler($event)"
+    (showEvent)="showEvent($event.id)">
+</app-list-bon-commande>
+
+<ng-container *ngIf="isAddMode() || isEditMode()">
+	<app-edit-bon-commande
+      [mode]="mode"
+      [form]="form"
+      [BonCommande]="bonCommande"
+      [Type]="type"
+      [Dossier]="dossier"
+      [isNavigationRoute]="isNavigationRoute"
+      (addEvent)="addBonCommande($event)"
+      (editEvent)="updateBonCommande($event)"
+      (cancelEvent)="cancel()">
+	</app-edit-bon-commande>
+</ng-container>
+
+<ng-container *ngIf="isShowMode()">
+	<app-shared-details>
+	
+	<app-edit-bon-commande
+        information
+        [mode]="mode"
+        [form]="form"
+        [BonCommande]="bonCommande"
+        [Type]="type"
+        [isNavigationRoute]="isNavigationRoute"
+        (printPdfEvent)="printBonCommande()"
+        (downloadEvent)="downloadPdfEvent()"
+        (dupliquerEvent)="dupliquer($event)"
+        (enPerduBonCommandeEvent)="updateBonCommande($event)"
+        (signeBonCommandeEvent)="updateBonCommande($event)"
+        (SendEmailEvent)="sendEmail($event)"
+        (transferToDevisEvent)="transferBonCommandeToDevis($event)"
+        (markBonCommandeAnnulerEvent)="markBonCommandeAnnuler($event)"
+        (cancelEvent)="cancel()">
+    </app-edit-bon-commande>
+
+    <app-historique 
+        history
+        [Historique]="bonCommande?.historique"
+        (backClickEvent)="cancel()">
+		</app-historique>
+
+	</app-shared-details>
+</ng-container>
+<!-- #end region-->

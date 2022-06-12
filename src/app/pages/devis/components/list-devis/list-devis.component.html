@@ -1,0 +1,98 @@
+<app-data-list
+  [title]="'TITLE'"
+  [name]="routeName.Devis"
+  [loading]="loading"
+  (changeEvent)="changeFiltersEvent($event)"
+  [data]="devisPagedResult">
+
+  <ng-container class="list-content">
+    <!-- #region list devis-->
+    <div class="list">
+      <ion-list *ngFor="let devis of devisList; let i = index;">
+        <ion-item-sliding>
+          <ion-item class="item-list" (click)="showClick(devis)" *ngIf="canRead()">
+            <div class="list-container">
+              <span class="list-border"
+              [ngClass]="{
+                'list-border--brouillon ': devisStatus?.Brouillon === devis?.status,
+                'list-border--assigne': devisStatus.Valider === devis?.status,
+                'list-border--signe': devisStatus.Signe === devis?.status,
+                'list-border--encours': devisStatus.Encours === devis?.status,
+                'list-border--enretard': devisStatus.Enretard === devis?.status,
+                'list-border--perdu': devisStatus.EnPerdu === devis?.status,
+                'list-border--facture': devisStatus.Facture === devis?.status
+              }">
+            </span>
+              <div class="list-content">
+                <div class="list-content__left">
+                  <span class="reference">{{ devis?.reference }} - {{ 'DEVIS_TYPE.' + devis?.type | translate }}</span>
+                  <span class="name">{{ devis?.client }}</span>
+                </div>
+                <div class="list-content__right">
+                  <span class="right-text"> {{devis.dateSignature | date:'shortDate'}}</span>
+                  <span class="right-text badge"
+                  [ngClass]="{
+                      'badge--brouillon ': devisStatus?.Brouillon === devis?.status,
+                      'badge--signe ': devisStatus?.Signe === devis?.status,
+                      'badge--encours': devisStatus.Encours === devis?.status,
+                      'badge--perdu': devisStatus?.EnPerdu === devis?.status,
+                      'badge--enretard': devisStatus.Enretard === devis?.status,
+                      'badge--assigne': devisStatus?.Valider === devis?.status,
+                      'badge--facture': devisStatus?.Facture === devis?.status
+                  }">
+                      {{getStatus(devis?.status) |translate}} 
+                      <ng-container *ngIf="devisStatus?.Facture === devis?.status && devis?.nouveauAvancementPercent">
+                        {{ devis?.nouveauAvancementPercent | RoundingNumber }} %
+                      </ng-container>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item-options side="end">
+            <ng-container *ngIf="devis?.canModify" >
+              <ion-item-option color="danger" (click)="deleteClick(i)" *ngIf="canDelete()">
+                <ion-icon 
+                  name="trash" 
+                  slot="start">
+                </ion-icon>
+                {{'LABELS.DELETE' |translate}}
+              </ion-item-option>
+              <ion-item-option color="success" (click)="editClick(devis)" *ngIf="canUpdate()">
+                <ion-icon
+                  name="create"
+                  slot="start">
+                </ion-icon>{{'LABELS.EDIT' |translate}}
+              </ion-item-option>
+            </ng-container>
+            <ion-item-option color="secondary" (click)="showClick(devis)" *ngIf="canRead()">
+              <ion-icon 
+                name="eye"
+                slot="start"></ion-icon>
+                {{'LABELS.SHOW' |translate}}
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <!-- #endregion list devis-->
+  </ng-container>
+
+  <ng-container class="list-action">
+    <!-- #region add button -->
+      <div class="btn-add" *ngIf="canCreate()">
+        <ion-fab 
+          vertical="bottom"
+          horizontal="end"
+          slot="fixed"
+          (click)="addClick()">
+          <ion-fab-button
+            [color]="'secondary'">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+      </div>
+    <!-- #endregion-->
+    </ng-container>
+
+</app-data-list>

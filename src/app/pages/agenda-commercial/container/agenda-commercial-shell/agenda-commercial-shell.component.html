@@ -1,0 +1,105 @@
+<app-tabs-agenda-commercial
+    [style.display]="isListMode() ? 'block' : 'none'" 
+    [currentType]="selectedTabs" 
+    (changeSelected)="selectedTabs=$event">
+
+    <app-agenda
+        Agenda
+        *ngIf="selectedTabs == agendaCommercialListTabs.Agenda"
+        (editEvent)="editEvent($event)"
+        (showEvent)="showEvent($event)">
+    </app-agenda>
+
+    <app-list
+        Tache
+        *ngIf="selectedTabs == agendaCommercialListTabs.Tache"
+        [tabType]="agendaCommercialListTabs.Tache"
+        [name]="routeName.AgendaCommercial"
+        [loading]="loading"
+        [data]="echangeCommercials"
+        (filters)="getEchangeCommercial($event)"
+        (addEvent)="addEvent()"
+        (editEvent)="editEvent($event.id)"
+        (deleteEvent)="deleteEchangeCommercial($event)"
+        (showEvent)="showEvent($event.id)"
+        (cancelEvent)="updateEchangeCommercialEvent($event)"
+        (cloturerEvent)="updateEchangeCommercialEvent($event)">
+    </app-list>
+
+    <app-list
+        Rdv
+        *ngIf="selectedTabs == agendaCommercialListTabs.Rdv"
+        [tabType]="agendaCommercialListTabs.Rdv"
+        [name]="routeName.AgendaCommercial"
+        [loading]="loading"
+        [data]="echangeCommercials"
+        (filters)="getEchangeCommercial($event)"
+        (addEvent)="addEvent()"
+        (editEvent)="editEvent($event.id)"
+        (deleteEvent)="deleteEchangeCommercial($event)"
+        (showEvent)="showEvent($event.id)"
+        (cancelEvent)="updateEchangeCommercialEvent($event)"
+        (cloturerEvent)="updateEchangeCommercialEvent($event)">
+    </app-list>
+
+    <app-list
+        Appel
+        *ngIf="selectedTabs == agendaCommercialListTabs.Appel"
+        [tabType]="agendaCommercialListTabs.Appel"
+        [name]="routeName.AgendaCommercial"
+        [loading]="loading"
+        [data]="echangeCommercials"
+        (filters)="getEchangeCommercial($event)"
+        (addEvent)="addEvent()"
+        (editEvent)="editEvent($event.id)"
+        (deleteEvent)="deleteEchangeCommercial($event)"
+        (showEvent)="showEvent($event.id)"
+        (cancelEvent)="updateEchangeCommercialEvent($event)"
+        (cloturerEvent)="updateEchangeCommercialEvent($event)">
+    </app-list>
+
+</app-tabs-agenda-commercial>
+
+<ng-container *ngIf="isAddMode() || isEditMode()">
+
+    <app-edit
+        [mode]="mode"
+        [form]="form"
+        [EchangeCommercial]="echangeCommercial"
+        [type]="selectedTabs"
+        (addEvent)="addEchangeCommercial($event)"
+        (editEvent)="updateEchangeCommercialEvent($event)"
+        (cancelEvent)="cancel()">
+    </app-edit>
+
+</ng-container>
+
+<ng-container *ngIf="isShowMode()">
+    <app-tabs-detail-agenda-commercial>
+
+        <app-edit
+            information
+            [mode]="mode"
+            [form]="form"
+            [EchangeCommercial]="echangeCommercial"
+            [type]="selectedTabs"
+            (cancelEvent)="cancel()">
+        </app-edit>
+
+        <app-historique 
+            history
+            [Historique]="echangeCommercial?.historique"
+            (backClickEvent)="cancel()">
+        </app-historique>
+
+        <app-memo
+            memo
+            [Memos]="echangeCommercial?.memos"
+            [isDossier]="false"
+            (saveMemoEvent)="saveMemoEchangeCommercialToEchangeCommercial($event)"
+            (cancelEvent)="cancel()">
+        </app-memo>
+
+    </app-tabs-detail-agenda-commercial>
+</ng-container>
+<!-- #end region-->

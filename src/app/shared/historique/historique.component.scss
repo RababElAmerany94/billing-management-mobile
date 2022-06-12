@@ -1,0 +1,183 @@
+.cd-container {
+    /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.cd-container::after {
+    /* clearfix */
+    content: "";
+    display: table;
+    clear: both;
+}
+
+ion-icon {
+    font-size: 21px;
+}
+.cd-author {
+    color: gray;
+}
+
+#cd-timeline {
+    position: relative;
+    margin-bottom: 2em;
+    margin-left: 0px !important;
+}
+
+.cd-timeline-block {
+    position: relative;
+    margin: 0 0;
+}
+.cd-timeline-block:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 18px;
+    height: 100%;
+    width: 4px;
+    background: var(--ion-color-light);
+}
+.cd-timeline-block:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.cd-timeline-block:first-child {
+    margin-top: 0;
+}
+.cd-timeline-block:last-child {
+    margin-bottom: 0;
+}
+
+.cd-timeline-last-block {
+    position: relative;
+    margin: 0 0;
+}
+.cd-timeline-last-block:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.cd-timeline-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border-color: var(--ion-color-light);
+    color: var(--ion-color-dark);
+    border-style: solid;
+    border-width: 2px;
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
+    background: white;
+    font-weight: 500;
+}
+.cd-timeline-icon i {
+    color: var(--ion-color-dark);
+}
+
+.cd-timeline-content {
+    position: relative;
+    margin-left: 50px;
+    border-radius: 0.25em;
+    background: var(--ion-color-light);
+    border-color: var(--ion-color-light);
+    border-style: solid;
+    border-width: 2px;
+    margin-bottom: 10px;
+    padding: .5rem 1rem .7rem;
+    &_info {
+        display: flex;
+        flex-flow: wrap;
+        align-items: baseline;
+        &_title {
+            font-size: 15px;
+            font-weight: 500;
+            padding-right: 0.5rem;
+            color: var(--ion-color-primary);
+        }
+        &_desc {
+            font-weight: 500;
+            padding-right: 1rem;
+            font-size: 14px;
+        }
+    }
+    &_body {
+        font-weight: 500;
+        font-size: 14px;
+        padding-top: 0.5rem;
+        color: var(--ion-color-primary) !important;
+        display: block;
+        a {
+            background-color: transparent;
+            color: var(--ion-color-secondary);
+            font-size: 12px;
+        }
+    }
+    .badge {
+        box-sizing: border-box;
+        display: inline-block;
+        background-color: white;
+        color: white !important;
+        border-radius: 3rem; // As longe as this is bigger than the fontsize
+        text-align: center;
+        font-size: 10px;
+        padding: 3px 10px;
+        &--encours {
+            background-color: var(--ion-color-tertiary-tint) !important;
+        }
+        &--annulee {
+            background-color: var(--ion-color-violet-contrast) !important;
+        }
+
+        &--cloture {
+            background-color: var(--ion-color-danger) !important;
+        }
+    }
+}
+.cd-timeline-content:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.cd-timeline-content p,
+.cd-timeline-content .cd-read-more,
+.cd-timeline-content .cd-date {
+    font-size: 13px;
+}
+
+.cd-timeline-content::before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    height: 0;
+    width: 0;
+    top: 10px;
+    border: 7px solid transparent;
+    border-right: 7px solid white;
+    border-right-color: inherit;
+}
+
+@media only screen and (min-width: 768px) {
+    .cd-timeline-content h2 {
+        font-size: 20px;
+        font-size: 1.25rem;
+        padding-left: 8px;
+    }
+    .cd-timeline-content p {
+        font-size: 16px;
+        font-size: 1rem;
+        padding-left: 8px;
+    }
+    .cd-timeline-content .cd-read-more,
+    .cd-timeline-content .cd-date {
+        font-size: 14px;
+        font-size: 0.875rem;
+    }
+}

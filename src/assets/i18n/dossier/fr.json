@@ -1,0 +1,43 @@
+{
+    "TITLE": "Dossiers",
+    "LIST": {
+        "TITLE": "Liste des dossiers",
+        "DELETE": {
+            "HEADER": "Supprimer dossiers",
+            "MESSAGE": "Êtes-vous sûr supprimer cet dossier"
+        },
+        "DEVIS_DELETE": {
+            "HEADER": "Supprimer devis",
+            "MESSAGE": "Êtes-vous sûr supprimer ce devis"
+        },
+        "BON_COMMANDE_DELETE": {
+            "HEADER": "Supprimer bon de commande",
+            "MESSAGE": "Êtes-vous sûr supprimer ce bon de commande"
+        }
+    },
+    "ADD": {
+        "TITLE": "Ajouter dossier"
+    },
+    "EDIT": {
+        "TITLE": "Modifier dossier"
+    },
+    "SHOW": {
+        "TITLE": "Fiche dossier"
+    },
+    "LABELS": {
+        "ADD_BON_COMMANDE": "Ajouter bon de commande",
+        "ADD_DEVIS": "Ajouter devis",
+        "A_VENIR": "À venir",
+        "A_VALIDER": "À valider",
+        "A_REPLANIFIER": "À replanifier",
+        "ALL_DOSSIERS": "Tous",
+        "PLANNING": "Planning du {{ date }} pour {{ name }} :",
+        "ANNULEZ_LA": "Oui, annulez la",
+        "PLANNING_COMMERCIAL": "Planning du {{ date }} pour {{ name }} :",
+        "ASSIGNER_DOSSIER": "Assigner dossier",
+        "PLANNING_COMMERCIALS": "Planning des commercials pour le {{ date }}"
+    },
+    "CHECK_USER_ASSIGNED_SAME_DATE_AND_HOUR": {
+        "QUESTION": "Un rendez-vous est déjà positionné à la même heure, souhaitez-vous l'assigner quand même ?"
+    }
+}

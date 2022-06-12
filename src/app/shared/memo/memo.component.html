@@ -1,0 +1,87 @@
+<!--region header-->
+<app-header 
+  [title]="'MEMOS.TITLE' | translate"
+  [sidebar]="false"
+  (backClick)="backClick()"
+  [back]="true">
+</app-header>
+<!-- end region -->
+
+<!-- region content memo -->
+<ion-content class="ion-padding tabs">
+  <section id="cd-timeline" *ngIf="memos.length>0 ;else emptyResult " >
+    <div *ngFor="let item of memos; let last = last; let first = first;let i=index" class="cd-container">
+      <div [class]="last?'cd-timeline-last-block':'cd-timeline-block'">
+        <div class="cd-timeline-icon">
+          {{i+1}}
+        </div>
+        <div class="cd-timeline-content">
+          <div class="cd-timeline-content_info">
+            <span class="cd-timeline-content_info_title">
+              {{ item?.userId |  GetNameOfUserById }}
+            </span>
+            <span class="cd-timeline-content_info_desc text-tertiary">
+                {{ item?.date | date:'short' }}
+            </span>
+            <div class="card-widget__action">
+              <ion-button
+                  size="small"  
+                  color="success"
+                  (click)="editMemo(i)">
+                  <ion-icon name="create-outline"></ion-icon>
+              </ion-button>&nbsp;
+              <ion-button
+                  size="small"  
+                  color="danger"
+                  (click)="removeMemo(i)">
+                  <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>&nbsp;
+          </div>
+            </div>
+            <span class="cd-timeline-content_body">
+              <span class="ion-margin-bottom" >{{ item?.commentaire }}</span>
+              <div *ngFor="let piece of item.pieceJointes;let j = index ,let last = last;">
+                <ion-row>
+                  <ion-col size="12" size-md="6">
+                    <div class="text-primary">
+                      {{ piece.orignalName }}
+                    </div>
+                  </ion-col>
+                  <ion-col size="12" size-md="6" class="ion-text-right">
+                    <ion-icon name="download-outline" class="text-secondary" (click)="downloadFile(piece)"></ion-icon>&nbsp;&nbsp;
+                    <ion-icon name="eye-outline" class="text-primary" (click)="displayFile(piece)"></ion-icon>&nbsp;&nbsp;
+                    <ion-icon name="trash-outline" class="text-danger" (click)="removeFile(i,j)"></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </div>
+            </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- #region add button -->
+  <div class="btn-add">
+    <ion-fab 
+      vertical="bottom"
+      horizontal="end"
+      slot="fixed"
+      (click)="addMemo()">
+      <ion-fab-button
+        [color]="'secondary'">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <!-- #endregion-->
+
+</ion-content>
+
+<!-- #region empty list-->
+<ng-template #emptyResult>
+  <div class="empty-data" *ngIf="memos.length==0">
+    <img class="empty-data__img" src="../../../../../assets/icon/empty_list.png">
+    <span class="empty-data__text">{{ 'LABELS.EMPTY_TABLE'|translate}}</span>
+  </div>
+</ng-template>
+<!-- #endregion -->

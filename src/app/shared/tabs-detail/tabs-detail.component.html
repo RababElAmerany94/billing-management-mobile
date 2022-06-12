@@ -1,0 +1,13 @@
+<ion-tabs class="go-to-back">
+
+  <ion-tab-bar slot="bottom">
+
+    <ng-container *ngFor="let item of tabs">
+      <ion-tab-button [selected]="item?.selected" *ngIf="item?.appear" [ngClass]="{ 'active': item?.selected }" (click)="selectEvent(item?.type)">
+        <ion-icon [name]="item?.icon"></ion-icon>
+        <ion-label>{{ item?.label }}</ion-label>
+      </ion-tab-button>
+    </ng-container>
+    
+  </ion-tab-bar>
+</ion-tabs>

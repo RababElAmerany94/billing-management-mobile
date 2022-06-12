@@ -1,0 +1,87 @@
+<!--region header-->
+<app-header 
+    [title]="'LABELS.ADD_DOSSIER'| translate"
+    [sidebar]="false"
+    (backClick)="cancel()"
+    (validationClick)="save()"
+    [validation]="true"
+    [back]="true">
+</app-header>
+<!-- end region -->
+
+<ion-content class="edit-page tabs">
+    <div class="edit-content">
+        <app-collabsible-form 
+            [title]="'TITLES.GENERAL_INFO' | translate"
+            [IconTitle]="'people-circle-outline'">
+            <form [formGroup]="form" class="list-form">
+
+                <!-- reference-->
+                <app-custom-input
+                    [inputName]="'reference'"
+                    [label]="'LABELS.REFERENCE' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- date pose of dossier -->
+                <app-custom-date-time
+                  [formInstant]="form"
+                  [inputName]="'datePose'"
+                  [label]="'LABELS.DATE_POSE' | translate">
+                </app-custom-date-time>
+
+                <!-- date creation of dossier -->
+                <app-custom-date-time
+                  [formInstant]="form"
+                  [inputName]="'dateCreation'"
+                  [label]="'LABELS.DATE_CREATION' | translate">
+                </app-custom-date-time>
+
+                <!-- date expiration of dossier -->
+                <app-custom-date-time
+                  [formInstant]="form"
+                  [inputName]="'dateExpiration'"
+                  [label]="'LABELS.DATE_EXPIRATION' | translate">
+                </app-custom-date-time>
+
+                <!-- select address -->
+                <app-address-dropdown
+                  [readOnly]="isShowMode()"
+                  [selectedAddress]="siteIntervention"
+                  [formInstant]="form"
+                  [inputName]="'siteIntervention'"
+                  [addresses]="selectedClient?.addresses"
+                  [label]="'ADDRESS.TITLE_SITE_INTERVENTION' | translate"
+                  (changeEvent)="setSiteIntervention($event)">
+                </app-address-dropdown>
+
+                <!-- select contact** -->
+                <kt-contact-dropdown
+                  [readOnly]="isShowMode()"
+                  [formInstant]="form"
+                  [inputName]="'contacts'"
+                  [selectedContact]="contact"
+                  [contacts]="selectedClient?.contacts"
+                  [label]="'CONTACTS.TITLE' | translate"
+                  (changeEvent)="setContact($event)">
+                </kt-contact-dropdown>
+
+                <!-- first phone Number-->
+                <app-custom-input
+                    [inputName]="'firstPhoneNumber'"
+                    [label]="'LABELS.PHONE_NUMBER_1' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- second phone Number-->
+                <app-custom-input
+                    [inputName]="'secondPhoneNumber'"
+                    [label]="'LABELS.PHONE_NUMBER_2' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+            
+            </form>
+        </app-collabsible-form>
+
+    </div>
+</ion-content>

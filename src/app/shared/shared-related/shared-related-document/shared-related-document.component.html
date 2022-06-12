@@ -1,0 +1,93 @@
+<app-collabsible-form
+    [title]="'TITLES.RELATED_DOCUMENT' | translate"
+    [IconClick]="'add-outline'"
+    [showButtonEvent]="!readOnly"
+    (ClickEvent)="openChoiceByType()"
+    [IconTitle]="'documents-outline'">
+
+    <div class="list" *ngIf="items?.length>0">
+        <ion-list *ngFor="let item of items; let i = index;">
+            <ion-item-sliding>
+                <ion-item
+                    class="item-list"
+                    (click)="showDocumentAssociate(i)">
+                    <div class="list-container">
+                        <span
+                            class="list-border"
+                            [ngClass]="{
+                                'list-border--brouillon': item?.type==docType?.Devis,
+                                'list-border--facture': item?.type==docType?.Facture,
+                                'list-border--signe': item?.type==docType?.BonCommande
+                            }">
+                        </span>
+                        <div class="list-content">
+                            <div class="list-content__left">
+                                <span class="reference">
+                                    <ng-container *ngIf="item?.type==docType?.Devis">
+                                        {{ 'LABELS.DEVIS' | translate }}
+                                    </ng-container>
+                                    <ng-container *ngIf="item?.type==docType?.Facture">
+                                        {{ 'LABELS.FACTURE' | translate }}
+                                    </ng-container>
+                                    <ng-container *ngIf="item?.type==docType?.BonCommande">
+                                        {{ 'LABELS.BONCOMMANDE' | translate }}
+                                    </ng-container> -
+                                    {{ item.reference }}
+                                </span>
+                                <span class="name">
+                                    {{ 'LABELS.AMOUNT_TTC' | translate }} :
+                                    {{ item?.totalTTC | RoundingNumber | Currency }}
+                                </span>
+                            </div>
+                            <div class="list-content__right">
+                                <span class="right-text"> {{ item?.createOn | date:'shortDate'}}</span>
+                                <span class="right-text">
+                                    <ng-container *ngIf="item?.type==docType?.Devis">
+                                        {{ "DEVIS_STATUS."+item.status | translate }}
+                                    </ng-container>
+                                    <ng-container *ngIf="item?.type==docType?.BonCommande">
+                                        {{ "BON_COMMANDE_STATUS."+item.status | translate }}
+                                    </ng-container>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item-options side="end">
+                    <ng-container *ngIf="((item?.type==docType?.Devis && item.status != devisStatus?.Signe) || item?.type==docType?.BonCommande )">
+                        <ng-container *ngIf="canDelete(item)">
+                            <ion-item-option
+                                color="danger"
+                                (click)="deleteDocumentAssociate(i,item?.type)">
+                                <ion-icon name="trash" slot="start">
+                                </ion-icon>
+                                {{ 'LABELS.DELETE' | translate }}
+                            </ion-item-option>
+                        </ng-container>
+                        <ng-container *ngIf="canEdit(item)">
+                            <ion-item-option color="success" (click)="editDocumentAssociate(i,item?.type)">
+                                <ion-icon name="create" slot="start">
+                                </ion-icon>{{'LABELS.EDIT' |translate}}
+                            </ion-item-option>
+                        </ng-container>
+                        <ng-container *ngIf="item?.type==docType?.Devis">
+                            <ion-item-option color="dark" (click)="signDevis(i)">
+                                <ion-icon name="analytics" slot="start">
+                                </ion-icon>
+                                {{ 'LABELS.SIGNATURE' | translate }}
+                            </ion-item-option>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="item?.type==docType?.Devis || item?.type==docType?.BonCommande">
+                        <ion-item-option color="secondary" (click)="showDocumentAssociate(i)">
+                            <ion-icon name="eye" slot="start"></ion-icon>
+                            {{ 'LABELS.SHOW' | translate }}
+                        </ion-item-option>
+                    </ng-container>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
+    </div>
+
+</app-collabsible-form>

@@ -1,0 +1,34 @@
+<!--region header-->
+<app-collabsible-form 
+    [title]="'TITLES.INFO_INSTALLATION_DOSSIER' | translate"
+    [IconTitle]="'calendar-outline'">
+
+    <form [formGroup]="form" class="list-form">
+
+      <!-- technicien-->
+      <app-custom-input
+          [inputName]="'technicienId'"
+          [label]="'LABELS.TECHNICIEN' | translate"
+          [formInstant]="form">
+      </app-custom-input>
+
+      <!-- date -->
+      <app-custom-input
+        [formInstant]="form"
+        [inputName]="'dateInstallation'"
+        [label]="'LABELS.DATE_INSTALLATION' | translate">
+      </app-custom-input>
+
+      <!-- status -->
+      <ng-container *ngIf="false">
+        <app-custom-input
+            [inputName]="'status'"
+            [label]="'LABELS.STATUS' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+      </ng-container>
+
+    </form>
+
+</app-collabsible-form>
+<!-- end region -->

@@ -1,0 +1,31 @@
+<app-data-list 
+    [title]="title | translate" 
+    [loading]="loading" 
+    [isSideBar]="false" 
+    [isDataSelector]="true"
+    [isBack]="true" 
+    [isValidation]="true" 
+    (backClickEvent)="modalController.dismiss()" 
+    (validationClickEvent)="chooseUser()"
+    (changeEvent)="getUsers($event)" 
+    [data]="userAsPage">
+
+    <ng-container class="list-content">
+        <div class="list">
+            <ion-radio-group (ionChange)="selectUser($event.detail.value)" >
+                <ng-container *ngIf="showAny">
+                    <ion-item class="item-list">
+                        <ion-label> {{ 'LABELS.ANY' | translate }} </ion-label>
+                        <ion-radio slot="start" color="primary" [value]=""></ion-radio>
+                    </ion-item>
+                </ng-container>
+                <ion-item *ngFor="let item of users;let i=index" class="item-list">
+                    <ion-label> {{item.fullName}}</ion-label>
+                    <ion-radio slot="start" color="primary" [value]="item.id" >
+                    </ion-radio>
+                </ion-item>
+            </ion-radio-group>
+        </div>
+    </ng-container>
+
+</app-data-list>

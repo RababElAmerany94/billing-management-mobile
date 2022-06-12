@@ -1,0 +1,71 @@
+<app-collabsible-form 
+    [title]="'ADDRESS.TITLE' | translate"
+    [IconClick]="'add-outline'"
+    [IconTitle]="'location-outline'"
+    [showButtonEvent]="!isShowMode()"
+    (ClickEvent)="addAddressDialog(-1)">
+
+    <div *ngIf="addresses?.length>0" >
+        <div class="card-portlet card-portlet--height-fluid" *ngFor="let item of addresses;let i = index">
+            <div class="card-portlet__head  card-portlet__head--noborder">
+                <div class="card-portlet__head-label">
+                    <h3 class="card-portlet__head-title">
+                    </h3>
+                </div>
+            </div>
+            <div class="card-portlet__body card-portlet__body--fit-y">
+                <!--begin::Widget -->
+                <div class="card-widget card-widget--user-profile-1">
+                    <div class="card-widget__head">
+                        <div class="card-widget__content pl-0">
+                            <div class="card-widget__section">
+                                <span class="card-widget__username">
+                                    {{ item?.adresse }}
+                                    <ion-icon name="star" color="warning" *ngIf="item?.isDefault"></ion-icon>
+                                </span>
+                            </div>
+                            <div class="card-widget__action" *ngIf="!isShowMode()">
+                                <ion-button
+                                    size="small"  
+                                    color="success"
+                                    (click)="addAddressDialog(i)">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </ion-button>&nbsp;
+                                <ion-button
+                                    size="small"  
+                                    color="danger"
+                                    (click)="deleteAddress(i)">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </ion-button>&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-widget__body">
+                        <div class="card-widget__content">
+                            <div class="card-widget__info">
+                                <span class="card-widget__label">{{'ADDRESS.COMPLEMENT_ADRESSE'|translate}}:</span>
+                                <a href="javascript:;"  class="card-widget__data">{{ item?.complementAdresse }}</a>
+                            </div>
+                            <div class="card-widget__info">
+                                <span class="card-widget__label">{{'ADDRESS.VILLE'|translate}}:</span>
+                                <a href="javascript:;"  class="card-widget__data">{{ item?.ville }}</a>
+                            </div>
+                            <div class="card-widget__info">
+                                <span class="card-widget__label">{{'ADDRESS.CODE_POSTAL'|translate}}:</span>
+                                <a href="javascript:;" class="card-widget__label">{{ item?.codePostal }}</a>
+                            </div>
+                            <div class="card-widget__info">
+                                <span class="card-widget__label">{{'ADDRESS.DEPARTEMENT'|translate}}:</span>
+                                <a href="javascript:;" class="card-widget__label">{{ item?.departement }}</a>
+                            </div>
+                            <div class="card-widget__info">
+                                <span class="card-widget__label">{{'ADDRESS.PAYS'|translate}}:</span>
+                                <a href="javascript:;" class="card-widget__label">{{ item?.pays }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-collabsible-form>

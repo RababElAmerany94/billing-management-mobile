@@ -1,0 +1,73 @@
+<!--region header-->
+<app-header 
+    [title]="title | translate " 
+    [sidebar]="false" 
+    [back]="true" 
+    [validation]="true" 
+    (validationClick)="save()"
+    (backClick)="modalController.dismiss()">
+</app-header>
+<!-- end region -->
+
+<!-- region content -->
+<ion-content class="edit-page">
+    <div class="edit-content">
+        <form [formGroup]="form">
+
+            <!-- commentaire -->
+            <app-custom-textarea 
+                [inputName]="'commentaire'" 
+                [label]="'LABELS.COMMENTAIRE' | translate"
+                [formInstant]="form">
+            </app-custom-textarea>
+
+            <!-- name-->
+            <ng-container *ngIf="isDossier">
+                <app-custom-input 
+                    class="col-md-6 mt-3" 
+                    [label]="'LABELS.FIRSTNAME' | translate" 
+                    [inputName]="'name'"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <app-categorie-document 
+                    class="col-md-6 mt-3" 
+                    [label]="'LABELS.CATEGORIE' | translate"
+                    [inputName]="'category'" 
+                    [label]="'LABELS.CATEGORY' | translate" 
+                    [formInstant]="form">
+                </app-categorie-document>
+            </ng-container>
+
+            <ul class="files-list">
+                <li *ngFor="let file of pieceJointes; let i=index"
+                    class="file">
+                    {{ file.orignalName }}
+                    <ion-icon 
+                        size="small"
+                        name="trash-outline" 
+                        class="ion-float-right text-danger" 
+                        (click)="removeNewFile(i)">
+                    </ion-icon>
+                </li>
+                <li *ngFor="let file of (isDossier ? editMemoDossier?.pieceJointes : editMemo?.pieceJointes); let i=index"
+                    class="file">
+                    {{ file.orignalName }}
+                    <ion-icon 
+                        size="small"
+                        name="trash-outline" 
+                        class="ion-float-right text-danger" 
+                        (click)="removeOldFile(i)">
+                    </ion-icon>
+                </li>
+            </ul>
+
+            <ion-button class="upload-button" (click)="onSelect()">
+                <ion-icon name="attach"></ion-icon>
+                {{ 'MEMOS.UPLOAD' | translate }}
+            </ion-button>
+
+        </form>
+    </div>
+</ion-content>
+<!-- endRegion -->

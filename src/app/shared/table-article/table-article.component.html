@@ -1,0 +1,81 @@
+<app-collabsible-form
+    [title]="'LABELS.ARTICLES' | translate"
+    [IconClick]="'add-outline'"
+    [showButtonEvent]="!readOnly"
+    (ClickEvent)="openChoiceTypeArticles()"
+    [IconTitle]="'cart-outline'">
+
+    <ul *ngIf="articles.length>0" class="files-list">
+
+        <li *ngFor="let item of articles; let i = index;" class="file">
+            <div class="file_content">
+
+                <div class="file_content__left">
+                    <span>{{ item?.designation }}</span><br>
+                    <span class="text-secondary">{{ item?.totalHT | RoundingNumber | Currency }}</span>
+                    <span  style="margin-right: 0.5rem;margin-left: 0.5rem;">{{ 'LABELS.POUR' | translate }}</span>
+                    <span class="text-secondary">{{ item?.qte }}</span>
+                </div>
+
+                <div class="file_content__right" *ngIf="!readOnly">
+                    <ng-container *ngIf="item?.type != articleType.SpecialArticle">
+                        <ion-icon name="create-outline"
+                            class="btn-remove-file"
+                            (click)="detailArticle(i)">
+                        </ion-icon>
+                    </ng-container>
+                    <ion-icon name="close"
+                        class="btn-remove-file"
+                        (click)="deleteArticle(i)">
+                    </ion-icon>
+                </div>
+
+            </div>
+        </li>
+
+        <li class="file" *ngIf="mode != modes.Normal">
+            <div class="file_content">
+                <div class="file_content__left"></div>
+                <div> <!--  class="file_content__right" -->
+
+                    <!-- total total ttc -->
+                    <div class="total__action">
+                        <span style="margin-right: 0.5rem;margin-left: 0.5rem;">{{ 'LABELS.TOTAL_TTC' | translate }}</span>
+                        <span class="text-secondary">
+                            <ng-container *ngIf="isEditTotalTTC();then editTotalTTC else showTotalTTC" ></ng-container>
+                            <ng-template #showTotalTTC>
+                                {{ resultCalculation?.totalTTC | RoundingNumber | Currency }}
+                            </ng-template>
+                            <ng-template #editTotalTTC>
+                                <input [formControl]="formControlTotalTTC" type="number" class="ion-text-right input-total" />
+                            </ng-template>
+                        </span>
+                    </div>
+
+                    <!-- total primeCEE EDF -->
+                    <div class="total__action">
+                        <span style="margin-right: 0.5rem;margin-left: 0.5rem;">{{ 'LABELS.PRIME_CEE_EDF' | translate }}</span>
+                        <span class="text-secondary" [formGroup]="formTotals">
+                            <ng-container *ngIf="readOnly || mode == modes.Euro;then showReduction else editReduction"></ng-container>
+                            <ng-template #showReduction >
+                                <span>{{ resultCalculation?.totalReduction | RoundingNumber | Currency}}</span>
+                            </ng-template>
+                            <ng-template #editReduction >
+                                <input [formControlName]="'totalReduction'" type="number" class="ion-text-right input-total" />
+                            </ng-template>
+                        </span>
+                    </div>
+
+                    <!-- total total du -->
+                    <div class="total__action">
+                        <span style="margin-right: 0.5rem;margin-left: 0.5rem;">{{ 'LABELS.TOTAL_DU' | translate }}</span>
+                        <span class="text-secondary">{{ resultCalculation?.totalPaid | RoundingNumber | Currency }}</span>
+                    </div>
+
+                </div>
+            </div>
+        </li>
+
+    </ul>
+
+</app-collabsible-form>

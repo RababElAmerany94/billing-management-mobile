@@ -1,0 +1,84 @@
+<!--region header-->
+<!-- The header -->
+<ion-header>
+  <ion-toolbar class="ion-text-center"
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{ (!address ? "ADDRESS.ADD_ADDRESS" : "ADDRESS.EDIT_ADDRESS") | translate }} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveAddress()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- end region -->
+
+<ion-content fullscreen  padding class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+        
+      <div class="row">
+
+          <!-- address-->
+          <app-custom-input
+            [inputName]="'adresse'"
+            [label]="'ADDRESS.TITLE' | translate"
+            [formInstant]="form">     
+          </app-custom-input>
+
+          <!-- complement address -->
+          <app-custom-input
+            [inputName]="'complementAdresse'"
+            [label]="'ADDRESS.COMPLEMENT_ADRESSE' | translate" 
+            [formInstant]="form">
+          </app-custom-input>
+
+          <!-- ville -->
+          <app-custom-input
+            [inputName]="'ville'"
+            [label]="'ADDRESS.VILLE' | translate" 
+            [formInstant]="form">
+          </app-custom-input>
+      
+          <!-- code postal-->
+          <app-custom-input
+            [inputName]="'codePostal'"
+            [label]="'ADDRESS.CODE_POSTAL' | translate" 
+            [formInstant]="form">
+          </app-custom-input>
+
+          <!-- department-->
+          <app-custom-input
+            (selectClickEvent)="chooseDepartment()"
+            [inputName]="'departement'"
+            [label]="'ADDRESS.DEPARTEMENT' | translate" 
+            [formInstant]="form">
+          </app-custom-input>
+
+          <!-- country -->
+          <app-countries-dropdown
+            [inputName]="'pays'"
+            [label]="'ADDRESS.PAYS' | translate"
+            [placeholder]="'ADDRESS.PAYS' | translate" 
+            [formInstant]="form" >
+          </app-countries-dropdown>
+          
+          <!-- is default address -->
+          <ng-container *ngIf="showIsDefault" >
+            <app-custom-checkbox
+              [label]="'ADDRESS.IS_DEFAULT' | translate"
+              [formInstant]="form"
+              [inputName]="'isDefault'">
+            </app-custom-checkbox>
+          </ng-container>
+
+      </div>
+    </form>
+  </div>
+</ion-content>

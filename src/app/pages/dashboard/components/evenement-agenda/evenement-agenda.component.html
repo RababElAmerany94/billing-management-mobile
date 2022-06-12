@@ -1,0 +1,39 @@
+<section id="cd-timeline">
+    <div class="cd-container container-scrollable">
+        <ng-container  *ngFor="let item of echangeCommercials; let last = last; let first = first">
+            <div [class]="last?'cd-timeline-last-block':'cd-timeline-block'">
+                <div class="cd-timeline-icon">
+                    <ng-container *ngIf="item?.type == type.Appel">
+                        <ion-icon name="call" color="danger"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngIf="item?.type == type.RDV">
+                        <ion-icon name="create" color="danger"></ion-icon>
+                    </ng-container>
+                    <ng-container *ngIf="item?.type == type.Tache">
+                        <ion-icon name="alarm" color="danger"></ion-icon>
+                    </ng-container>
+                </div>
+                <div class="cd-timeline-content">
+                    {{ item?.titre }} &nbsp;
+                    <small ion-text class="text-secondary">
+                        {{ item?.dateEvent | date:'MMM d, y, h:mm' }}
+                    </small>
+                    &nbsp;
+                    <span 
+                        class="badge" 
+                        [ngClass]="{
+                            'badge--annulee ': status?.annulee === item?.status,
+                            'badge--cloture': status.cloturee === item?.status,
+                            'badge--encours': status.enCours === item?.status
+                        }">
+                        {{getStatus(item?.status) |translate}}
+                    </span>
+                    <p>
+                        <span [innerHTML]="item?.description">
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</section>

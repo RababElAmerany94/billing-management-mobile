@@ -1,0 +1,140 @@
+<app-header
+    [title]="'TITLES.DASHBOARD' | translate ">
+</app-header>
+
+<!-- #region dashboard content-->
+<ion-content class="edit-page">
+    
+    <div class="edit-content">
+
+        <!-- #region filter options -->
+
+        <app-collabsible-form 
+            [title]="'LABELS.FILTERS' | translate" 
+            [IconClick]="'search-outline'"
+            [showCardBody]="false" 
+            [showButtonEvent]="true"
+            (ClickEvent)="searchEvent()" 
+            [IconTitle]="'filter-outline'">
+
+            <app-custom-drop-down 
+                class="col-md-3" 
+                [showAny]="false" 
+                [inputName]="'period'" 
+                [data]="periods"
+                [label]="'LABELS.PERIOD_FILTER' | translate" 
+                [formInstant]="form">
+            </app-custom-drop-down>
+
+            <ng-container *ngIf="showInterval">
+                <app-custom-date-time
+                    [formInstant]="form"
+                    [inputName]="'dateFrom'"
+                    [label]="'LABELS.DATE_MINIMAL' | translate">
+                </app-custom-date-time>
+            </ng-container>
+        
+            <ng-container *ngIf="showInterval">
+                <app-custom-date-time
+                    [formInstant]="form"
+                    [inputName]="'dateTo'"
+                    [label]="'LABELS.DATE_MAXIMAL' | translate">
+                </app-custom-date-time>
+            </ng-container>
+
+            <ng-container *appHasRole="[userProfile.Admin]">
+                <app-select-agence 
+                    [inputName]="'agenceId'" 
+                    [label]="'LABELS.AGENCE' | translate" 
+                    [formInstant]="form">
+                </app-select-agence>
+            </ng-container>
+
+            <app-select-user 
+                [inputName]="'commercialId'" 
+                [label]="'LABELS.COMMERCIAL' | translate"
+                [title]="'DATA_SELECTOR.SELECT_COMMERCIAL' | translate" 
+                [roles]="[userProfile.Commercial]"
+                [formInstant]="form">
+            </app-select-user>
+
+        </app-collabsible-form>
+
+        <!-- #endregion -->
+
+        <!-- #region evolution CA -->
+        <app-collabsible-form 
+            [title]="'LABELS.CHIFFRE_AFFAIRE' | translate" 
+            [showButtonEvent]="false"
+            [IconTitle]="'bar-chart-outline'">
+            <ng-container *ngIf="stringHelper.hasData(chiffreAffaireStatistics);else emptyResult">
+                <app-evolution-ca [data]="chiffreAffaireStatistics">
+                </app-evolution-ca>
+            </ng-container>
+        </app-collabsible-form>
+        <!-- #endregion -->
+
+        
+        <!-- #region repartition dossiers par technicien -->
+        <app-collabsible-form 
+            [title]="'LABELS.REPARTITION_DOSSIERS_PAR_TECHNICIEN' | translate" 
+            [showButtonEvent]="false"
+            [IconTitle]="'cellular-outline'">
+            <app-repartition-dossiers-par-technicien
+                [data]="repartitionDossiersTechnicien">
+            </app-repartition-dossiers-par-technicien>
+        </app-collabsible-form>
+        <!-- #endregion -->
+
+        <!-- #region repartition types travaux par technicien -->
+        <app-collabsible-form 
+            [title]="'LABELS.REPARTITION_TYPES_TRAVAUX_PAR_TECHNICIEN' | translate" 
+            [showButtonEvent]="false"
+            [IconTitle]="'pie-chart-outline'">
+            <app-repartition-types-travaux-par-technicien
+                [data]="repartitionTypesTravauxParTechnicien">
+            </app-repartition-types-travaux-par-technicien>
+        </app-collabsible-form>
+        <!-- #endregion -->
+
+        <!-- #region suivi dossier -->
+        <app-collabsible-form 
+            [title]="'MENU.DOSSIERS' | translate" 
+            [showButtonEvent]="false"
+            [IconTitle]="'library-outline'">
+            <app-evenement-dossier [data]="dossiers">
+            </app-evenement-dossier>
+        </app-collabsible-form>
+        <!-- #endregion -->
+
+        <!-- #region evenement agenda -->
+        <app-collabsible-form 
+            [title]="'TITLES.EVENEMENTS' | translate" 
+            [showButtonEvent]="false"
+            [IconTitle]="'albums-outline'">
+            <app-evenement-agenda [data]="echangeCommercial">
+            </app-evenement-agenda>
+        </app-collabsible-form>
+        <!-- #endregion -->
+
+    </div>
+</ion-content>
+<!-- #endregion -->
+
+<!-- #region empty list-->
+
+<ng-template #emptyResult>
+    <div class="empty-data">
+        <img class="empty-data__img" src="../../../../../assets/icon/empty_list.png">
+        <span class="empty-data__text">{{ 'LABELS.EMPTY_TABLE'|translate}}</span>
+    </div>
+</ng-template>
+
+<ng-template #offlinePage>
+    <div class="empty-data empty-data__offline">
+        <img class="empty-data__img empty-data__img__offline" src="../../../../../assets/icon/logo_offline.png">
+        <span class="empty-data__text">{{ 'LABELS.MODE_OFFLINE'|translate}}</span>
+    </div>
+</ng-template>
+
+<!-- #endregion -->

@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar 
+      class="ion-text-center" 
+      color="primary">
+      <ion-buttons slot="start">
+          <ion-button (click)="modalController.dismiss()">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title> {{ 'LABELS.CHOOSE_TYPE' | translate }} </ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="save()">
+              <ion-icon name="checkmark"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="edit-page tabs">
+  <ion-list radio-group>
+      <ion-radio-group [(ngModel)]="selectedType" ngDefaultControl>
+
+          <ion-item>
+              <ion-label>{{ 'VISITE_TECHNIQUE_TYPE.' + visteTechniqueType?.IsolutionCombles | translate }}</ion-label>
+              <ion-radio [value]="visteTechniqueType.IsolutionCombles"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+              <ion-label>{{ 'VISITE_TECHNIQUE_TYPE.' + visteTechniqueType?.IsolutionMurs | translate }}</ion-label>
+              <ion-radio [value]="visteTechniqueType.IsolutionMurs"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+              <ion-label>{{ 'VISITE_TECHNIQUE_TYPE.' + visteTechniqueType?.IsolutionPlanchers | translate }}</ion-label>
+              <ion-radio [value]="visteTechniqueType.IsolutionPlanchers"></ion-radio>
+          </ion-item>
+
+      </ion-radio-group>
+
+  </ion-list>
+</ion-content>

@@ -1,0 +1,29 @@
+{
+    "TITLE": "Devis",
+    "LIST": {
+        "TITLE": "Liste des devis",
+        "DELETE": {
+            "HEADER": "Supprimer devis",
+            "MESSAGE": "Êtes-vous sûr supprimer ce devis "
+        }
+    },
+    "ADD": {
+        "TITLE": "Ajouter devis"
+    },
+    "EDIT": {
+        "TITLE": "Modifier devis"
+    },
+    "SHOW": {
+        "TITLE": "Fiche devis"
+    },
+    "DELETE": {
+        "HEADER_TEXT": "Supprimer devis",
+        "QUESTION": "Êtes-vous sûr supprimer ce devis "
+    },
+    "CONFIRMATION": {
+        "INVALID_STATUS": {
+            "TITLE": "Confirmation de changement status",
+            "QUESTION": "le courant staus est invalid pour l operation ?"
+        }
+    }
+}

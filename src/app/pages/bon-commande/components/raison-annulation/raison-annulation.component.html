@@ -1,0 +1,27 @@
+<!--region header-->
+<app-header 
+  [title]="'LABELS.RAISON_ANNULER' | translate " 
+  [sidebar]="false"
+  [back]="true"
+  [validation]="true"
+  (validationClick)="save()"
+  (backClick)="Dismiss()">
+</app-header>
+<!-- end region -->
+
+<!-- end region -->
+
+<ion-content class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+  
+      <!-- the raison that bon de commande can be cancel -->
+      <app-custom-input 
+          [label]="'LABELS.RAISON_ANNULER' | translate"
+          [inputName]="'raisonAnnulation'"
+          [formInstant]="form">
+      </app-custom-input>
+      
+    </form>
+  </div>
+</ion-content>

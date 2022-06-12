@@ -1,0 +1,187 @@
+<app-header 
+    [title]="displayTitle() | translate" 
+    [sidebar]="false" 
+    (backClick)="cancel()" 
+    (validationClick)="save()"
+    [validation]="!isShowMode()" 
+    [back]="true">
+</app-header>
+
+<ion-content 
+    class="edit-page" 
+    [ngClass]="{'tabs': isShowMode()}">
+
+    <div class="edit-content">
+
+        <app-collabsible-form 
+            [title]="'TITLES.GENERAL_INFO' | translate" 
+            [IconTitle]="'people-circle-outline'">
+
+            <form [formGroup]="form" class="list-form">
+
+                <!-- reference-->
+                <app-custom-input 
+                    [inputName]="'reference'" 
+                    [label]="'LABELS.REFERENCE' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- first name -->
+                <app-custom-input 
+                    (changeEvent)="generateCodeComptable()"
+                    [inputName]="'firstName'" 
+                    [label]="'LABELS.FIRSTNAME' | translate" 
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- last name -->
+                <app-custom-input 
+                    *ngIf="isClientParticulier()" 
+                    [inputName]="'lastName'"
+                    [label]="'LABELS.LASTNAME' | translate" 
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- siret-->
+                <app-custom-input 
+                    *ngIf="!isClientParticulier()"
+                    [inputName]="'siret'" 
+                    [label]="'LABELS.SIRET' | translate" 
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- charge type of client -->
+                <app-custom-drop-down
+                    [inputName]="'type'"
+                    [label]="'LABELS.TYPE' | translate"
+                    [data]="clientType"
+                    (changeEvent)="generateReferenceClient()"
+                    [formInstant]="form">
+                </app-custom-drop-down>
+
+                <!-- charge genre client-->
+                <app-custom-drop-down
+                    *ngIf="!isClientOblige()"
+                    [inputName]="'genre'"
+                    [label]="'LABELS.GENRE' | translate"
+                    [formInstant]="form"
+                    [data]="genreClient">
+                </app-custom-drop-down>
+
+                <!--reglement mode -->
+                <app-mode-regulation
+                    [label]="'LABELS.MODE_REGLEMENT' | translate" 
+                    [inputName]="'regulationModeId'"
+                    [formInstant]="form">
+                </app-mode-regulation>
+
+                <!-- phone number-->
+                <app-custom-input
+                    [inputName]="'phoneNumber'"
+                    type="number"
+                    [label]="'LABELS.PHONE_NUMBER_1' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- email-->
+                <app-custom-input 
+                    [inputName]="'email'" 
+                    [label]="'CONTACTS.EMAIL' | translate" 
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- website -->
+                <app-custom-input
+                    *ngIf="!isClientParticulier()"
+                    [inputName]="'webSite'" 
+                    [label]="'LABELS.WEBSITE' | translate" 
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- code comptable-->
+                <app-custom-input
+                    [inputName]="'codeComptable'" 
+                    [label]="'LABELS.CODE_COMPTABLE' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- commercial -->
+                <app-select-user
+                    *ngIf="!isClientOblige()"
+                    [user]="selectedClient?.commercial"
+                    [inputName]="'commercialId'" 
+                    [label]="'LABELS.COMMERCIAL' | translate"
+                    [formInstant]="form">
+                </app-select-user>
+
+                <!-- agence -->
+                <ng-container *ktIsForAgence="false">
+                    <app-select-agence
+                        *ngIf="!isClientOblige()"
+                        [agence]="selectedClient?.agence"
+                        [inputName]="'agenceId'"
+                        [label]="'LABELS.AGENCE' | translate"
+                        [formInstant]="form">
+                    </app-select-agence>
+                </ng-container>
+
+                <app-custom-checkbox
+                    [label]="'LABELS.SOUS_TRAITANT' | translate"
+                    [formInstant]="form"
+                    *ngIf="!isClientOblige()"
+                    [inputName]="'isSousTraitant'">
+                </app-custom-checkbox>
+
+            </form>
+        </app-collabsible-form>
+
+        <ng-container *ngIf="isClientProfessionnel() || isClientParticulier()">
+            <app-info-site-installation
+                [form]="form"
+                [primeCee]="selectedClient?.primeCEE">
+            </app-info-site-installation>
+        </ng-container>
+
+        <ng-container *ngIf="isClientOblige()">
+            <app-collabsible-form
+                [title]="'TITLES.INFORMATIONS_SITE_INSTALLATION' | translate"
+                [IconTitle]="'document-outline'">
+
+                <!-- charge label Prime CEE -->
+                <app-custom-input 
+                    [inputName]="'labelPrimeCEE'" 
+                    [label]="'LABELS.PRIME_CEE' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- Note devis -->
+                <app-custom-textarea 
+                    [inputName]="'noteDevis'" 
+                    [label]="'LABELS.NOTE_DEVIS' | translate"
+                    [formInstant]="form">
+                </app-custom-textarea>
+
+            </app-collabsible-form>
+        </ng-container>
+
+        <app-contacts 
+            (changeContact)="setContact($event)" 
+            [contacts]="contacts" 
+            [mode]="mode">
+        </app-contacts>
+
+        <app-address 
+            (changeAddress)="setAddress($event)" 
+            [addresses]="address" 
+            [mode]="mode">
+        </app-address>
+
+        <app-relation-client
+            (changeRelationClient)="setClientRelation($event)"
+            [mode]="mode"
+            [clientRelation]="relations">
+        </app-relation-client>
+
+    </div>
+
+</ion-content>

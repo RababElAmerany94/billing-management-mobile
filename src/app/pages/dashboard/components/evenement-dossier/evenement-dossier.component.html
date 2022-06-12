@@ -1,0 +1,47 @@
+
+<div class="dashboard-list">
+  <ul class="ion-no-padding container-scrollable">
+    <ng-container *ngFor="let item of dossiers;">
+      <li class="dashboard">
+        <span class="list-border"
+          [ngClass]="{
+              'list-border--enattente ': dossierStatus?.EnAttente === item?.status,
+              'list-border--assigne': dossierStatus.Assigne === item?.status,
+              'list-border--aplanifie': dossierStatus.APlanifie === item?.status,
+              'list-border--planifie': dossierStatus.Planifie === item?.status,
+              'list-border--signe': dossierStatus.Signe === item?.status,
+              'list-border--enretard': dossierStatus.EnRetard === item?.status,
+              'list-border--realisee': dossierStatus.Realise === item?.status,
+              'list-border--perdu': dossierStatus.Perdu === item?.status,
+              'list-border--facture': dossierStatus.Facture === item?.status,
+              'list-border--chiffre': dossierStatus.Chiffre === item?.status
+          }"></span>
+        <div class="dashboard_content">
+            <div class="dashboard_content__left">
+              <span class="reference">{{ item?.dateCreation | date:'shortDate' }}</span>
+                <span class="text-dark">
+                  {{ 'LABELS.DOSSIER' | translate }} {{ item?.reference }}<br>
+                  {{ 'LABELS.FOR_CLIENT' | translate }} {{ item?.client?.fullName }}
+                </span>
+            </div>
+            <div class="dashboard_content__right">
+              <span class="badge" [ngClass]="{
+                'badge--enattente ': dossierStatus?.EnAttente === item?.status,
+                'badge--assigne': dossierStatus.Assigne === item?.status,
+                'badge--aplanifie': dossierStatus.APlanifie === item?.status,
+                'badge--planifie': dossierStatus.Planifie === item?.status,
+                'badge--signe': dossierStatus.Signe === item?.status,
+                'badge--enretard': dossierStatus.EnRetard === item?.status,
+                'badge--realisee': dossierStatus.Realise === item?.status,
+                'badge--perdu': dossierStatus.Perdu === item?.status,
+                'badge--facture': dossierStatus.Facture === item?.status,
+                'badge--chiffre': dossierStatus.Chiffre === item?.status
+              }">
+                {{getStatus(item?.status) |translate}}
+            </span>
+          </div>
+          </div>
+      </li>
+    </ng-container>
+  </ul>
+</div>

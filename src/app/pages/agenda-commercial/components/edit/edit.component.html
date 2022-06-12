@@ -1,0 +1,230 @@
+<app-header
+    [title]="displayTitle() | translate"
+    [sidebar]="false"
+    (backClick)="cancel()"
+    (validationClick)="saveBase()"
+    [validation]="!isShowMode()"
+    [back]="true">
+</app-header>
+
+<ion-content 
+    class="edit-page" 
+    [ngClass]="{'tabs': isShowMode()}">
+    <div class="edit-content">
+
+        <app-collabsible-form
+            [title]="'TITLES.GENERAL_INFO' | translate"
+            [IconTitle]="'folder-outline'">
+
+            <form [formGroup]="form" class="list-form">
+
+                <div class="cust-grid">
+                    <div class="cust-row split split--all">
+                    <div class="cust-col cust-col--span-all">
+
+                    <!-- titre -->
+                    <app-custom-input
+                        [inputName]="'titre'"
+                        [label]="'LABELS.TITLE' | translate"
+                        [formInstant]="form">
+                    </app-custom-input>
+
+                    </div>
+                    <div class="cust-col cust-col--span-auto" *ngIf="isShowMode()">
+                        <div class="ribbon-wrapper">
+                        <div 
+                            class="ribbon sm-fix"
+                            [ngClass]="{
+                                'ribonstatus--encours ': echangeCommercial?.status === status.enCours,
+                                'ribonstatus--annulee': echangeCommercial?.status === status.annulee,
+                                'ribonstatus--cloture': echangeCommercial?.status === status.cloturee
+                            }">
+                            {{ getStatus(echangeCommercial?.status) | translate }}
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <!-- client -->
+                <app-select-client
+                    (changeEvent)="changeClient($event)"
+                    [client]="selectedClient"
+                    [inputName]="'clientId'"
+                    [label]="'LABELS.CLIENT' | translate"
+                    [formInstant]="form">
+                </app-select-client>
+
+                <!-- affaire -->
+                <app-select-dossier
+                    [inputName]="'dossierId'"
+                    [echangeCommercial]="echangeCommercial"
+                    [dossier]="echangeCommercial?.dossier"
+                    [showAdd]="showAddDossier()"
+                    [label]="'LABELS.DOSSIER' | translate"
+                    [formInstant]="form">
+                </app-select-dossier>
+
+                <!-- responsable commercial -->
+                <app-select-user
+                    [user]="selectedResponsable"
+                    [inputName]="'responsableId'"
+                    [label]="'LABELS.RESPONSABLE' | translate"
+                    [formInstant]="form">
+                </app-select-user>
+
+                <ng-container  *ngIf="typeTabs == types.Tache">
+                    <!-- type tache -->
+                    <app-agenda-evenement-dropdown
+                        [types]="agendaEvenementTypes.TacheType"
+                        [inputName]="'tacheTypeId'"
+                        [label]="'LABELS.TYPE' | translate"
+                        [formInstant]="form">
+                    </app-agenda-evenement-dropdown>
+                </ng-container>
+
+                <ng-container *ngIf="typeTabs == types.Rdv">
+                    <!-- type rdv -->
+                    <app-agenda-evenement-dropdown
+                        [types]="agendaEvenementTypes.RdvType"
+                        [inputName]="'rdvTypeId'"
+                        [label]="'LABELS.TYPE' | translate"
+                        [formInstant]="form">
+                    </app-agenda-evenement-dropdown>
+
+                    <!-- type source RDV -->
+                    <app-agenda-evenement-dropdown
+                        [types]="agendaEvenementTypes.SourceRDV"
+                        [inputName]="'sourceRDVId'"
+                        [label]="'LABELS.ORIGINE' | translate"
+                        [formInstant]="form">
+                    </app-agenda-evenement-dropdown>
+                </ng-container>
+
+                <ng-container *ngIf="typeTabs !== types.Tache">
+                    <!-- categorie evenement -->
+                    <app-agenda-evenement-dropdown
+                        [types]="agendaEvenementTypes.EvenementCategorie"
+                        [inputName]="'categorieId'"
+                        [label]="'LABELS.CATEGORIE' | translate"
+                        [formInstant]="form">
+                    </app-agenda-evenement-dropdown>
+
+                    <!-- phoneNumber-->
+                    <app-custom-input
+                        type="number" 
+                        [inputName]="'phoneNumber'"
+                        [label]="'LABELS.PHONE_NUMBER' | translate"
+                        [formInstant]="form">
+                    </app-custom-input>
+                </ng-container>
+
+                <ng-container *ngIf="typeTabs == types.Appel">
+                    <app-agenda-evenement-dropdown
+                        [types]="agendaEvenementTypes.AppelType"
+                        [inputName]="'typeAppelId'"
+                        [label]="'LABELS.TYPE' | translate"
+                        [formInstant]="form">
+                    </app-agenda-evenement-dropdown>
+                </ng-container>
+
+                <!-- description -->
+                <app-custum-editor-text
+                    [label]="'LABELS.DESCRIPTION'|translate"
+                    [placeholder]="'LABELS.DESCRIPTION' | translate"
+                    [inputName]="'description'"
+                    [readOnly]="isShowMode()"
+                    [formInstant]="form">
+                </app-custum-editor-text>
+
+                <!-- Date -->
+                <app-custom-date-time
+                    [formInstant]="form"
+                    [inputName]="'dateEvent'"
+                    [formaDate]="'DD/MM/YYYY'"
+                    [label]="'LABELS.DATE_RDV' | translate">
+                </app-custom-date-time>
+
+                <!-- heure -->
+                <app-custom-date-time
+                    [inputName]="'time'"
+                    [formaDate]="'HH:mm'"
+                    [label]="'LABELS.HEURE' | translate"
+                    [formInstant]="form">
+                </app-custom-date-time>
+
+                <!-- duree -->
+                <app-period
+                    [inputName]="'duree'"
+                    [label]="'LABELS.DUREE' | translate"
+                    [formInstant]="form">
+                </app-period>
+
+                <ng-container  *ngIf="typeTabs == types.Tache">
+
+                <!-- priority -->
+                <app-custom-drop-down
+                    [inputName]="'priorite'"
+                    [label]="'LABELS.PRIORITE' | translate"
+                    [formInstant]="form"
+                    [data]="priorite">
+                </app-custom-drop-down>
+
+                </ng-container>
+
+                <ng-container *ngIf="mode === modes.Add">
+
+                    <ng-container  *ngIf="typeTabs == types.Rdv">
+                        <!-- select address -->
+                        <app-address-dropdown
+                            [readOnly]="isShowMode()"
+                            [selectedAddress]="address"
+                            [inputName]="'address'"
+                            [formInstant]="form"
+                            [addresses]="selectedClient?.addresses"
+                            [label]="'ADDRESS.TITLE' | translate"
+                            (changeEvent)="setAddress($event)">
+                        </app-address-dropdown>
+                    </ng-container>
+
+                    <ng-container *ngIf="typeTabs == types.Appel">
+                        <!-- select contact -->
+                        <kt-contact-dropdown
+                            [readOnly]="isShowMode()"
+                            [formInstant]="form"
+                            [inputName]="'contacts'"
+                            [selectedContact]="contacts"
+                            [contacts]="selectedClient?.contacts"
+                            [label]="'CONTACTS.TITLE' | translate"
+                            (changeEvent)="setContact($event)">
+                        </kt-contact-dropdown>
+                    </ng-container>
+
+                </ng-container>
+
+                <ng-container *ngIf="mode != modes.Add">
+
+                    <ng-container *ngIf="typeTabs == types.Appel">
+                        <app-contacts
+                            (changeContact)="setContact($event)"
+                            [contacts]="contacts" 
+                            [mode]="mode">
+                        </app-contacts>
+                    </ng-container>
+
+                    <ng-container  *ngIf="typeTabs == types.Rdv">
+                        <app-address
+                        (changeAddress)="setAddresses($event)"
+                        [addresses]="address" 
+                        [mode]="mode">
+                        </app-address>
+                    </ng-container>
+
+                </ng-container>
+
+            </form>
+        </app-collabsible-form>
+        <!------------------------------------------------------------------------------->
+
+    </div>
+</ion-content>

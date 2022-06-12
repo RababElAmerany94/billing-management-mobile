@@ -1,0 +1,50 @@
+<ion-item no-padding class="{{customInput}}" >
+    <ion-label position="floating">
+        <ng-container *ngIf="iconName">
+            <ion-icon 
+                [name]="iconName" 
+                item-start>
+            </ion-icon>
+        </ng-container>
+        {{label}}
+    </ion-label>
+    <span [formGroup]="formInstant">
+        <ion-input 
+            [type]="type" 
+            [name]="inputName" 
+            [readonly]="readOnly"
+            [id]="inputName"
+            (click)="selectedEvent()"
+            (ionChange)="input($event.target.value)"
+            [formControlName]="inputName">
+        </ion-input> 
+    </span>
+    <ion-icon
+        *ngIf="isShowMode" 
+        class="suffix-icon" 
+        color="primary" 
+        name="eye-outline" 
+        slot="end"
+        (click)="showEvent($event,false)">
+    </ion-icon>
+    <ion-button 
+        *ngIf="isShowAdd"
+        color="light"
+        class="suffix-icon no-ripple no-shadow"
+        slot="end"
+        (click)="addEvent($event)">
+        <ion-icon
+            color="primary"
+            name="add-outline"
+            slot="icon-only">
+        </ion-icon>
+    </ion-button>
+    <ion-icon
+        *ngIf="suffixIcon"
+        class="suffix-icon"
+        color="primary"
+        name="search-outline"
+        slot="end">
+    </ion-icon>
+</ion-item>
+<app-custom-error-display [control]="control"></app-custom-error-display>

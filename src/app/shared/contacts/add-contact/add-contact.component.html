@@ -1,0 +1,79 @@
+<!--region header-->
+<!-- The header -->
+<ion-header>
+  <ion-toolbar class="ion-text-center"
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{ (!contact ? "CONTACTS.ADDCONTACT" : "CONTACTS.EDITCONTACT") | translate }} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="saveContact()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- end region -->
+
+<ion-content class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+  
+      <app-custom-drop-down 
+          [showAny]="false"
+          [inputName]="'civilite'"
+          [label]="'CONTACTS.CIVILITE' | translate"
+          [formInstant]="form"
+          [data]="valueContact">
+      </app-custom-drop-down>
+      
+      <app-custom-input
+            [inputName]="'nom'" 
+            [label]="'CONTACTS.NOM' | translate"
+            [formInstant]="form">
+      </app-custom-input>
+
+      <app-custom-input 
+          [inputName]="'prenom'" 
+          [label]="'CONTACTS.PRENOM' | translate"
+          [formInstant]="form">
+      </app-custom-input>
+
+      <app-custom-input 
+          [inputName]="'fonction'"
+          [label]="'CONTACTS.FONCTION' | translate" 
+          [formInstant]="form">
+      </app-custom-input>
+
+      <app-custom-input 
+          [inputName]="'email'" 
+          [label]="'CONTACTS.EMAIL' | translate"
+          [formInstant]="form">
+      </app-custom-input>
+
+      <app-custom-input
+          [inputName]="'mobile'"
+          type="number"
+          [label]="'CONTACTS.MOBILE' | translate" 
+          [formInstant]="form">                               
+      </app-custom-input>
+      
+      <app-custom-textarea 
+          [inputName]="'commentaire'"
+          [label]="'LABELS.COMMENTAIRE' | translate" 
+          [formInstant]="form">
+      </app-custom-textarea>
+      
+      <app-custom-checkbox
+          [inputName]="'isDefault'"
+          [label]="'CONTACTS.DEFAULTCONTACT' | translate" 
+          [formInstant]="form">
+      </app-custom-checkbox>
+      
+    </form>
+  </div>
+</ion-content>

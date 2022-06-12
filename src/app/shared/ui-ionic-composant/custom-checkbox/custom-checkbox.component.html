@@ -1,0 +1,14 @@
+<ion-item 
+  no-padding 
+  class="custom_checkBox" 
+  [formGroup]="formInstant">
+  <ion-label>
+    {{label}}
+  </ion-label>
+  <ion-checkbox  
+    [color]="'primary'"
+    slot="end" 
+    [formControlName]="inputName">
+  </ion-checkbox>
+</ion-item>
+<app-custom-error-display [control]="control"></app-custom-error-display>

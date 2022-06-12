@@ -1,0 +1,73 @@
+@mixin col-margin {
+	.cust-col {
+		width: 50%;
+
+		&--span-auto {
+			width: auto;
+		}
+
+		&--span-all {
+			width: 100%;
+		}
+	}
+}
+
+.cust-grid {
+	display: flex;
+	flex-direction: column;
+
+	.cust-row {
+		&.split {
+			&--all {
+				display: flex;
+				flex-direction: row;
+
+				@include col-margin;
+			}
+
+			&--xs-down {
+				display: block;
+
+				@media only screen and (max-device-width: 349px)  {
+					display: flex;
+					flex-direction: row;
+
+					@include col-margin;
+				}
+			}
+
+			&--sm-down {
+				display: block;
+
+				@media only screen and (max-device-width: 479px)  {
+					display: flex;
+					flex-direction: row;
+
+					@include col-margin;
+				}
+			}
+
+			&--sm-up {
+				display: block;
+
+				@media only screen and (min-device-width: 360px)  {
+					display: flex;
+					flex-direction: row;
+
+					@include col-margin;
+				}
+			}
+
+			&--lg-up {
+				display: block;
+
+				@media only screen and (min-device-width: 768px)  {
+					display: flex;
+					flex-direction: row;
+
+					@include col-margin;
+				}
+			}
+		}
+	}
+}

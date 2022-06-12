@@ -1,0 +1,14 @@
+<ion-item no-padding class="{{customInput}}" [formGroup]="formInstant">
+  <ion-label position="floating">
+      {{label}}
+  </ion-label>
+  <ion-datetime
+    displayFormat="{{formaDate}}"
+    cancel-text="Annuler"
+    done-text="OK"
+    mode='ios'
+    [formControlName]="inputName"
+    [readonly]="readOnly">
+  </ion-datetime>
+</ion-item>
+<app-custom-error-display [control]="control"></app-custom-error-display>

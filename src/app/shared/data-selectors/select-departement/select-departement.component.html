@@ -1,0 +1,30 @@
+<app-data-list 
+    [title]="title" 
+    [loading]="loading" 
+    [isSideBar]="false"
+    [isDataSelector]="true" 
+    [isBack]="true" 
+    [isValidation]="true" 
+    (validationClickEvent)="chooseDepartment()"
+    (backClickEvent)="modalController.dismiss()" 
+    (changeEvent)="searchEvent($event)" 
+    [data]="departmentsAsPaged">
+
+    <ng-container class="list-content">
+        <div class="list">
+            <ion-list>
+                <ion-radio-group (ionChange)="select($event.detail.value)">
+                    <ion-item *ngFor="let departement of departmentsAsPaged?.value;" class="item-list">
+                        <ion-label>{{ departement?.departementNom }}</ion-label>
+                        <ion-radio 
+                            slot="start" 
+                            color="primary" 
+                            [value]="departement.departementNom">
+                        </ion-radio>
+                    </ion-item>
+                </ion-radio-group>
+            </ion-list>
+        </div>
+    </ng-container>
+
+</app-data-list>

@@ -1,0 +1,11 @@
+<div>
+  <ion-searchbar
+    autocomplete="on"
+    debounce="1000"
+    showCancelButton="never"
+    [value]="searchValue"
+    [placeholder]="'LABELS.SEARCH' | translate"
+    (ionChange)="onSearchEvent($event?.detail?.value)"
+    (ionClear)="onSearchEvent('')">
+  </ion-searchbar>
+</div>

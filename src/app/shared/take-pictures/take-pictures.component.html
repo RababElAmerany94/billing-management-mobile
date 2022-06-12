@@ -1,0 +1,29 @@
+<app-collabsible-form
+    [showButtonEvent]="!readOnly"
+    (ClickEvent)="addPhoto()"
+    [title]="title"
+    [IconTitle]="'image-outline'"
+    [IconClick]="'camera-outline'">
+    <ion-grid ion-text-center *ngIf="images?.length > 0">
+      <ion-slides slidesPerView="4">
+      <ion-slide *ngFor="let item of images; let i=index">
+        <ion-row>
+          <ion-col>
+            <ng-container *ngIf="!isEmptyOrNull(item?.image?.file);else imageServer">
+              <div class="content_image">
+                <ion-icon class="close_btn" name="close-outline" (click)="removePicture(i)" *ngIf='!readOnly' ></ion-icon>
+                <img (click)="viewPhoto(i)" [src]="item?.image?.file">
+              </div>
+            </ng-container>
+            <ng-template #imageServer>
+              <div class="content_image">
+                <ion-icon class="close_btn" name="close-outline" (click)="removePicture(i)" *ngIf='!readOnly' ></ion-icon>
+                <img (click)="viewPhoto(i)" [src]="item.image?.name  | GetImageBase64ByName">
+              </div>
+            </ng-template>
+          </ion-col>
+        </ion-row>
+      </ion-slide>
+      </ion-slides>
+    </ion-grid>
+</app-collabsible-form>

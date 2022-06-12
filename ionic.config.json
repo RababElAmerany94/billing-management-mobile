@@ -1,0 +1,7 @@
+{
+  "name": "nomade-xtreme",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

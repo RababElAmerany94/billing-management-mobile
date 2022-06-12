@@ -1,0 +1,14 @@
+<div class="cust-popover">
+  <ul class="cust-popover__list">
+    <ng-container *ngFor="let item of items;">
+
+      <li class="cust-popover__item"
+        *ngIf="item.appear"
+        (click)="actionItem(item.action)">
+        <ion-icon *ngIf="item.icon" slot="start" name="{{ item.icon }}"></ion-icon>
+        <span>{{ item.text }}</span>
+      </li>
+      
+    </ng-container>
+  </ul>
+</div>

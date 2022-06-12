@@ -1,0 +1,48 @@
+<div [formGroup]="formInstant" class="editor_costom">
+
+  <!-- The label -->
+  <div class="editor_costom__label">
+    <span>{{ label }}</span>
+  </div>
+  <quill-editor 
+    #quillEditor  
+    [formControlName]="inputName"
+    [readOnly]="readOnly"
+    class="editor_costom__input ql-editor-custom"
+    [placeholder]="placeholder" >
+    <div quill-editor-toolbar
+      class="toolbar">
+      <span class="ql-formats">
+        <button class="ql-bold"></button>
+        <button class="ql-italic"></button>
+        <button class="ql-underline"></button>
+      </span>
+      <span class="ql-formats">
+        <button class="ql-list"
+          value="ordered"></button>
+        <button class="ql-list"
+          value="bullet"></button>
+        <select class="ql-align">
+          <option value="justify"
+            selected></option>
+          <option value="center"></option>
+          <option value="right"></option>
+          <option value="justify"></option>
+        </select>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-color"></select>
+      </span>
+      <span class="ql-formats">
+        <select class="ql-size"
+          style="width:40px;">
+          <option value="small">1</option>
+          <option selected>2</option>
+          <option value="large">3</option>
+          <option value="huge">4</option>
+        </select>
+      </span>
+    </div>
+  </quill-editor>
+</div>
+<app-custom-error-display [control]="control"></app-custom-error-display>

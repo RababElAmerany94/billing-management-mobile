@@ -1,0 +1,59 @@
+<app-collabsible-form 
+    [title]="'RELATION_CLIENT.TITLE' | translate"
+    [IconClick]="'add-outline'"
+    [IconTitle]="'location-outline'"
+    [showButtonEvent]="mode!=modes.Show"
+    (ClickEvent)="addclientRelationDialog()">
+
+    <div *ngIf="clientRelation?.length>0" >
+        <div class="card-portlet card-portlet--height-fluid" *ngFor="let item of clientRelation;let i = index">
+            <div class="card-portlet__head  card-portlet__head--noborder">
+                <div class="card-portlet__head-label">
+                    <h3 class="card-portlet__head-title">
+                    </h3>
+                </div>
+            </div>
+            <div class="card-portlet__body card-portlet__body--fit-y">
+                <!--begin::Widget -->
+                <div class="card-widget card-widget--user-profile-1">
+                    <div class="card-widget__head">
+                        <div class="card-widget__content pl-0">
+                            <div class="card-widget__section">
+                                <span class="card-widget__username">
+                                    {{ 'LABELS.RELATION_N' | translate }}
+                                    {{ i+1 }}
+                                </span>
+                            </div>
+                            <div class="card-widget__action" *ngIf="mode!=modes.Show">
+                                <ion-button
+                                    size="small"  
+                                    color="success"
+                                    (click)="editclientRelationDialog(i)">
+                                    <ion-icon name="create-outline"></ion-icon>
+                                </ion-button>&nbsp;
+                                <ion-button
+                                    size="small"  
+                                    color="danger"
+                                    (click)="deleteclientRelation(i)">
+                                    <ion-icon name="trash-outline"></ion-icon>
+                                </ion-button>&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-widget__body">
+                        <div class="card-widget__content">
+                            <div class="card-widget__info">
+                                <span class="card-widget__label">{{'LABELS.AVEC'|translate}} : </span>
+                                <a href="javascript:;"  class="card-widget__data">{{ item?.client?.fullName }}</a>
+                            </div>
+                            <div class="card-widget__info">
+                                <span class="card-widget__label">{{ 'LABELS.TYPE' | translate }} : </span>
+                                <a href="javascript:;"  class="card-widget__data">{{ 'CLIENT_RELATION_TYPE.'+item?.type | translate }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-collabsible-form>

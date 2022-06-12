@@ -1,0 +1,44 @@
+<app-collabsible-form
+    *ngIf="items?.length>0"
+    [title]="'TITLES.RELATED_DOCUMENT' | translate"
+    [IconTitle]="'documents-outline'">
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+
+            <thead>
+                <tr>
+                    <th *ngFor="let label of getHeader()">
+                        <span>{{ label }}</span>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let item of items; let i = index;">
+                    <td> {{ "DOCTYPE."+item.type | translate }} </td>                    
+                    <td>
+                        <ng-container *ngIf="item?.type != type.Facture;then showColor else showNot"></ng-container>
+                        <ng-template #showColor>
+                            <span>
+                                <a 
+                                    style="color:var(--ion-color-secondary);text-decoration: none;" 
+                                    href="javascript:;"
+                                    (click)="goToDocument(item?.id,item?.type)">
+                                    {{ item?.reference }}
+                                </a>
+                            </span>
+                        </ng-template>
+                        <ng-template #showNot>
+                            {{ item?.reference }}
+                        </ng-template>
+                    </td>
+                    <td> {{ item?.createOn | date:'shortDate' }} </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+</app-collabsible-form>

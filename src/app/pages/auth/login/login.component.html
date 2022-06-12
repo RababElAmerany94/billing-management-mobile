@@ -1,0 +1,54 @@
+<ion-content>
+  <div class="container ion-padding">
+
+    <div class="auth-content">
+
+      <!-- Logo -->
+      <ion-img class="logo" src="https://github.com/RababElAmerany94/billing-management-web/blob/main/src/assets/images/site.PNG"></ion-img>
+
+      <!-- Login form -->
+      <form class="list-form" [formGroup]="loginForm">
+
+
+
+
+        <!-- <ion-item class="form-control" lines="none">
+          <ion-label>{{ 'LABELS.ENTER_USERNAME' | translate }}</ion-label>
+          <ion-input name="userName" type="email" required></ion-input>
+          <ion-icon slot="end" name="person-outline"></ion-icon>
+        </ion-item> -->
+
+        <app-custom-input [customInput]="'animated fadeInUp'" [inputName]="'userName'"
+          [iconName]="'lock-closed-outline'" [label]="'LABELS.ENTER_USERNAME' | translate" [formInstant]="loginForm">
+        </app-custom-input>
+
+
+        <!-- <ion-item class="form-control" lines="none">
+          <ion-label>{{ 'LABELS.ENTER_PASSWORD' | translate }}</ion-label>
+          <ion-input name="password" type="password" required></ion-input>
+          <ion-icon slot="end" name="lock-closed-outline"></ion-icon>
+        </ion-item> -->
+
+
+        <app-custum-input-password [customInput]="'animated fadeInUp'" [inputName]="'password'"
+          [iconName]="'lock-closed-outline'" [label]="'LABELS.ENTER_PASSWORD' | translate" [formInstant]="loginForm">
+        </app-custum-input-password>
+
+        <ion-button class="btn-login" (click)="submit()" expand="block">
+          {{'LABELS.LOGIN'|translate}}
+        </ion-button>
+
+        <div class="reste-password">
+          <p> {{'LABELS.FORGET_PASSWORD'|translate}}</p>
+          <a (click)="goToForgetPassword()">
+            {{'LABELS.RESRET_PASSWORD'|translate}}
+          </a>
+        </div>
+
+
+      </form>
+
+    </div>
+
+  </div>
+</ion-content>

@@ -1,0 +1,583 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+//Rich text
+@import "~quill/dist/quill.core.css";
+@import "~quill/dist/quill.snow.css";
+
+// // import fonts
+// @font-face {
+//   font-family: "GoogleSans";
+//   src: url("assets/fonts/ProductSans-Regular.ttf") format("truetype");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: "GoogleSans";
+//   src: url("assets/fonts/ProductSans-Italic.ttf") format("truetype");
+//   font-weight: normal;
+//   font-style: italic;
+// }
+
+// @font-face {
+//   font-family: "GoogleSans";
+//   src: url("assets/fonts/ProductSans-Bold.ttf") format("truetype");
+//   font-weight: bold;
+//   font-style: normal;
+// }
+
+// @font-face {
+//   font-family: "GoogleSans";
+//   src: url("assets/fonts/ProductSans-BoldItalic.ttf") format("truetype");
+//   font-weight: bold;
+//   font-style: italic;
+// }
+
+:root {
+  --ion-font-family: "Cabin", sans-serif;
+}
+
+ion-text {
+  font-size: 12px;
+}
+// backgrounds //
+.bg-white {
+  background-color: #fff;
+}
+
+.bg-light {
+  background-color: var(--ion-color-light);
+}
+
+.bg-dark {
+  background-color: var(--ion-color-dark);
+}
+
+.bg-primary {
+  background-color: var(--ion-color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--ion-color-secondary);
+}
+
+.bg-tertiary {
+  background-color: var(--ion-color-tertiary);
+}
+
+.bg-profile {
+  background-image: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+}
+
+.bg-main {
+  background-image: linear-gradient(-135deg, var(--ion-color-medium), var(--ion-color-light));
+}
+
+// Helpers //
+.w100 {
+  width: 100%;
+}
+
+.bold,
+.fw500 {
+  font-weight: 500 !important;
+}
+
+.fw700 {
+  font-weight: 700 !important;
+}
+
+h5 {
+  font-size: 1rem !important;
+}
+
+h4 {
+  font-size: 1rem !important;
+}
+
+h3 {
+  font-size: 1.2rem !important;
+}
+
+h2 {
+  font-size: 1.5rem !important;
+}
+
+h1 {
+  font-size: 2rem !important;
+}
+
+.text-white {
+  color: var(--ion-color-light);
+}
+
+.text-primary {
+  color: var(--ion-color-primary-shade);
+}
+
+.text-secondary {
+  color: var(--ion-color-secondary);
+}
+
+.text-dark {
+  color: var(--ion-color-dark);
+}
+
+.text-meduim {
+  color: var(--ion-color-medium-tint);
+}
+
+.text-danger {
+  color: var(--ion-color-danger);
+}
+
+.text-success {
+  color: var(--ion-color-success);
+}
+
+.text-tertiary {
+  color: var(--ion-color-tertiary);
+}
+
+ion-item {
+  --ion-item-background: transparent;
+}
+
+ion-content {
+  height: calc(100vh - 50px);
+  z-index: 99999;
+  &.tabs {
+    height: calc(100vh - 100px);
+    z-index: 1;
+  }
+}
+
+ion-tab-bar {
+  --background: linear-gradient(132deg, var(--ion-color-light), var(--ion-color-light));
+
+  overflow-x: auto;
+
+  @media only screen and (max-width: 500px) {
+    justify-content: left !important;
+  }
+
+  ion-tab-button {
+    border-top: 4px solid transparent;
+    &.active {
+      background: var(--ion-color-light);
+    }
+  }
+}
+
+.app-toast {
+  text-align: center;
+
+  &.normal {
+    --background: var(--ion-color-dark);
+    color: var(--ion-color-light);
+  }
+
+  &.success {
+    --background: var(--ion-color-success);
+    color: var(--ion-color-light);
+  }
+
+  &.danger {
+    --background: var(--ion-color-danger);
+    color: var(--ion-color-light);
+  }
+
+  &.warning {
+    --background: var(--ion-color-warning);
+    color: var(--ion-color-light);
+  }
+}
+
+/** custom inputs css **/
+.customInput {
+  background: var(--ion-color-light);
+  border-radius: 4px;
+  margin-bottom: 5px;
+  position: relative;
+
+  tag-input {
+    margin-bottom: 15px;
+    input {
+      background-color: transparent;
+      padding: 0 1.5rem !important;
+    }
+  }
+  ion-datetime {
+    color: var(--ion-color-dark);
+    font-size: 14px;
+
+    @media only screen and (max-device-width: 480px) and (orientation: portrait),
+      (max-device-width: 765px) and (orientation: landscape) {
+      font-size: 12px;
+    }
+    @media only screen and (max-device-width: 850px) and (orientation: landscape) {
+      font-size: 12px;
+    }
+  }
+
+  ion-input,
+  ion-textarea,
+  ion-select,
+  ion-select-option {
+    color: var(--ion-color-dark);
+    font-size: 14px;
+
+    @media only screen and (max-device-width: 480px) and (orientation: portrait),
+      (max-device-width: 765px) and (orientation: landscape) {
+      font-size: 12px;
+    }
+    @media only screen and (max-device-width: 850px) and (orientation: landscape) {
+      font-size: 12px;
+    }
+  }
+
+  ion-textarea {
+    @media only screen and (max-device-width: 480px) and (orientation: portrait),
+      (max-device-width: 765px) and (orientation: landscape) {
+      margin-top: -2px;
+    }
+  }
+
+  ion-label {
+    color: var(--ion-color-primary-tint) !important;
+    font-size: 14px !important;
+
+    @media only screen and (max-device-width: 480px) and (orientation: portrait),
+      (max-device-width: 765px) and (orientation: landscape) {
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    @media only screen and (max-device-width: 850px) and (orientation: landscape) {
+      font-size: 12px;
+    }
+  }
+
+  .suffix-icon {
+    margin: auto;
+  }
+}
+
+.form-errors {
+  font-size: 0.7rem !important;
+  width: 100%;
+}
+
+.editor_costom {
+  background-color: var(--ion-color-light);
+  border-bottom: 2px solid #dfdfdf;
+  border-radius: 4px;
+  transition-duration: 0.3s;
+  transition-property: border-color;
+  position: relative;
+
+  &__label {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    color: var(--ion-color-primary);
+    font-size: 16px;
+    margin-bottom: 2px;
+    padding: 10px 15px 0 15px;
+    position: relative;
+    width: 100%;
+
+    span {
+      width: fit-content;
+    }
+
+    @media only screen and (max-device-width: 480px) {
+      font-size: 13px;
+    }
+
+    @media only screen and (max-device-width: 850px) and (orientation: landscape) {
+      font-size: 13px;
+    }
+  }
+
+  &__input {
+    position: relative;
+    .ql-toolbar {
+      border: none;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      background-color: #fbfbfb;
+      height: 55px;
+      margin: 10px 0;
+    }
+    @media only screen and (max-device-width: 480px) {
+      .toolbar {
+        height: 30px;
+        margin-top: 0;
+
+        > span {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+
+    .ql-toolbar {
+      border: 1px solid var(--ion-color-light);
+    }
+    .ql-container.ql-snow {
+      border: none !important;
+    }
+    .ql-container.ql-snow {
+      border: none;
+      font-size: 18px;
+      min-height: 30px;
+
+      @media only screen and (max-device-width: 480px) {
+        font-size: 12px;
+      }
+
+      @media only screen and (max-device-width: 850px) and (orientation: landscape) {
+        font-size: 12px;
+      }
+
+      .ql-editor {
+        max-height: 300px !important;
+        padding: 0 15px 24px 15px;
+
+        overflow: auto;
+
+        &.ql-blank {
+          &:before {
+            color: #b5b5b5;
+            font-size: 16px;
+            font-style: italic;
+            margin-top: 0;
+
+            @media only screen and (max-device-width: 480px) {
+              font-size: 12px;
+            }
+
+            @media only screen and (max-device-width: 850px) and (orientation: landscape) {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+    .ql-editor p {
+      color: var(--ion-color-dark);
+      font-weight: 500;
+      font-size: 14px;
+
+      @media only screen and (max-device-width: 480px) and (orientation: portrait),
+        (max-device-width: 765px) and (orientation: landscape) {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.icon-show-hide-password {
+  display: flex;
+  align-items: center;
+  color: var(--ion-color-light);
+  font-size: 25px;
+  padding-right: 5px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-47%);
+  z-index: 2;
+}
+
+/** alert for message*/
+.alert-message-custom {
+  .alert-head {
+    text-align: center;
+  }
+  .alert-message {
+    text-align: center;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+}
+
+/** default alert button*/
+.alert-cancel {
+  background-color: var(--ion-color-danger) !important;
+  color: white !important;
+  margin-bottom: 5px !important;
+}
+
+.alert-valid {
+  background-color: var(--ion-color-success) !important;
+  color: white !important;
+  margin-bottom: 5px !important;
+}
+
+/** custom table css */
+table {
+  width: 100%;
+  margin: auto;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+thead th {
+  font-weight: 500;
+}
+
+tr {
+  margin-bottom: 5px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  color: var(--ion-color-primary);
+  border: 1px solid var(--ion-color-light);
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.empty-data {
+  align-items: center;
+  color: silver;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 80px auto 0 auto;
+  width: 90%;
+
+  &__img {
+    opacity: 0.2;
+    width: 100px;
+  }
+
+  &__text {
+    font-size: 20px;
+    margin-top: 20px;
+    opacity: 0.6;
+    text-align: center;
+    width: 60%;
+  }
+
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+    margin-top: 20px;
+    // width: 80%;
+
+    &__img {
+      width: 50px;
+    }
+
+    &__text {
+      font-size: 16px;
+      width: 100%;
+    }
+  }
+}
+
+.go-to-back {
+  z-index: -1;
+}
+
+.input-total {
+  width: 5em;
+  border-radius: 3px;
+  border: 1px solid var(--ion-color-primary);
+  padding: 0.1em 0.3em;
+  margin: 1px 0;
+}
+
+.signature-container {
+  border: 1px solid var(--ion-color-secondary);
+  box-shadow: 0 1px 5px 0 var(--ion-color-light);
+  background: var(--ion-color-light);
+  border-radius: 10px;
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 1.2em auto;
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 25px;
+  }
+}
+
+.total__action {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* #region : override disabled form input */
+
+.datetime-disabled,
+.checkbox-disabled,
+.select-disabled,
+.native-input:disabled {
+  opacity: 0.9 !important;
+}
+
+ion-label {
+  opacity: 1 !important;
+}
+
+/* #endregion */
+
+.no-ripple {
+  --ripple-color: transparent;
+}
+
+.no-shadow {
+  --box-shadow: none;
+}
+
+.container-scrollable {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.sc-ion-modal-ios-h,
+.sc-ion-modal-md-h {
+  --width: 100% !important;
+  --height: 100% !important;
+}

@@ -1,0 +1,29 @@
+<app-data-list 
+    [title]="'DATA_SELECTOR.SELECT_CLIENT'" 
+    [loading]="loading" 
+    [isSideBar]="false" 
+    [isDataSelector]="true"
+    [isBack]="true" 
+    [isAdd]="true" 
+    [isValidation]="true" 
+    (backClickEvent)="modalController.dismiss()" 
+    (addClickEvent)="addClient()"
+    (validationClickEvent)="chooseClient()" 
+    (changeEvent)="getClients($event)" 
+    [data]="clientAsPage">
+
+    <ng-container class="list-content">
+        <div class="list">
+            <ion-list>
+                <ion-radio-group (ionChange)="selectClient($event.detail.value)" >
+                    <ion-item *ngFor="let item of clients;" class="item-list">
+                        <ion-label>{{ item?.reference }}: {{ item.fullName }}</ion-label>
+                        <ion-radio slot="start" color="primary" [value]="item?.id">
+                        </ion-radio>
+                    </ion-item>
+                </ion-radio-group>
+            </ion-list>
+        </div>
+    </ng-container>
+
+</app-data-list>

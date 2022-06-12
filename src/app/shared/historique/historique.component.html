@@ -1,0 +1,51 @@
+<!--region header-->
+<app-header 
+  [title]="'HISTORY.TITLE' | translate"
+  [sidebar]="false"
+  (backClick)="backClick()"
+  [back]="true">
+</app-header>
+<!-- end region -->
+
+<ion-content class="ion-padding tabs">
+  <section id="cd-timeline" >
+    <div *ngFor="let historique of historiques; let last = last; let first = first" class="cd-container">
+      <div [class]="last?'cd-timeline-last-block':'cd-timeline-block'">
+        <div class="cd-timeline-icon">
+          <ng-container *ngIf="historique?.action == changesHistoryType.Added">
+            <ion-icon name="add"  color="danger"></ion-icon>
+          </ng-container>
+          <ng-container *ngIf="historique?.action == changesHistoryType.Updated">
+            <ion-icon name="create"  color="danger"></ion-icon>
+          </ng-container>
+          <ng-container *ngIf="historique?.action == changesHistoryType.Deleted">
+            <ion-icon name="trash"  color="danger"></ion-icon>
+          </ng-container>
+        </div>
+        <div class="cd-timeline-content">
+          <h5 class=" pl-5" ion-text class="text-secondary">{{ historique?.changeDate | date:'short' }}</h5>
+          <p>
+          <ng-container *ngIf="historique?.action == changesHistoryType.Added">
+            {{'LABELS.ADD' | translate}} 
+          </ng-container>
+          <ng-container *ngIf="historique?.action == changesHistoryType.Updated">
+              {{'LABELS.EDIT' | translate}} 
+          </ng-container>
+          <ng-container *ngIf="historique?.action == changesHistoryType.Deleted">
+              {{'LABELS.DELETE' | translate}} 
+          </ng-container>
+        </p>
+        <p>
+          <ng-container *ngIf="historique?.action == changesHistoryType.Added">
+              {{'HISTORY.ADD_BY' | translate}} :
+          </ng-container>
+          <ng-container *ngIf="historique?.action == changesHistoryType.Updated">
+              {{'HISTORY.EDIT_BY' | translate}} :
+          </ng-container>
+          {{ historique?.userId | GetNameOfUserById }}
+        </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>

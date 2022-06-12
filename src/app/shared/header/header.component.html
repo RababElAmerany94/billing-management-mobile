@@ -1,0 +1,90 @@
+
+<ion-header>
+
+    <ion-toolbar [color]="color">
+
+        <!-- start buttons-->
+        <ion-buttons slot="start">
+
+            <!-- The sidebar button -->
+            <ng-container *ngIf="sidebar">
+                <ion-menu-button autoHide="false" (click)="this.sidebarService.toggleMenu()" >
+                </ion-menu-button>
+            </ng-container>
+
+            <!-- The close button -->
+            <ion-button 
+                *ngIf="close"
+                (click)="onCloseClicked()">
+                <ion-icon 
+                    slot="icon-only" 
+                    name="close">
+                </ion-icon>
+            </ion-button>
+
+            <!-- The back button -->
+            <ion-button 
+                *ngIf="back"
+                (click)="onBackClicked()">
+                <ion-icon
+                    slot="icon-only"  
+                    name="arrow-back">
+                </ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+
+        <!-- The title -->
+        <ion-title> 
+            {{ getTitle() }}
+        </ion-title>
+
+        <!-- end buttons-->
+        <ion-buttons slot="end">
+
+            <!-- The Add button -->
+            <ion-button 
+                *ngIf="add"
+                (click)="onAddClicked($event)">
+                <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+            </ion-button>
+
+            <!-- The validation button -->
+            <ion-button 
+                *ngIf="validation"
+                (click)="onValidationClicked()">
+                <ion-icon 
+                    slot="icon-only"
+                    name="checkmark">
+                </ion-icon>
+            </ion-button>
+
+            <!-- The search button -->
+            <ion-button 
+                *ngIf="search && enableSearchIcon"
+                (click)="onSearchClicked()">
+                <ion-icon slot="icon-only" name="search"></ion-icon>
+            </ion-button>
+            
+            <!-- The more button -->
+            <ion-button 
+                *ngIf="more"
+                (click)="onMoreClicked($event)">
+                <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+
+    </ion-toolbar>
+
+    <ion-toolbar 
+        [color]="color"
+        *ngIf="showSearchbar">
+        <app-search-bar 
+            [searchValue]="searchValue"
+            [state]="showSearchbar ? 'visible' : 'hidden'"
+            (searchEvent)="onSearch($event)">
+        </app-search-bar>
+    </ion-toolbar> 
+
+</ion-header>

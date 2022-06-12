@@ -1,0 +1,13 @@
+<ion-item [formGroup]="formInstant" class="{{customInput}}">
+    <ion-label>{{label}}</ion-label>
+    <ion-select 
+        [id]="inputName" 
+        interface="popover" 
+        [formControlName]="inputName"
+        (selectionChange)="onChange($event)">
+        <ion-select-option *ngFor="let item of periods" [value]="item">
+            {{ item }}
+        </ion-select-option>
+    </ion-select>
+</ion-item>
+<app-custom-error-display [control]="control"></app-custom-error-display>

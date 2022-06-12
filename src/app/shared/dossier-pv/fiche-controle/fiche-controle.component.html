@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar class="ion-text-center"
+        color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title> {{ title | translate }} </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="save()" *ngIf="!readOnly">
+            <ion-icon name="checkmark"></ion-icon>
+            </ion-button>
+            <ion-button (click)="showSignature()" *ngIf="readOnly">
+            <ion-icon name="eye"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<app-fiche-controle-tabs>
+
+    <app-information-fiche-controle
+        Info
+        [form]="form"
+        [Photos]="photos"
+        [controllerUser]="controllerUser"
+        (imagesEvent)="photos = $event"
+        (userEvent)="controllerUser = $event">
+    </app-information-fiche-controle>
+
+    <!-- constatCombles -->
+    <app-constat-combles
+        ConstatComble
+        [form]="formConstatComble">
+    </app-constat-combles>
+
+    <!-- constatPlanchers -->
+    <app-constat-planchers
+        ConstatPlanchers
+        [form]="formConstatPlanchers">
+    </app-constat-planchers>
+
+    <!-- the constat murs -->
+    <app-constat-murs
+        ConstatMurs
+        [form]="formConstatMurs">
+    </app-constat-murs>
+
+</app-fiche-controle-tabs>

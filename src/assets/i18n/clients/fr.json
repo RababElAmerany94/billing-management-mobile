@@ -1,0 +1,22 @@
+{
+    "TITLE": "Clients",
+    "LIST": {
+        "DELETE": {
+            "HEADER": "Supprimer client",
+            "MESSAGE": "Êtes-vous sûr supprimer ce client "
+        }
+    },
+    "LABELS": {
+        "INFOGENERAL": "Informations client",
+        "TYPE": "Type"
+    },
+    "ADD": {
+        "TITLE": "Ajouter client"
+    },
+    "EDIT": {
+        "TITLE": "Modifier client"
+    },
+    "SHOW": {
+        "TITLE": "Fiche client"
+    }
+}

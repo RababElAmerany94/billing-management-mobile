@@ -1,0 +1,157 @@
+<!--region header-->
+<app-header 
+    [title]="'SAISIE_LIBRE.ADD_CLIENT'| translate"
+    [sidebar]="false"
+    (backClick)="cancel()"
+    (validationClick)="save()"
+    [validation]="true"
+    [back]="true">
+</app-header>
+<!-- end region -->
+
+<ion-content class="edit-page tabs">
+    <div class="edit-content">
+        <app-collabsible-form 
+            [title]="'TITLES.GENERAL_INFO' | translate"
+            [IconTitle]="'people-circle-outline'">
+            <form [formGroup]="form" class="list-form">
+
+                <!-- reference-->
+                <app-custom-input
+                    [inputName]="'reference'"
+                    [label]="'LABELS.REFERENCE' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- firstname -->
+                <app-custom-input
+                    [inputName]="'firstName'"
+                    (changeEvent)="generateCodeComptable()"
+                    [label]="'LABELS.FIRSTNAME' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- lastname -->
+                <app-custom-input
+                    *ngIf="isClientParticulier()"
+                    [inputName]="'lastName'"
+                    [label]="'LABELS.LASTNAME' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- siret-->
+                <app-custom-input
+                    [inputName]="'siret'"
+                    *ngIf="!isClientParticulier()"
+                    [label]="'LABELS.SIRET' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- charge type of client -->
+                <ng-container *ngIf="types.length > 2">
+                    <app-custom-drop-down
+                        [inputName]="'type'"
+                        [label]="'LABELS.TYPE' | translate"
+                        [data]="clientType"
+                        (changeEvent)="generateChampsClient()"
+                        [formInstant]="form">
+                    </app-custom-drop-down>
+                </ng-container>
+
+                <ng-container *ngIf="types.length == 1">
+                <!--    <app-custom-input
+                        [inputName]="'type'"
+                        [disabled]="true"
+                        [label]="'LABELS.TYPE' | translate"
+                        [formInstant]="form">
+                    </app-custom-input>-->
+                </ng-container>
+
+                <!-- charge genre client-->
+                <app-custom-drop-down
+                    [inputName]="'genre'"
+                    [label]="'LABELS.GENRE' | translate"
+                    [formInstant]="form"
+                    *ngIf="isClientParticulier() || isClientProfessionnel()"
+                    [data]="genreClient">
+                </app-custom-drop-down>
+
+                <!--reglement mode -->
+                <app-mode-regulation
+                    [label]="'LABELS.MODE_REGLEMENT' | translate"
+                    [inputName]="'regulationModeId'"
+                    [formInstant]="form">
+                </app-mode-regulation>
+
+                <!-- phoneNumber-->
+                <app-custom-input
+                    [inputName]="'phoneNumber'"
+                    [label]="'LABELS.PHONE_NUMBER_1' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- email-->
+                <app-custom-input
+                    [inputName]="'email'"
+                    [label]="'CONTACTS.EMAIL' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- website -->
+                <app-custom-input
+                    [inputName]="'webSite'"
+                    *ngIf="!isClientParticulier()"
+                    [label]="'LABELS.WEBSITE' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- codeComptable-->
+                <app-custom-input
+                    [inputName]="'codeComptable'"
+                    [label]="'LABELS.CODE_COMPTABLE' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- commercial -->
+                <app-select-user
+                    *ngIf="isClientParticulier() || isClientProfessionnel()"
+                    [roles]="[userRole.Commercial]"
+                    [inputName]="'commercialId'"
+                    [label]="'LABELS.COMMERCIAL' | translate"
+                    [formInstant]="form">
+                </app-select-user>
+
+                <!-- agence -->
+                <app-select-agence
+                    *ngIf="isClientParticulier() || isClientProfessionnel()"
+                    [inputName]="'agenceId'"
+                    [label]="'LABELS.AGENCE' | translate"
+                    [formInstant]="form">
+                </app-select-agence>
+            
+                <app-custom-checkbox
+                    [label]="'LABELS.SOUS_TRAITANT' | translate"
+                    [formInstant]="form"
+                    *ngIf="!isClientOblige()"
+                    [inputName]="'isSousTraitant'">
+                </app-custom-checkbox>
+
+            </form>
+        </app-collabsible-form>
+
+        <!--...............................-- display contact ..........................................-->
+        <app-contacts
+            (changeContact)="setContact($event)"
+            [contacts]="contacts" [mode]="mode">
+        </app-contacts>
+        <!--............................................................................-->
+
+        <!--...............................-- display address ..........................................-->
+        <app-address
+            (changeAddress)="setAddress($event)"
+            [addresses]="address" 
+            [mode]="mode">
+        </app-address>
+        <!--...........................................................................-->
+    </div>
+</ion-content>

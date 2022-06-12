@@ -1,0 +1,127 @@
+<app-data-list
+  [title]="'TITLE'"
+  [name]="routeName.Dossier"
+  [loading]="loading"
+  [classCss]="'tabs'"
+  (changeEvent)="changeFiltersEvent($event)"
+  [data]="DossierAsPage">
+
+  <ng-container class="list-content">
+    <!-- #region list dossiers-->
+    <div class="list">
+      <ion-list *ngFor="let dossier of dossiers; let i = index;">
+        <ion-item-sliding>
+          <ion-item class="item-list" (click)="showClick(dossier)" *ngIf="canRead()">
+            <div class="list-container">
+              <span class="list-border"
+                [ngClass]="{
+                  'list-border--enattente ': dossierStatus?.EnAttente === dossier?.status,
+                  'list-border--assigne': dossierStatus.Assigne === dossier?.status,
+                  'list-border--planifie': dossierStatus.Planifie === dossier?.status,
+                  'list-border--aplanifie': dossierStatus.APlanifie === dossier?.status,
+                  'list-border--signe': dossierStatus.Signe === dossier?.status,
+                  'list-border--enretard': dossierStatus.EnRetard === dossier?.status,
+                  'list-border--realisee': dossierStatus.Realise === dossier?.status,
+                  'list-border--perdu': dossierStatus.Perdu === dossier?.status,
+                  'list-border--facture': dossierStatus.Facture === dossier?.status,
+                  'list-border--chiffre': dossierStatus.Chiffre === dossier?.status
+                }">
+              </span>
+              <div class="list-content">
+                <div class="list-content__left">
+                  <span class="reference">{{dossier?.reference}} - {{dossier?.dateCreation | date:'shortDate'}}</span>
+                  <span class="designation">{{dossier?.addresse}}</span>
+                  <span class="name">
+                    {{dossier?.client}}
+                    <ng-container *ngIf="dossierStatus.Assigne === dossier?.status" >
+                      - {{dossier?.dateRDV | date:'short' }} 
+                    </ng-container>
+                  </span>
+                  <span class="name" *ngIf="dossier?.typeTravaux != null">{{ getTypeTravaux(dossier?.typeTravaux) |translate}}</span>
+                </div>
+                <div class="list-content__right">
+                  <span class="right-text badge"
+                  [ngClass]="{
+                    'badge--enattente ': dossierStatus?.EnAttente === dossier?.status,
+                    'badge--assigne': dossierStatus.Assigne === dossier?.status,
+                    'badge--planifie': dossierStatus.Planifie === dossier?.status,
+                    'badge--aplanifie': dossierStatus.APlanifie === dossier?.status,
+                    'badge--signe': dossierStatus.Signe === dossier?.status,
+                    'badge--enretard': dossierStatus.EnRetard === dossier?.status,
+                    'badge--realisee': dossierStatus.Realise === dossier?.status,
+                    'badge--perdu': dossierStatus.Perdu === dossier?.status,
+                    'badge--facture': dossierStatus.Facture === dossier?.status,
+                    'badge--chiffre': dossierStatus.Chiffre === dossier?.status
+                  }">
+                      {{getStatus(dossier?.status) |translate}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteClick(i)" *ngIf="canDelete()">
+              <ion-icon
+                name="trash"
+                slot="start">
+              </ion-icon>
+              {{'LABELS.DELETE' |translate}}
+            </ion-item-option>
+            <ion-item-option color="success" (click)="editClick(dossier)" *ngIf="canUpdate()">
+              <ion-icon
+                name="create"
+                slot="start">
+              </ion-icon>{{'LABELS.EDIT' |translate}}
+            </ion-item-option>
+            <ion-item-option color="secondary" (click)="showClick(dossier)" *ngIf="canRead()">
+              <ion-icon
+                name="eye"
+                slot="start"></ion-icon>
+                {{'LABELS.SHOW' |translate}}
+            </ion-item-option>
+            <ion-item-option color="tertiary" (click)="addDevis(dossier)" *ngIf="dossier?.status!= dossierStatus.EnAttente && canUpdate()">
+              <ion-icon
+                name="document-attach"
+                slot="start"></ion-icon>
+                {{'LABELS.ADD_DEVIS' |translate}}
+            </ion-item-option>
+            <ion-item-option *ngIf="canAssigne(dossier?.status) && canUpdate()" color="dark" (click)="assignerDossier(dossier)">
+              <ion-icon
+                name="person-add"
+                slot="start"></ion-icon>
+                {{'STATUS.ASSIGNE' |translate}}
+            </ion-item-option>
+            <ion-item-option *ngIf="canMarkDossierAplanifier(dossier?.status) && canUpdate()" color="medium" (click)="MarkDossierAplanifier(dossier?.id)">
+              <ion-icon
+                name="repeat"
+                slot="start"></ion-icon>
+                {{'STATUS.APLANIFIER' |translate}}
+            </ion-item-option>
+            <ion-item-option *ngIf="canSyncAntsroute(dossier?.status) && canUpdate()" color="primary" (click)="syncAntsroute(dossier?.id)">
+              <ion-icon
+                name="cloud-upload"
+                slot="start"></ion-icon>
+                {{'LABELS.SYN_CANTSROUTE' |translate}}
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+    <!-- #endregion list dossiers-->
+  </ng-container>
+
+  <ng-container class="list-action">
+    <div class="btn-add" *ngIf="canCreate()">
+      <ion-fab 
+        vertical="bottom"
+        horizontal="end"
+        slot="fixed"
+        (click)="addClick()">
+        <ion-fab-button [color]="'secondary'">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+  </ng-container>
+
+</app-data-list>

@@ -1,0 +1,197 @@
+<app-header
+    [title]="displayTitle() | translate"
+    [sidebar]="false"
+    (backClick)="cancel()"
+    (validationClick)="getOptions()"
+    [validation]="!isShowMode() && !canModify()"
+    [back]="true">
+</app-header>
+
+<ion-content
+    class="edit-page"
+    [ngClass]="{'tabs': isShowMode()}">
+
+    <div class="edit-content">
+
+        <!------------------------------------------------------------------------------->
+        <app-collabsible-form [title]="'TITLES.INFO_DOSSIER' | translate" [IconTitle]="'folder-outline'">
+
+            <form [formGroup]="form" class="list-form">
+
+                <div class="cust-grid">
+                    <div class="cust-row split split--all">
+                        <div class="cust-col cust-col--span-all">
+
+                            <!-- reference-->
+                            <app-custom-input 
+                                [inputName]="'reference'" 
+                                [label]="'LABELS.REFERENCE' | translate"
+                                [formInstant]="form">
+                            </app-custom-input>
+
+                        </div>
+                        <div class="cust-col cust-col--span-auto" *ngIf="isShowMode()">
+                            <div class="ribbon-wrapper">
+                                <div 
+                                    class="ribbon sm-fix" 
+                                    [ngClass]="{
+                                        'ribonstatus--enattente ': status?.EnAttente === currentStatus,
+                                        'ribonstatus--assigne': status.Assigne === currentStatus,
+                                        'ribonstatus--planifie': status.Planifie === dossier?.status,
+                                        'ribonstatus--aplanifie': status.APlanifie === currentStatus,
+                                        'ribonstatus--signe': status.Signe === currentStatus,
+                                        'ribonstatus--enretard': status.EnRetard === currentStatus,
+                                        'ribonstatus--realisee': status.Realise === currentStatus,
+                                        'ribonstatus--perdu': status.Perdu === currentStatus,
+                                        'ribonstatus--facture': status.Facture === currentStatus,
+                                        'ribonstatus--chiffre': status.Chiffre === currentStatus
+                                    }">
+                                    {{ 'STATUS_DOSSIER.'+currentStatus | translate }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <app-select-client
+                    (changeEvent)="chooseClient($event)" 
+                    [client]="selectedClient"
+                    [inputName]="'clientId'"
+                    [label]="'LABELS.CLIENT' | translate" 
+                    [formInstant]="form">
+                </app-select-client>
+
+                <ng-container *ngIf="isShowMode()">
+
+                    <!-- the commercial of dossier- -->
+                    <app-custom-input 
+                        [inputName]="'commercial'" 
+                        [label]="'LABELS.COMMERCIAL' | translate"
+                        [formInstant]="form">
+                    </app-custom-input>
+
+                    <!-- the first appointment of dossier -->
+                    <app-custom-date-time 
+                        [formInstant]="form" 
+                        [inputName]="'dateRDV'" 
+                        [formaDate]="'DD/MM/YYYY HH:mm'"
+                        [label]="'LABELS.DATE_RDV' | translate">
+                    </app-custom-date-time>
+
+                </ng-container>
+
+                <!-- date pose of dossier -->
+                <app-custom-date-time 
+                    [formInstant]="form" 
+                    [inputName]="'datePose'"
+                    [label]="'LABELS.DATE_POSE' | translate">
+                </app-custom-date-time>
+
+                <!-- date creation of dossier -->
+                <app-custom-date-time 
+                    [formInstant]="form" 
+                    [inputName]="'dateCreation'"
+                    [label]="'LABELS.DATE_CREATION' | translate">
+                </app-custom-date-time>
+
+                <!-- date expiration of dossier -->
+                <app-custom-date-time 
+                    [formInstant]="form" 
+                    [inputName]="'dateExpiration'"
+                    [label]="'LABELS.DATE_EXPIRATION' | translate">
+                </app-custom-date-time>
+
+                <!-- select address -->
+                <app-address-dropdown 
+                    [readOnly]="isShowMode()" 
+                    [selectedAddress]="siteIntervention" 
+                    [formInstant]="form"
+                    [inputName]="'siteIntervention'" 
+                    [addresses]="selectedClient?.addresses"
+                    [label]="'ADDRESS.TITLE_SITE_INTERVENTION' | translate" 
+                    (changeEvent)="setSiteIntervention($event)">
+                </app-address-dropdown>
+
+                <!-- select contact-->
+                <kt-contact-dropdown 
+                    [readOnly]="isShowMode()" 
+                    [formInstant]="form"
+                    [inputName]="'contacts'"
+                    [selectedContact]="contact"
+                    [contacts]="selectedClient?.contacts" 
+                    [label]="'CONTACTS.TITLE' | translate"
+                    (changeEvent)="setContact($event)">
+                </kt-contact-dropdown>
+
+                <!-- first phone Number-->
+                <app-custom-input 
+                    [inputName]="'firstPhoneNumber'" 
+                    [label]="'LABELS.PHONE_NUMBER_1' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+                <!-- second phone Number-->
+                <app-custom-input 
+                    [inputName]="'secondPhoneNumber'" 
+                    [label]="'LABELS.PHONE_NUMBER_2' | translate"
+                    [formInstant]="form">
+                </app-custom-input>
+
+            </form>
+        </app-collabsible-form>
+        <!------------------------------------------------------------------------------->
+
+        <!--------------------------- information installation -------------------------->
+        <app-info-site-installation 
+            *ngIf="isAddMode() || dossier"
+            (informationsSupplementaireEvent)="setInformationsSupplementaire($event)"
+            [showInformationsSupplementaire]="true"
+            [informationsSupplementaire]="informationsSupplementaire"
+            [readOnly]="isShowMode()"
+            [form]="form"
+            [primeCee]="selectedPrimeCee" >
+        </app-info-site-installation>
+        <!-------------------------------------------------------------------------------->
+
+        <!--------------------------- related document ----------------------------------->
+        <app-shared-related-document 
+            *ngIf="isShowMode() && canShowDocumentsAssociate()"
+            [data]="dossier.documentAssociates" 
+            [dossier]="dossier">
+        </app-shared-related-document>
+        <!-------------------------------------------------------------------------------->
+
+        <!---------------------------- dossier installation ------------------------------>
+        <ng-container *ngIf="isShowMode()">
+            <app-dossier-installation 
+                [mode]="mode"
+                [DossierInstallation]="dossier?.dossierInstallations">
+            </app-dossier-installation>
+        </ng-container>
+        <!-------------------------------------------------------------------------------->
+
+        <!----------------------------------- dossier pv --------------------------------->
+        <ng-container *ngIf="isShowMode() && canManagePV()">
+            <app-dossier-pv 
+                (refresh)="refresh.emit()" 
+                [Dossier]="dossier">
+            </app-dossier-pv>
+        </ng-container>
+        <!-------------------------------------------------------------------------------->
+
+        <!---------------------------------- note ---------------------------------------->
+        <app-collabsible-form 
+            [title]="'TITLES.OTHER' | translate" 
+            [IconTitle]="'code-working-outline'">
+
+            <app-custom-textarea 
+                [inputName]="'note'" 
+                [label]="'LABELS.NOTE' | translate" 
+                [formInstant]="form">
+            </app-custom-textarea>
+
+        </app-collabsible-form>
+        <!------------------------------------------------------------------------------->
+
+    </div>
+</ion-content>

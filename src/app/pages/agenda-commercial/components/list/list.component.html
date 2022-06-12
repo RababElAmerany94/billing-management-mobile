@@ -1,0 +1,155 @@
+<app-data-list
+    [title]="title"
+    [name]="routeName.AgendaCommercial"
+    [loading]="loading"
+    [classCss]="'tabs'"
+    (changeEvent)="changeFiltersEvent($event)"
+    [data]="echangeCommercialsAsPage">
+
+    <ng-container class="list-content">
+
+        <div class="list">
+            <ion-list>
+                <ion-item-group>
+
+                    <ion-item-divider class="list-divider" *ngIf="echangeCommercialToday?.length > 0">
+                        <ion-label><h4><strong>{{ 'LABELS.TODAY' | translate }}</strong></h4></ion-label>
+                    </ion-item-divider>
+
+                    <ng-container *ngFor="let item of echangeCommercialToday;">
+                        <ng-container 
+                            [ngTemplateOutlet]="listItem" 
+                            [ngTemplateOutletContext]="{item:item}">
+                        </ng-container>
+                    </ng-container>
+
+                    <ion-item-divider class="list-divider" *ngIf="echangeCommercialTomorrow?.length > 0">
+                        <ion-label><h4><strong>{{ 'LABELS.TOMORROW' | translate }}</strong></h4></ion-label>
+                    </ion-item-divider>
+
+                    <ng-container *ngFor="let item of echangeCommercialTomorrow;">
+                        <ng-container 
+                            [ngTemplateOutlet]="listItem" 
+                            [ngTemplateOutletContext]="{item:item}">
+                        </ng-container>
+                    </ng-container>
+
+                    <ion-item-divider class="list-divider" *ngIf="echangeCommercialAVenir?.length > 0">
+                        <ion-label><h4><strong>{{ 'LABELS.A_VENIR' | translate }}</strong></h4></ion-label>
+                    </ion-item-divider>
+
+                    <ng-container *ngFor="let item of echangeCommercialAVenir;">
+                        <ng-container 
+                            [ngTemplateOutlet]="listItem" 
+                            [ngTemplateOutletContext]="{item:item}">
+                        </ng-container>
+                    </ng-container>
+
+                    <ion-item-divider class="list-divider" *ngIf="echangeCommercialOther?.length > 0">
+                        <ion-label><h4><strong>{{ 'LABELS.OTHERS' | translate }}</strong></h4></ion-label>
+                    </ion-item-divider>
+
+                    <ng-container *ngFor="let item of echangeCommercialOther;">
+                        <ng-container
+                            [ngTemplateOutlet]="listItem"
+                            [ngTemplateOutletContext]="{item:item}">
+                        </ng-container>
+                    </ng-container>
+
+                </ion-item-group>
+            </ion-list>
+        </div>
+
+    </ng-container>
+
+    <ng-container class="list-action">
+        <div class="btn-add" *ngIf="canCreate()">
+            <ion-fab 
+                vertical="bottom"
+                horizontal="end"
+                slot="fixed"
+                (click)="addClick()">
+                <ion-fab-button [color]="'secondary'">
+                <ion-icon name="add"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+        </div>
+    </ng-container>
+
+</app-data-list>
+
+<ng-template #listItem let-item='item'>
+    <ion-item-sliding>
+        <ion-item class="item-list" (click)="showClick(item)" *ngIf="canRead()">
+            <div class="list-container">
+            <span class="list-border"
+                [ngClass]="{
+                    'list-border--annulee ': echangeCommercialStatus?.annulee === item?.status,
+                    'list-border--cloture': echangeCommercialStatus.cloturee === item?.status,
+                    'list-border--encours': echangeCommercialStatus.enCours === item?.status
+                }">
+            </span>
+            <div class="list-content">
+                <div class="list-content__left">
+                    <span class="reference">{{item?.titre}}</span>
+                    <span class="designation">{{item?.adresse}}</span>
+                    <span class="name">{{item?.contact}}</span>
+                    <span class="designation">{{item?.responsableId}}</span>
+                    <span class="name">{{item?.clientId}}</span>
+                    <span class="name">{{item?.phoneNumber}}</span>
+                </div>
+                <div class="list-content__right">
+                    <span class="right-text"> {{item?.dateEvent | date:'short'}}</span>
+                    <span class="right-text badge"
+                    [ngClass]="{
+                        'badge--annulee ': echangeCommercialStatus?.annulee === item?.status,
+                        'badge--cloture': echangeCommercialStatus.cloturee === item?.status,
+                        'badge--encours': echangeCommercialStatus.enCours === item?.status
+                    }">
+                        {{getStatus(item?.status) |translate}}
+                    </span>
+                </div>
+            </div>
+            </div>
+        </ion-item>
+        <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteClick(item?.id)" *ngIf="canDelete()">
+                <ion-icon 
+                    name="trash" 
+                    slot="start">
+                </ion-icon>
+                {{'LABELS.DELETE' |translate}}
+            </ion-item-option>
+            <ion-item-option color="success" (click)="editClick(item)" *ngIf="canUpdate()">
+                <ion-icon 
+                    name="create"
+                    slot="start">
+                </ion-icon>{{'LABELS.EDIT' |translate}}
+            </ion-item-option>
+            <ion-item-option color="secondary" (click)="showClick(item)" *ngIf="canRead()">
+                <ion-icon 
+                    name="eye"
+                    slot="start">
+                </ion-icon>
+                {{'LABELS.SHOW' |translate}}
+            </ion-item-option>
+            <ion-item-option color="medium" (click)="clotureClick(item?.id)" *ngIf="canCloture(item?.status) && canUpdate()" >
+                <ion-icon 
+                    name="power"
+                    slot="start">
+                </ion-icon>
+                {{'LABELS.CLOTURE' |translate}}
+            </ion-item-option>
+            <ion-item-option 
+                color="tertiary" 
+                (click)="cancelClick(item?.id)" 
+                *ngIf="canCancel(item?.status) && canUpdate()" >
+                <ion-icon 
+                    name="close"
+                    slot="start">
+                </ion-icon>
+                {{'LABELS.CANCEL' |translate}}
+            </ion-item-option>
+        </ion-item-options>
+    </ion-item-sliding>
+</ng-template>

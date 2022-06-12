@@ -1,0 +1,142 @@
+<!-- ................................ dossier PV ................................... -->
+<app-collabsible-form 
+    [title]="'TITLES.DOSSIER_PV' | translate"
+    [IconClick]="'add-outline'"
+    [showButtonEvent]="dossierPV==null || ficheDeControle==null"
+    (ClickEvent)="dossierPV == null ? addDossierPvDialog() : addFicheDeControleDialog()"
+    [IconTitle]="'checkmark-outline'">
+
+<ng-container *ngIf="dossierPV !=null">
+  <div class="card-portlet card-portlet--height-fluid">
+    <div class="card-portlet__head  card-portlet__head--noborder">
+      <div class="card-portlet__head-label">
+        <h3 class="card-portlet__head-title">
+        </h3>
+      </div>
+    </div>
+    <div class="card-portlet__body card-portlet__body--fit-y">
+        <div class="card-widget card-widget--user-profile-1">
+            <div class="card-widget__head">
+              <div class="card-widget__content pl-0">
+                <div class="card-widget__section">
+                  <span class="card-widget__username">
+                    {{ 'LABELS.NAME_CLIENT_SIGNATURE' | translate }}:
+                    {{ dossierPV?.nameClientSignature }}
+                  </span>
+                  <span class="card-widget__subtitle">
+                    {{ dossierPV?.createdOn | date:'shortDate' }}
+                  </span>
+                </div>
+
+                <div class="card-widget__action">
+                    <ion-button
+                        size="small"  
+                        color="success"
+                        (click)="editDossierPV()">
+                        <ion-icon name="create-outline"></ion-icon>
+                    </ion-button>&nbsp;
+                    <ion-button
+                        size="small"  
+                        color="danger"
+                        (click)="deleteDossierPV()">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>&nbsp;
+                    <ion-button
+                      size="small" 
+                      color="primary"
+                      (click)="detailDossierPV()" >
+                      <ion-icon name="eye"></ion-icon>
+                    </ion-button> &nbsp;
+                </div>
+              </div>
+            </div>
+            <div class="card-widget__body">
+              <div class="card-widget__content">
+                <div class="card-widget__info">
+                  <span class="card-widget__label">{{ 'LABELS.SATISFIED' | translate }}:</span>
+                  <a class="card-widget__data">
+                    {{ 'LABELS.'+(dossierPV?.isSatisfied ? 'OUI' : 'NON' )| translate }}
+                  </a>
+                </div>
+                <div class="card-widget__info">
+                  <span class="card-widget__label">{{dossierPV?.reasonNoSatisfaction}}</span>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</ng-container>
+</app-collabsible-form>
+<!-- ............................................................................... -->
+
+<!-- .............................. fiche controle ................................. -->
+<ng-container *ngIf="ficheDeControle!=null">
+
+  <app-collabsible-form
+    [title]="'LABELS.FICHE_CONTROLE' | translate"
+    [IconTitle]="'clipboard-outline'">
+
+    <div class="card-portlet card-portlet--height-fluid">
+      <div class="card-portlet__head  card-portlet__head--noborder">
+        <div class="card-portlet__head-label">
+          <h3 class="card-portlet__head-title">
+          </h3>
+        </div>
+      </div>
+      <div class="card-portlet__body card-portlet__body--fit-y">
+          
+          <div class="card-widget card-widget--user-profile-1">
+              <div class="card-widget__head">
+                  <div class="card-widget__content pl-0">
+                      <div class="card-widget__section">
+                          <span class="card-widget__username">
+                            {{ 'LABELS.NUMBER_OPERATION' | translate }}:
+                            {{ ficheDeControle?.numberOperation }}
+                          </span>
+                          <span class="card-widget__subtitle">
+                            {{ ficheDeControle?.dateControle | date:'shortDate' }}
+                          </span>
+                      </div>
+
+                      <div class="card-widget__action">
+                          <ion-button
+                              size="small"  
+                              color="success"
+                              (click)="editFicheDeControle()">
+                              <ion-icon name="create-outline"></ion-icon>
+                          </ion-button>&nbsp;
+                          <ion-button
+                              size="small"  
+                              color="danger"
+                              (click)="deleteFicheDeControleDialog()">
+                              <ion-icon name="trash-outline"></ion-icon>
+                          </ion-button>&nbsp;
+                          <ion-button
+                            size="small" 
+                            color="primary"
+                            (click)="detailFicheDeControle()" >
+                            <ion-icon name="eye"></ion-icon>
+                          </ion-button> &nbsp;
+                      </div>
+                  </div>
+              </div>
+              <div class="card-widget__body">
+                  <div class="card-widget__content">
+                      <div class="card-widget__info">
+                          <span class="card-widget__label">{{ 'LABELS.TYPE_DE_PRESTATION' | translate }}:</span>
+                          <a class="card-widget__data">{{ 'PRESTATION_TYPE.'+ficheDeControle?.prestationType | translate }}</a>
+                      </div>
+                      <div class="card-widget__info">
+                          <span class="card-widget__label">{{ 'LABELS.CONTROLE' | translate }}:</span>
+                          <a class="card-widget__data">{{ ficheDeControle?.controller?.fullName }}</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+  </app-collabsible-form>
+</ng-container>
+<!-- ............................................................................... -->

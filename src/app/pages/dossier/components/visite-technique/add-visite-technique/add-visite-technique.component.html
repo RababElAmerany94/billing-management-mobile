@@ -1,0 +1,243 @@
+<!--region header-->
+<!-- The header -->
+<ion-header>
+  <ion-toolbar class="ion-text-center"
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{ title | translate }} </ion-title>
+    <ion-buttons slot="end" *ngIf="!isShowMode">
+      <ion-button (click)="save()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- end region -->
+
+<ion-content fullscreen padding class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+            <div class="row">
+
+                <!-- the type access technique of visite technique -->
+                <app-custom-drop-down
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [showAny]="false"
+                    [inputName]="'typeAccess'"
+                    [data]="visteTechniqueTypeAccess"
+                    (changeEvent)="visteTechniqueTypeAccessEvent($event)"
+                    [label]="'LABELS.TYPE_ACCESS' | translate"
+                    [formInstant]="form">
+                </app-custom-drop-down>
+        
+                <!-- the dimensions technique -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles && isTrappe"
+                    [label]="'LABELS.DIMENSIONS' | translate"
+                    [inputName]="'dimensions'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the type visite of visite technique -->
+                <app-custom-drop-down
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles && isToit"
+                    [showAny]="false"
+                    [inputName]="'toit'"
+                    [data]="visteTechniqueToit"
+                    [label]="'LABELS.TOIT' | translate"
+                    [formInstant]="form">
+                </app-custom-drop-down>
+        
+                <!-- the detail type access of visite technique -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles && !isToit && !isTrappe"
+                    [label]="'LABELS.DETAIL_TYPE_ACCESS' | translate"
+                    [inputName]="'detailTypeAccess'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the surface comble -->
+                <app-custom-input
+                    class="col-md-4"
+                    type="number"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.SURFACE_COMBLE' | translate"
+                    [inputName]="'surfaceComble'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the surface piece -->
+                <app-custom-input
+                    class="col-md-4"
+                    type="number"
+                    *ngIf="typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.SURFACE_PIECE' | translate"
+                    [inputName]="'surfacePiece'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the type plancher -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.TYPE_PLANCHER' | translate"
+                    [inputName]="'typePlancher'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the hauteur sous faitage -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    type="number"
+                    [label]="'LABELS.HAUTEUR_SOUS_FAITAGE' | translate"
+                    [inputName]="'hauteurSousFaitage'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the hauteur sous plafond -->
+                <app-custom-input
+                    class="col-md-4"
+                    type="number"
+                    *ngIf="typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.HAUTEUR_SOUS_PLAFOND' | translate"
+                    [inputName]="'hauteurSousPlafond'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the number conduit cheminee -->
+                <app-custom-input
+                    class="col-md-4"
+                    type="number"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.NOMBRE_CONDUIT_CHEMINEE' | translate"
+                    [inputName]="'nombreConduitCheminee'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the number of Spots A Proteger -->
+                <app-custom-input
+                    class="col-md-4"
+                    type="number"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.NOMBRE_SPOTS_A_PROTEGER' | translate"
+                    [inputName]="'nombreSpotsAProteger'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the number of luminaire -->
+                <app-custom-input
+                    class="col-md-4"
+                    type="number"
+                    *ngIf="typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.NOMBRE_LUMINAIRE' | translate"
+                    [inputName]="'nombreLuminaire'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- the number of VMC -->
+                <app-custom-input
+                    class="col-md-4"
+                    type="number"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.NOMBRE_VMC' | translate"
+                    [inputName]="'nombreVMC'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- Type support -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.PRESENCE_TUYAUTERIE' | translate"
+                    [inputName]="'presenceTuyauterie'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- Type support -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.TYPE_SUPPORT' | translate"
+                    [inputName]="'typeSupport'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- presence porte garge -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles"
+                    type="number"
+                    [label]="'LABELS.PRESENCE_PORTE_GARGE' | translate"
+                    [inputName]="'presencePorteGarge'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- is DEGAGEMENT A PREVOIR -->
+                <app-custom-checkbox
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique !== typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.IS_DEGAGEMENT_A_PREVOIR' | translate"
+                    [inputName]="'isDegagementAPrevoir'"
+                    [formInstant]="form">
+                </app-custom-checkbox>
+        
+                <!-- is A Coffrer -->
+                <app-custom-checkbox
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.IS_A_COFFRER' | translate"
+                    [inputName]="'isACoffrer'"
+                    [formInstant]="form">
+                </app-custom-checkbox>
+        
+                <!-- is A Rehausser -->
+                <app-custom-checkbox
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.IS_A_REHAUSSER' | translate"
+                    [inputName]="'isARehausser'"
+                    [formInstant]="form">
+                </app-custom-checkbox>
+        
+                <!-- is client a Sous Traitant -->
+                <app-custom-checkbox
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.IS_PRESENCE_NUISIBLES' | translate"
+                    [inputName]="'isPresenceNuisibles'"
+                    [formInstant]="form">
+                </app-custom-checkbox>
+        
+                <!-- Type nuisible -->
+                <app-custom-input
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.TYPE_NUISIBLE' | translate"
+                    [inputName]="'typeNuisible'"
+                    [formInstant]="form">
+                </app-custom-input>
+        
+                <!-- is Presence Boites Derivation -->
+                <app-custom-checkbox
+                    class="col-md-4"
+                    *ngIf="typeVisiteTechnique === typeVisiteTechniques.IsolutionCombles"
+                    [label]="'LABELS.IS_PRESENCE_BOITES_DERIVATION' | translate"
+                    [inputName]="'isPresenceBoitesDerivation'"
+                    [formInstant]="form">
+                </app-custom-checkbox>
+    
+            </div>
+
+    </form>
+  </div>
+</ion-content>

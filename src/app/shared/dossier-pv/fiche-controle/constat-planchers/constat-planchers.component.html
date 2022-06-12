@@ -1,0 +1,65 @@
+<ion-content class="edit-page tabs">
+    <div class="edit-content">
+        <!-- surface Isolant Prevue -->
+        <app-custom-input
+            [type]="'number'"
+            [inputName]="'surfaceIsolantPrevue'"
+            [label]="'LABELS.SURFACE_ISOLANT_PREVUE' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <!-- surface Isolant Pose -->
+        <app-custom-input
+            [type]="'number'"
+            [inputName]="'surfaceIsolantPose'"
+            [label]="'LABELS.SURFACE_ISOLANT_POSE' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <!-- ecart Autour Points Eclairage -->
+        <app-custom-drop-down
+            [inputName]="'ecartAutourPointsEclairage'"
+            [label]="'LABELS.ECART_AUTOUR_POINTS_ECLAIRAGE' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- ecart Autour Boitiers Electriques -->
+        <app-custom-drop-down
+            [inputName]="'ecartAutourBoitiersElectrique'"
+            [label]="'LABELS.ECART_AUTOUR_BOITIERS_ELECTRIQUE' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- ecart Au Feu Autour Fumees -->
+        <app-custom-drop-down
+            [inputName]="'ecartAuFeuAutourFumees'"
+            [label]="'LABELS.ECART_AU_FEU_AUTOUR_FUMEES' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- presence Fils Non Gaines Noyes Dans Isolant -->
+        <app-custom-drop-down
+            [inputName]="'presenceFilsNonGainesNoyesDansIsolant'"
+            [label]="'LABELS.PRESENCE_FILS_NON_GAINES_NOYES_DANS_ISOLANT' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- is Pose Correcte Isolant -->
+        <app-custom-checkbox
+            [label]="'LABELS.IS_POSE_CORRECTE_ISOLANT' | translate"
+            [formInstant]="form"
+            [inputName]="'isPoseCorrecteIsolant'">
+        </app-custom-checkbox>
+
+        <!-- conclusion Isolation PLANCHE -->
+        <app-custom-checkbox
+            [label]="'LABELS.CONCLUSION_ISOLATION_PLANCHERS' | translate"
+            [formInstant]="form"
+            [inputName]="'conclusionIsolationPlanchers'">
+        </app-custom-checkbox>
+    </div>
+</ion-content>

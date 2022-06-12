@@ -1,0 +1,119 @@
+<ion-content class="edit-page tabs">
+    <div class="edit-content">
+        <!-- charge poste Type -->
+        <app-custom-drop-down
+            [inputName]="'posteType'"
+            [label]="'LABELS.POSTE_TYPE' | translate"
+            [data]="posteType"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- surface Isolant Prevue -->
+        <app-custom-input
+            [type]="'number'"
+            [inputName]="'surfaceIsolantPrevue'"
+            [label]="'LABELS.SURFACE_ISOLANT_PREVUE' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <!-- surface Isolant Pose -->
+        <app-custom-input
+            [type]="'number'"
+            [inputName]="'surfaceIsolantPose'"
+            [label]="'LABELS.SURFACE_ISOLANT_POSE' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <!-- surface Estime Depuis -->
+        <app-custom-input
+            [inputName]="'surfaceEstimeDepuis'"
+            [label]="'LABELS.SURFACE_ESTIME_DEPUIS' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <!-- surface Isolant Retenue-->
+        <app-custom-input
+            [inputName]="'surfaceIsolantRetenue'"
+            [type]="'number'"
+            [label]="'LABELS.SURFACE_ISOLANTE_RETENUE' | translate"
+            [formInstant]="form">
+        </app-custom-input>
+
+        <!-- rehausse Ou Protection Installations Electriques-->
+        <app-custom-drop-down
+            [inputName]="'rehausseOuProtectionInstallationsElectriques'"
+            [label]="'LABELS.REHAUSSE_OU_PROTECTION_INSTALLATION_ELECTRIQUES' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- reperage Boites Electriques -->
+        <app-custom-drop-down
+            [inputName]="'reperageBoitesElectriques'"
+            [label]="'LABELS.REPERAGE_BOITES_ELECTRIQUES' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- presence Ecart Au Feu Ou Conduits Evacuation Fumees-->
+        <app-custom-drop-down
+            [inputName]="'presenceEcartAuFeuOuConduitsEvacuationFumees'"
+            [label]="'LABELS.PRESENCE_ECART_AU_FEU_OU_CONDUITS_EVACUATION_FUMEES' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- presence Coffrage Trappe Visite -->
+        <app-custom-drop-down
+            [inputName]="'presenceCoffrageTrappeVisite'"
+            [label]="'LABELS.PRESENCE_COFFRAGE_TRAPPE_VISITE' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- trappe Visite Isolee -->
+        <app-custom-drop-down
+            [inputName]="'trappeVisiteIsolee'"
+            [label]="'LABELS.TRAPPE_VISITE_ISOLEE' | translate"
+            [data]="ficheControleStatusItem"
+            [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- presence Protection Points Lumineux Type Spots -->
+        <app-custom-drop-down
+                [inputName]="'presenceProtectionPointsLumineuxTypeSpots'"
+                [label]="'LABELS.PRESENCE_PROTECTION_POINTS_LUMINEUX_TYPE_SPOTS' | translate"
+                [data]="ficheControleStatusItem"
+                [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!--presence Pige Reperage Hauteur Isolant -->
+        <app-custom-drop-down
+                [inputName]="'presencePigeReperageHauteurIsolant'"
+                [label]="'LABELS.PRESENCE_PIGE_REPERAGE_HAUTEUR_ISOLANT' | translate"
+                [data]="ficheControleStatusItem"
+                [formInstant]="form">
+        </app-custom-drop-down>
+
+        <!-- conclusion Epaisseur -->
+        <app-custom-checkbox
+            [label]="'LABELS.CONCLUSION_EPAISSEUR' | translate"
+            [formInstant]="form"
+            [inputName]="'conclusionEpaisseur'">
+        </app-custom-checkbox>
+
+        <!-- homogeneite Couche Isolant -->
+        <app-custom-checkbox
+            [label]="'LABELS.HOMOGENEITE_COUCHE_ISOLANT' | translate"
+            [formInstant]="form"
+            [inputName]="'homogeneiteCoucheIsolant'">
+        </app-custom-checkbox>
+
+        <!-- is Ecart Surface Prevue And Pose Ok-->
+        <app-custom-checkbox
+            [label]="'LABELS.IS_ECART_SURFACE_PREVUE_AND_POSE_OK' | translate"
+            [formInstant]="form"
+            [inputName]="'isEcartSurfacePrevueAndPoseOk'">
+        </app-custom-checkbox>
+    </div>
+</ion-content>

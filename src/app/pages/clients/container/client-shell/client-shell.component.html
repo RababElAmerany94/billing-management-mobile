@@ -1,0 +1,100 @@
+
+<app-client-tabs
+	[style.display]="isListMode() ? 'block' : 'none'"
+	[currentType]="selectedTabs"
+	(changeSelected)="selectedTabs=$event">
+
+	<app-list-client
+		Professionnel
+		*ngIf="selectedTabs == clientTypeTabs.Professionnel"
+		[tabType]="clientTypeTabs.Professionnel"
+		[name]="routeName.Clients"
+		(filters)="getClients($event)"
+		[loading]="loading"
+		[data]="clients"
+		(addEvent)="addEvent()"
+		(editEvent)="editEvent($event.id)"
+		(deleteEvent)="deleteClient($event)"
+		(showEvent)="showEvent($event.id)">
+	</app-list-client>
+
+	<app-list-client
+		Particulier
+		*ngIf="selectedTabs == clientTypeTabs.Particulier"
+		[tabType]="clientTypeTabs.Particulier"
+		[name]="routeName.Clients"
+		(filters)="getClients($event)"
+		[loading]="loading"
+		[data]="clients"
+		(addEvent)="addEvent()"
+		(editEvent)="editEvent($event.id)"
+		(deleteEvent)="deleteClient($event)"
+		(showEvent)="showEvent($event.id)">
+	</app-list-client>
+	
+	<app-list-client
+		Obliges
+		*ngIf="selectedTabs == clientTypeTabs.Obliges"
+		[tabType]="clientTypeTabs.Obliges"
+		[name]="routeName.Clients"
+		(filters)="getClients($event)"
+		[loading]="loading"
+		[data]="clients"
+		(addEvent)="addEvent()"
+		(editEvent)="editEvent($event.id)"
+		(deleteEvent)="deleteClient($event)"
+		(showEvent)="showEvent($event.id)">
+	</app-list-client>
+
+</app-client-tabs>
+
+<ng-container *ngIf="isAddMode() || isEditMode()">
+	<app-edit-client
+		[mode]="mode"
+		[form]="form"
+		[client]="client"
+		[clientType]="clientType"
+		(addEvent)="addClient($event)"
+		(editEvent)="editClient($event)"
+		(cancelEvent)="cancel()">
+	</app-edit-client>
+</ng-container>
+
+<ng-container *ngIf="isShowMode()">
+	<app-client-tabs-show>
+
+		<app-edit-client
+			information
+			[mode]="mode"
+			[form]="form"
+			[isNavigationRoute]="isNavigationRoute"
+			[client]="client"
+			[clientType]="clientType"
+			(cancelEvent)="cancel()">
+		</app-edit-client>
+
+		<app-historique 
+			history
+			[Historique]="client?.historique"
+			(backClickEvent)="cancel()">
+		</app-historique>
+
+		<app-memo
+			memo
+			[title]="'MEMOS.TITLE'"
+			[Memos]="client?.memos"
+			(saveMemoEvent)="saveMemoToClient($event)"
+			(cancelEvent)="cancel()">
+		</app-memo>
+
+		<app-agenda
+			agendaCommercial
+			[clientId]="client?.id"
+			[isNavigationRoute]="true"
+			(editEvent)="editEventAgenda($event)"
+			(showEvent)="showEventAgenda($event)"
+			(cancelEvent)="cancel()">
+		</app-agenda>
+
+	</app-client-tabs-show>
+</ng-container>

@@ -1,0 +1,28 @@
+<app-data-list 
+    [title]="title" 
+    [loading]="loading" 
+    [isBack]="true" 
+    [isSideBar]="false"
+    [isDataSelector]="true" 
+    [isBack]="true" 
+    [isValidation]="true" 
+    (validationClickEvent)="chooseDossier()"
+    (backClickEvent)="modalController.dismiss()" 
+    (changeEvent)="getDossier($event)" 
+    [data]="dossiersAsPage">
+
+    <ng-container class="list-content">
+        <div class="list">
+            <ion-list>
+                <ion-radio-group (ionChange)="selectDossier($event.detail.value)" >
+                    <ion-item *ngFor="let item of dossiers;let i=index" class="item-list">
+                        <ion-label> {{ item?.reference }}: {{ item?.client?.fullName }}</ion-label>
+                        <ion-radio slot="start" color="primary" [value]="item.id">
+                        </ion-radio>
+                    </ion-item>
+                </ion-radio-group>
+            </ion-list>
+        </div>
+    </ng-container>
+
+</app-data-list>

@@ -1,0 +1,67 @@
+<app-collabsible-form 
+    [title]="'CONTACTS.TITLE' | translate"
+    [IconClick]="'add-outline'"
+    [showButtonEvent]="!isShowMode()"
+    (ClickEvent)="addContactDialog(-1)"
+    [IconTitle]="'person-circle-outline'">
+
+<div *ngIf="contacts?.length>0">
+    <div class="card-portlet card-portlet--height-fluid" *ngFor="let item of contacts;let i=index">
+        <div class="card-portlet__head  card-portlet__head--noborder">
+            <div class="card-portlet__head-label">
+                <h3 class="card-portlet__head-title">
+                </h3>
+            </div>
+        </div>
+        <div class="card-portlet__body card-portlet__body--fit-y">
+            <!--begin::Widget -->
+            <div class="card-widget card-widget--user-profile-1">
+                <div class="card-widget__head">
+                    <div class="card-widget__content pl-0">
+                        <div class="card-widget__section">
+                            <span class="card-widget__username">
+                                {{item.civilite}} {{item.nom }} {{item.prenom}}
+                                <ion-icon name="star" color="warning" *ngIf="item?.isDefault"></ion-icon>
+                            </span>
+                            <span class="card-widget__subtitle">
+                                {{item?.fonction}}
+                            </span>
+                        </div>
+
+                        <div class="card-widget__action" *ngIf="!isShowMode()">
+                            <ion-button
+                                size="small"  
+                                color="success"
+                                (click)="addContactDialog(i)">
+                                <ion-icon name="create-outline"></ion-icon>
+                            </ion-button>&nbsp;
+                            <ion-button
+                                size="small"  
+                                color="danger"
+                                (click)="deleteContacts(i)">
+                                <ion-icon name="trash-outline"></ion-icon>
+                            </ion-button>&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="card-widget__body">
+                    <div class="card-widget__content">
+                        <div class="card-widget__info">
+                            <span class="card-widget__label">{{'CONTACTS.EMAIL'|translate}}:</span>
+                            <a  href="mailto:{{ item?.email }}" class="card-widget__data">{{item?.email}}</a>
+                        </div>
+                        <div class="card-widget__info">
+                            <span class="card-widget__label">{{'CONTACTS.MOBILE'|translate}}:</span>
+                            <a  href="tel:{{ item?.mobile }}" class="card-widget__data">{{item?.mobile}}</a>
+                        </div>
+                        <div class="card-widget__info">
+                            <span class="card-widget__label">{{item?.commentaire}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Widget -->
+    </div>
+</div>
+</app-collabsible-form>

@@ -1,0 +1,18 @@
+{
+    "LABELS": {
+        "APP_GESTION": "APPLICATION DE GESTION",
+        "LOGIN": "Se connecter",
+        "NAME_APP": "COMPANY",
+        "BIENVENU": "Bienvenue sur COMPANY",
+        "SUBTITLE": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam consectetur possimus molestiae cupiditate temporibus, ducimus natus praesentium alias earum officia commodi molestias dignissimos totam dolore aliquid quod fugiat ex quibusdam?",
+        "FORGET_PASSWORD": "Mot de passe oublié ?",
+        "RESRET_PASSWORD": "Restaurer le mot de passe",
+        "ENTER_PASSWORD": "Mot de passe *",
+        "ENTER_USERNAME": "Nom d'utilisateur *",
+        "BACK_BUTTON": "Retour",
+        "SUBMIT_BUTTON": "Envoyer",
+        "EMAIL": "EMAIL",
+        "ISACTIF": "Actif",
+        "LOADING_LOGIN":"En train de connecter"
+    }
+}

@@ -1,0 +1,48 @@
+<!--region header-->
+<!-- The header -->
+<ion-header>
+  <ion-toolbar class="ion-text-center"
+    color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> {{ title | translate }} </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        <ion-icon name="checkmark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- end region -->
+
+<ion-content fullscreen  padding class="edit-page">
+  <div class="edit-content">
+    <form [formGroup]="form">
+
+      <div class="row">
+
+          <!-- client -->
+          <app-select-client
+              (changeEvent)="changeClient($event)"
+              [client]="selectedClient"
+              [inputName]="'clientId'"
+              [label]="'LABELS.CLIENT' | translate"
+              [formInstant]="form">
+          </app-select-client>
+
+          <!-- type -->
+          <app-custom-drop-down
+              [inputName]="'type'"
+              [label]="'LABELS.TYPE' | translate"
+              [formInstant]="form"
+              [data]="typeRelationClient">
+          </app-custom-drop-down>
+
+      </div>
+    </form>
+  </div>
+</ion-content>
