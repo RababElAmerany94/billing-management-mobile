@@ -61,7 +61,7 @@ You can instruct your audience on installing and setting up your app
    ```sh
    npm install
    ```
-3. Install Ionic platform for ios
+3. Install Ionic platform for ios and android
    ```sh
    ionic platform ios android
    ```
