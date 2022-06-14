@@ -90,6 +90,6 @@ You can instruct your audience on installing and setting up your app
 
 Rabab El Amerany - rab.el.amerany@gmail.com
 
-Project Link: [https://github.com/RababElAmerany94/building-management](https://github.com/RababElAmerany94/building-management)
+Project Link: [https://github.com/RababElAmerany94/billing-management-mobile](https://github.com/RababElAmerany94/billing-management-mobile)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
