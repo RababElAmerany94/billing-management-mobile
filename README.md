@@ -1,6 +1,6 @@
 <div id="top"></div>
 
-# billing-management-mobile
+# Billing Management Mobile
 
 <p align="center">
 <a href="https://github.com/RababElAmerany94/billing-management-mobile">
