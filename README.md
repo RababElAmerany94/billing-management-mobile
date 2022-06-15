@@ -3,8 +3,8 @@
 # Billing Management Mobile
 
 <p align="center">
-<a href="https://github.com/RababElAmerany94/billing-management-mobile">
-<img  alt="Rabab El Amerany Project" title="Rabab Project" src="https://github.com/RababElAmerany94/billing-management-mobile/blob/main/src/assets/images/mobile-bci.PNG" />
+<a href="https://github.com/rabelamerany/billing-management-mobile">
+<img  alt="Rabab El Amerany Project" title="Rabab Project" src="https://github.com/rabelamerany/billing-management-mobile/blob/main/src/assets/images/mobile-bci.PNG" />
 </a>
 </p>
 
@@ -55,7 +55,7 @@ You can instruct your audience on installing and setting up your app
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/RababElAmerany94/billing-management-mobile
+   git clone https://github.com/rabelamerany/billing-management-mobile
    ```
 2. Install the app by running from the project root:
    ```sh
@@ -90,6 +90,6 @@ You can instruct your audience on installing and setting up your app
 
 Rabab El Amerany - rab.el.amerany@gmail.com
 
-Project Link: [https://github.com/RababElAmerany94/billing-management-mobile](https://github.com/RababElAmerany94/billing-management-mobile)
+Project Link: [https://github.com/rabelamerany/billing-management-mobile](https://github.com/rabelamerany/billing-management-mobile)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
