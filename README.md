@@ -4,7 +4,7 @@
 
 <p align="center">
 <a href="https://github.com/rabelamerany/billing-management-mobile">
-<img  alt="Rabab El Amerany Project" title="Rabab Project" src="https://github.com/rabelamerany/billing-management-mobile/blob/main/src/assets/images/mobile-bci.PNG" />
+<img  alt="Rabab El Amerany Project" title="Rabab Project" src="https://github.com/rabelamerany/billing-management-mobile/blob/main/src/assets/images/mobile-picture.PNG" />
 </a>
 </p>
 
