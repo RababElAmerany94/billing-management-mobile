@@ -49,7 +49,7 @@ This is an example of how to list things you need to use the software and how to
   https://ionicframework.com/docs/
   ```
 
-### Installation
+## Installation
 
 You can instruct your audience on installing and setting up your app
 
@@ -65,9 +65,13 @@ You can instruct your audience on installing and setting up your app
    ```sh
    ionic platform ios android
    ```
-5. Run in a terminal from the project root.
+4. Run in a terminal from the project root.
    ```sh
    ionic serve
+   ```
+5. Don't forget to run the api project.
+   ```ccharp
+   https://github.com/rabelamerany/billing-management-api
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
